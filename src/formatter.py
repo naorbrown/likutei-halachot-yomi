@@ -1,0 +1,172 @@
+"""Message formatting for Telegram."""
+
+import logging
+from datetime import date
+
+from .models import DailyPair, Halacha
+
+logger = logging.getLogger(__name__)
+
+# Maximum Telegram message length
+MAX_MESSAGE_LENGTH = 4096
+
+# Maximum text length per halacha to ensure message fits
+MAX_HALACHA_TEXT_LENGTH = 1200
+
+
+def truncate_text(text: str, max_length: int, suffix: str = "...") -> str:
+    """Truncate text to max length, preserving word boundaries."""
+    if len(text) <= max_length:
+        return text
+
+    # Find last space before max_length
+    truncated = text[: max_length - len(suffix)]
+    last_space = truncated.rfind(" ")
+
+    if last_space > max_length // 2:
+        truncated = truncated[:last_space]
+
+    return truncated + suffix
+
+
+def format_halacha(halacha: Halacha, number: int) -> str:
+    """Format a single halacha for display."""
+    # Header with volume and section
+    header = f"<b>{'א' if number == 1 else 'ב'}. {halacha.section.section_he}</b>"
+    subheader = f"<i>{halacha.section.volume_he}</i>"
+
+    # Hebrew text (truncated if needed)
+    hebrew = truncate_text(halacha.hebrew_text, MAX_HALACHA_TEXT_LENGTH)
+
+    # English translation if available
+    english_section = ""
+    if halacha.english_text:
+        english = truncate_text(halacha.english_text, MAX_HALACHA_TEXT_LENGTH // 2)
+        english_section = f"\n\n<i>{english}</i>"
+
+    # Sefaria link
+    link = f'<a href="{halacha.sefaria_url}">📖 קרא עוד בספריא</a>'
+
+    return f"""{header}
+{subheader}
+
+{hebrew}{english_section}
+
+{link}"""
+
+
+def format_daily_message(pair: DailyPair, for_date: date | None = None) -> str:
+    """Format the complete daily message."""
+    if for_date is None:
+        for_date = date.today()
+
+    # Date header
+    date_str = for_date.strftime("%d/%m/%Y")
+
+    # Opening
+    opening = f"""<b>📚 ליקוטי הלכות יומי</b>
+<i>{date_str}</i>
+
+שתי הלכות אקראיות מליקוטי הלכות לרבי נתן מברסלב:
+
+━━━━━━━━━━━━━━━"""
+
+    # Format both halachot
+    first = format_halacha(pair.first, 1)
+    second = format_halacha(pair.second, 2)
+
+    # Closing
+    closing = """━━━━━━━━━━━━━━━
+
+<i>נ נח נחמ נחמן מאומן</i>
+🕯️ יהי רצון שנזכה ללמוד וללמד, לשמור ולעשות"""
+
+    message = f"""{opening}
+
+{first}
+
+━━━━━━━━━━━━━━━
+
+{second}
+
+{closing}"""
+
+    # Ensure message isn't too long
+    if len(message) > MAX_MESSAGE_LENGTH:
+        logger.warning(f"Message too long ({len(message)} chars), truncating")
+        # Recalculate with shorter texts
+        return format_daily_message_compact(pair, for_date)
+
+    return message
+
+
+def format_daily_message_compact(pair: DailyPair, for_date: date) -> str:
+    """Format a more compact message when full version is too long."""
+    date_str = for_date.strftime("%d/%m/%Y")
+
+    # Shorter texts
+    hebrew1 = truncate_text(pair.first.hebrew_text, 600)
+    hebrew2 = truncate_text(pair.second.hebrew_text, 600)
+
+    return f"""<b>📚 ליקוטי הלכות יומי</b> | {date_str}
+
+<b>א. {pair.first.section.section_he}</b>
+{hebrew1}
+<a href="{pair.first.sefaria_url}">📖 ספריא</a>
+
+<b>ב. {pair.second.section.section_he}</b>
+{hebrew2}
+<a href="{pair.second.sefaria_url}">📖 ספריא</a>
+
+<i>נ נח נחמ נחמן מאומן</i>"""
+
+
+def format_welcome_message() -> str:
+    """Format the welcome message for new users."""
+    return """<b>ברוכים הבאים! 📚</b>
+
+<b>ליקוטי הלכות יומי</b> שולח לכם כל יום שתי הלכות אקראיות מספר ליקוטי הלכות של רבי נתן מברסלב - תלמידו הגדול של רבי נחמן מאומן.
+
+<b>מה תקבלו:</b>
+• שתי הלכות כל יום - משני חלקים שונים
+• טקסט בעברית עם תרגום לאנגלית (כשזמין)
+• קישור ישיר לספריא להמשך הלימוד
+
+<b>פקודות:</b>
+/start - הודעת פתיחה
+/today - הלכות היום
+/about - אודות הבוט
+
+<i>נ נח נחמ נחמן מאומן</i>
+🕯️ הפצת תורת רבי נחמן בעולם"""
+
+
+def format_about_message() -> str:
+    """Format the about message."""
+    return """<b>אודות ליקוטי הלכות יומי 📖</b>
+
+<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחובר על ידי רבי נתן מברסלב (1780-1844), תלמידו הגדול של רבי נחמן מאומן.
+
+הספר מכיל ביאורים עמוקים על השולחן ערוך לפי תורת רבי נחמן, ומחולק לארבעה חלקים:
+• <b>אורח חיים</b> - הלכות יומיומיות
+• <b>יורה דעה</b> - הלכות איסור והיתר
+• <b>אבן העזר</b> - הלכות אישות
+• <b>חושן משפט</b> - הלכות ממונות
+
+<b>מקור הטקסטים:</b>
+כל הטקסטים מגיעים מ<a href="https://www.sefaria.org/Likutei_Halakhot">ספריא</a> - ספריה דיגיטלית חינמית של טקסטים יהודיים.
+
+<b>קוד פתוח:</b>
+הבוט הזה הוא קוד פתוח ב-<a href="https://github.com/naorbrown/likutei-halachot-yomi">GitHub</a>.
+
+<i>נ נח נחמ נחמן מאומן</i>"""
+
+
+def format_error_message() -> str:
+    """Format an error message."""
+    return """<b>שגיאה 😔</b>
+
+מצטערים, אירעה שגיאה בעת שליפת ההלכות.
+אנא נסו שוב מאוחר יותר.
+
+<i>נ נח נחמ נחמן מאומן</i>"""

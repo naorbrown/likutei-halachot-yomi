@@ -1,0 +1,1017 @@
+[
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Morning Conduct",
+    "section_he": "הלכות השכמת הבוקר",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Morning Hand Washing",
+    "section_he": "הלכות נטילת ידים שחרית",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Fringes",
+    "section_he": "הלכות ציצית",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Phylacteries",
+    "section_he": "הלכות תפילין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws for Morning Blessings",
+    "section_he": "הלכות ברכת השחר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Torah Blessings",
+    "section_he": "הלכות ברכות התורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Kaddish",
+    "section_he": "הלכות קדיש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Kaddish"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Reciting Shema",
+    "section_he": "הלכות קריאת שמע",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Prayer",
+    "section_he": "הלכות תפלה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Priestly Blessings",
+    "section_he": "הלכות נשיאת כפים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Tachanun",
+    "section_he": "הלכות נפילת אפים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Tachanun"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Sidra Kaddish",
+    "section_he": "הלכות קדושה דסידרא",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Sidra_Kaddish"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Reading the Torah",
+    "section_he": "הלכות קריאת התורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Synagogue",
+    "section_he": "הלכות בית הכנסת",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Business",
+    "section_he": "הלכות משא ומתן",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Washing One's Hands for a Meal",
+    "section_he": "הלכות נטילת ידים לסעודה ובציעת הפת",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Meals",
+    "section_he": "הלכות סעודה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Grace After Meals and Washing after Meals",
+    "section_he": "הלכות ברכת המזון ומים אחרונים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Blessings Over Fruit",
+    "section_he": "הלכות ברכת הפרות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Blessing on Fragrance",
+    "section_he": "הלכות ברכת הריח",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Thanksgiving Blessings",
+    "section_he": "הלכות ברכת הודאה",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Blessing on Sights and Other Blessings",
+    "section_he": "הלכות ברכות הראיה וברכות פרטיות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws for Afternoon Prayer",
+    "section_he": "הלכות תפלת המנחה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws for Evening Prayer",
+    "section_he": "הלכות תפלת ערבית",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Reciting Shema Before Retiring",
+    "section_he": "הלכות קריאת שמע שעל המטה",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Sabbath",
+    "section_he": "הלכות שבת",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Joining Domains",
+    "section_he": "הלכות תחומין וערובי תחומין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the New Moon",
+    "section_he": "הלכות ראש חדש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Passover",
+    "section_he": "הלכות פסח",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Counter the Omer",
+    "section_he": "הלכות ספירת העמר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Shavuot Festival",
+    "section_he": "הלכות שבועות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Shavuot_Festival"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Festival Day",
+    "section_he": "הלכות יום טוב",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Week Days of a Festival",
+    "section_he": "הלכות חול המועד",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Week_Days_of_a_Festival"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Ninth of Av and Other Fast Days",
+    "section_he": "הלכות תשעה באב ותעניות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the New Year",
+    "section_he": "הלכות ראש השנה",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Day of Atonement",
+    "section_he": "הלכות יום הכפורים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Festival of Booths",
+    "section_he": "הלכות סוכה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Palm Branch",
+    "section_he": "הלכות לולב ואתרוג",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Hoshana Rabba Festival",
+    "section_he": "הלכות הושענא רבה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hoshana_Rabba_Festival"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Hannukah Festival",
+    "section_he": "הלכות חנוכה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of the Four Festive Torah Portions",
+    "section_he": "הלכות ארבע פרשיות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Four_Festive_Torah_Portions"
+  },
+  {
+    "volume": "Orach Chaim",
+    "section": "Laws of Purim",
+    "section_he": "הלכות פורים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Slaughtering",
+    "section_he": "הלכות שחיטה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Unfit Animals",
+    "section_he": "הלכות טרפות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Unfit_Animals"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Priestly Gifts",
+    "section_he": "הלכות מתנות כהונה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Priestly_Gifts"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of a Limb from a Live Animal",
+    "section_he": "הלכות אבר מן החי",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Limb_from_a_Live_Animal"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Meat that was Unobserved",
+    "section_he": "הלכות הלכות בשר שנתעלם מן העין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Fat and Blood",
+    "section_he": "הלכות חלב ודם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Blood",
+    "section_he": "הלכות דם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Salting",
+    "section_he": "הלכות מליחה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Domesticated and Undomesticated Animals",
+    "section_he": "הלכות סימני בהמה וחיה טהורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Domesticated_and_Undomesticated_Animals"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Things that Come from a Live Animal",
+    "section_he": "הלכות דברים היוצאים מן החי",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Things_that_Come_from_a_Live_Animal"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Birds",
+    "section_he": "הלכות סימני עוף טהור",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Birds"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Fish",
+    "section_he": "הלכות דגים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fish"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Insects",
+    "section_he": "הלכות תולעים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Insects"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Eggs",
+    "section_he": "הלכות ביצים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Eggs"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Meat and Milk",
+    "section_he": "הלכות בשר בחלב",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Mixtures",
+    "section_he": "הלכות תערובות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Non Jewish Food",
+    "section_he": "הלכות מאכלי עכו\"ם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Non_Jewish_Food"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Kashering Vessels",
+    "section_he": "הלכות הכשר כלים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Kashering_Vessels"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Taste Transfer",
+    "section_he": "הלכות נותן טעם לפגם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Taste_Transfer"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Libational Wine",
+    "section_he": "הלכות יין נסך",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Libational_Wine"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Wine Vessels",
+    "section_he": "הלכות כלי היין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Wine_Vessels"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Idol Worship",
+    "section_he": "הלכות עבודת אלילים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idol_Worship"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Interest",
+    "section_he": "הלכות ריבית",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Idolatrous Practices",
+    "section_he": "הלכות חוקות העכו\"ם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idolatrous_Practices"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Sourcerers and Enchanters",
+    "section_he": "הלכות מעונן ומנחש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Sourcerers_and_Enchanters"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Shaving and Tatooing",
+    "section_he": "הלכות קרחה וכתובת קעקע",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving_and_Tatooing"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Shaving",
+    "section_he": "הלכות גילוח",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Forbidden Dresss",
+    "section_he": "הלכות לא ילבש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Forbidden_Dresss"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of a Menstruant",
+    "section_he": "הלכות נדה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Menstruant"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Ritual Baths",
+    "section_he": "הלכות מקוואות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Ritual_Baths"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Vows",
+    "section_he": "הלכות נדרים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Oaths",
+    "section_he": "הלכות שבועות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Oaths"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Honouring One's Father and Mother",
+    "section_he": "הלכות כבוד אב ואם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Father_and_Mother"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Honouring One's Rabbi and a Torah Scholar",
+    "section_he": "הלכות כבוד רבו ותלמיד חכם",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Rabbi_and_a_Torah_Scholar"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Teachers",
+    "section_he": "הלכות מלמדים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Teachers"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Torah Study",
+    "section_he": "הלכות תלמוד תורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Torah_Study"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Charity",
+    "section_he": "הלכות צדקה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Charity"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Circumcision",
+    "section_he": "הלכות מילה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Circumcision"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Slaves",
+    "section_he": "הלכות עבדים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaves"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Converts",
+    "section_he": "הלכות גרים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Converts"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of a Torah Scroll",
+    "section_he": "הלכות ספר תורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Torah_Scroll"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of a Mezuzah",
+    "section_he": "הלכות מזוזה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Mezuzah"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Sending Away the Mother Bird",
+    "section_he": "הלכות שלוח הקן",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Sending_Away_the_Mother_Bird"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of New Grain",
+    "section_he": "הלכות חדש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_New_Grain"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Three Year Old Trees",
+    "section_he": "הלכות ערלה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Three_Year_Old_Trees"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Mixed Crops",
+    "section_he": "הלכות כלאי הכרם ואילן",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixed_Crops"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Mixed Breeding",
+    "section_he": "הלכות כלאי בהמה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixed_Breeding"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Fobidden Fabric Blends",
+    "section_he": "הלכות כלאי בגדים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fobidden_Fabric_Blends"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Redeeming the Firstborn",
+    "section_he": "הלכות פדיון בכור",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Redeeming_the_Firstborn"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Firstborn Kosher Animals",
+    "section_he": "הלכות בכור בהמה טהורה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Firstborn_Kosher_Animals"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Firstborn Donkey",
+    "section_he": "הלכות פדיון פטר חמור",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Firstborn_Donkey"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Separating From Dough",
+    "section_he": "הלכות חלה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Separating_From_Dough"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of Tithes",
+    "section_he": "הלכות תרומות ומעשרות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Tithes"
+  },
+  {
+    "volume": "Yoreh Deah",
+    "section": "Laws of First Shearings",
+    "section_he": "הלכות ראשית הגז",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_First_Shearings"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Procreation",
+    "section_he": "הלכות פריה ורביה ואישות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Procreation"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Matrimony",
+    "section_he": "הלכות אישות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Matrimony"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Sanctification",
+    "section_he": "הלכות קדושין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Sanctification"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of a Bill of Marriage",
+    "section_he": "הלכות כתובות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_a_Bill_of_Marriage"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of a Bill of Divorce",
+    "section_he": "הלכות גטין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_a_Bill_of_Divorce"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Levirate Marriage",
+    "section_he": "הלכות יבום",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Levirate_Marriage"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Adulterer",
+    "section_he": "הלכות סוטה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Adulterer"
+  },
+  {
+    "volume": "Even HaEzer",
+    "section": "Laws of Rape and Seduction",
+    "section_he": "הלכות אונס ומפתה",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Even_HaEzer,_Laws_of_Rape_and_Seduction"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws for Judges",
+    "section_he": "הלכות דינים",
+    "has_english": true,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_for_Judges"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Testimony",
+    "section_he": "הלכות עדות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Testimony"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Loans",
+    "section_he": "הלכות הלואה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Loans"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Plaintiffs and Defendants",
+    "section_he": "הלכות טוען ונטען",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Plaintiffs_and_Defendants"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Collecting Loans",
+    "section_he": "הלכות גבית מלוה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Collecting_Loans"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Collecting Loans from Orphans",
+    "section_he": "הלכות גבית חוב מהיתומים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Collecting_Loans_from_Orphans"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Collecting Loans from Purchasers and Laws Designated Collection",
+    "section_he": "הלכות גבית חוב מהלקוחות ואפותיקי",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Collecting_Loans_from_Purchasers_and_Laws_Designated_Collection"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of an Agent Collecting Debts and Authorisation",
+    "section_he": "הלכות העושה שליח לגבות חובו",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_an_Agent_Collecting_Debts_and_Authorisation"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Authorisation",
+    "section_he": "הלכות כח והרשאה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Authorisation"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Guaranteeing",
+    "section_he": "הלכות ערב",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Guaranteeing"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Movable Property",
+    "section_he": "הלכות חזקת מטלטלין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Movable_Property"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Immovable Property",
+    "section_he": "הלכות חזקת קרקעות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Immovable_Property"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Neighbor Damages",
+    "section_he": "הלכות נזקי שכנים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Neighbor_Damages"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Immovable Partnerships",
+    "section_he": "הלכות שותפים בקרקע",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Immovable_Partnerships"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Divisions of Partnerships",
+    "section_he": "הלכות חלקת שתפים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Divisions_of_Partnerships"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Boundaries",
+    "section_he": "הלכות מצרנות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Boundaries"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Partners",
+    "section_he": "הלכות שתפין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Partners"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Emissaries",
+    "section_he": "הלכות שלוחין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Emissaries"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Buying and Selling",
+    "section_he": "הלכות מקח וממכר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Buying_and_Selling"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Over and Under Charging",
+    "section_he": "הלכות אונאה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Over_and_Under_Charging"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Gifting",
+    "section_he": "הלכות מתנה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Gifting"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of a Deathly Ill Person",
+    "section_he": "הלכות מתנת שכיב מרע",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_a_Deathly_Ill_Person"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Lost and Found",
+    "section_he": "הלכות אבדה ומציאה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Lost_and_Found"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Unloading and Loading",
+    "section_he": "הלכות פריקה וטעינה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Unloading_and_Loading"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Ownerless Property and Property of Non Jews",
+    "section_he": "הלכות הפקר ונכסי הגר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Ownerless_Property_and_Property_of_Non_Jews"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Inheritance",
+    "section_he": "הלכות נחלות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Inheritance"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of an Apotropos",
+    "section_he": "הלכות אפטרופוס",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_an_Apotropos"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Deposit and Four Guards",
+    "section_he": "הלכות פקדון וארבעה שומרים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Deposit_and_Four_Guards"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws for Paid Guardians",
+    "section_he": "הלכות שומר שכר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_for_Paid_Guardians"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Artisans",
+    "section_he": "הלכות אמנין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Artisans"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Hiring",
+    "section_he": "הלכות שוכר",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Hiring"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Leasing and Contract Work",
+    "section_he": "הלכות חכירות וקבלנות",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Leasing_and_Contract_Work"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Hiring Labourers",
+    "section_he": "הלכות שכירות פועלים",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Hiring_Labourers"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Borrowing",
+    "section_he": "הלכות שאלה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Borrowing"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Theft",
+    "section_he": "הלכות גנבה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Theft"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Stealing",
+    "section_he": "הלכות גזלה",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Stealing"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Damages",
+    "section_he": "הלכות נזיקין",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Damages"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Causing a Loss and Reporting to Government",
+    "section_he": "הלכות מאבד ממון חברו ומסור",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Causing_a_Loss_and_Reporting_to_Government"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Monetary Damages",
+    "section_he": "הלכות נזקי ממון",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Monetary_Damages"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Injuring a Person",
+    "section_he": "הלכות חובל בחברו",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Injuring_a_Person"
+  },
+  {
+    "volume": "Choshen Mishpat",
+    "section": "Laws of Roof Rails and Preservation of Life",
+    "section_he": "הלכות מעקה ושמירת הנפש",
+    "has_english": false,
+    "ref_base": "Likutei_Halakhot,_Choshen_Mishpat,_Laws_of_Roof_Rails_and_Preservation_of_Life"
+  }
+]
