@@ -94,12 +94,16 @@ class MessageFormatter:
 <a href="{sefaria_url}">📖 קרא בספריא</a>
 """
             else:
-                # No Sefaria text available
+                # No Sefaria text available - provide link anyway
+                sefaria_url = f"https://www.sefaria.org/{portion.ref.replace(' ', '_')}"
                 content = f"""
 <b>📚 {he_ref}</b>
 {description}
 
-⚠️ הטקסט לא זמין כרגע. נסה שוב מאוחר יותר.
+הטקסט המלא עדיין לא זמין בספריא עבור קטע זה.
+נא ללמוד ישירות מהספר או מקור אחר.
+
+<a href="{sefaria_url}">📖 ספריא - עמוד הטקסט</a>
 """
 
             # Add footer

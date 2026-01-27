@@ -1,0 +1,4571 @@
+{
+  "metadata": {
+    "source": "Sefaria-Export",
+    "chars_per_daf_estimate": 5500,
+    "volume": "Even HaEzer Part 1",
+    "total_estimated_dafim": 152.2,
+    "total_chars": 837085
+  },
+  "halakhot": [
+    {
+      "name_en": "Laws of Procreation",
+      "name_he": "הלכות פריה ורביה ואישות",
+      "name_short": "Hilkhot Procreation",
+      "start_daf": 1.0,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 1.0,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 1.0,
+              "end_daf": 1.05,
+              "chars": 248
+            },
+            {
+              "ot": 2,
+              "start_daf": 1.05,
+              "end_daf": 1.31,
+              "chars": 1466
+            },
+            {
+              "ot": 3,
+              "start_daf": 1.31,
+              "end_daf": 1.9,
+              "chars": 3217
+            }
+          ],
+          "end_daf": 1.9
+        },
+        {
+          "halakha": 1,
+          "siman": 2,
+          "start_daf": 1.9,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 1.9,
+              "end_daf": 2.66,
+              "chars": 4206
+            }
+          ],
+          "end_daf": 2.66
+        },
+        {
+          "halakha": 1,
+          "siman": 3,
+          "start_daf": 2.66,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 2.66,
+              "end_daf": 3.31,
+              "chars": 3577
+            }
+          ],
+          "end_daf": 3.31
+        },
+        {
+          "halakha": 1,
+          "siman": 4,
+          "start_daf": 3.31,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 3.31,
+              "end_daf": 3.65,
+              "chars": 1878
+            }
+          ],
+          "end_daf": 3.65
+        },
+        {
+          "halakha": 1,
+          "siman": 5,
+          "start_daf": 3.65,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 3.65,
+              "end_daf": 3.88,
+              "chars": 1228
+            }
+          ],
+          "end_daf": 3.88
+        },
+        {
+          "halakha": 1,
+          "siman": 6,
+          "start_daf": 3.88,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 3.88,
+              "end_daf": 4.15,
+              "chars": 1508
+            }
+          ],
+          "end_daf": 4.15
+        },
+        {
+          "halakha": 1,
+          "siman": 7,
+          "start_daf": 4.15,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 4.15,
+              "end_daf": 4.89,
+              "chars": 4093
+            },
+            {
+              "ot": 2,
+              "start_daf": 4.89,
+              "end_daf": 5.14,
+              "chars": 1361
+            }
+          ],
+          "end_daf": 5.14
+        },
+        {
+          "halakha": 1,
+          "siman": 8,
+          "start_daf": 5.14,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 5.14,
+              "end_daf": 6.0,
+              "chars": 4696
+            }
+          ],
+          "end_daf": 6.0
+        },
+        {
+          "halakha": 1,
+          "siman": 9,
+          "start_daf": 6.0,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 6.0,
+              "end_daf": 6.21,
+              "chars": 1155
+            }
+          ],
+          "end_daf": 6.21
+        },
+        {
+          "halakha": 1,
+          "siman": 10,
+          "start_daf": 6.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 6.21,
+              "end_daf": 6.61,
+              "chars": 2240
+            },
+            {
+              "ot": 2,
+              "start_daf": 6.61,
+              "end_daf": 6.69,
+              "chars": 439
+            },
+            {
+              "ot": 3,
+              "start_daf": 6.69,
+              "end_daf": 6.76,
+              "chars": 394
+            }
+          ],
+          "end_daf": 6.76
+        },
+        {
+          "halakha": 1,
+          "siman": 11,
+          "start_daf": 6.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 6.76,
+              "end_daf": 7.23,
+              "chars": 2569
+            }
+          ],
+          "end_daf": 7.23
+        },
+        {
+          "halakha": 1,
+          "siman": 12,
+          "start_daf": 7.23,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 7.23,
+              "end_daf": 7.56,
+              "chars": 1819
+            }
+          ],
+          "end_daf": 7.56
+        },
+        {
+          "halakha": 1,
+          "siman": 13,
+          "start_daf": 7.56,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 7.56,
+              "end_daf": 7.62,
+              "chars": 314
+            },
+            {
+              "ot": 2,
+              "start_daf": 7.62,
+              "end_daf": 7.62,
+              "chars": 17
+            }
+          ],
+          "end_daf": 7.62
+        },
+        {
+          "halakha": 1,
+          "siman": 14,
+          "start_daf": 7.62,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 7.62,
+              "end_daf": 7.69,
+              "chars": 388
+            }
+          ],
+          "end_daf": 7.69
+        },
+        {
+          "halakha": 1,
+          "siman": 15,
+          "start_daf": 7.69,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 7.69,
+              "end_daf": 7.76,
+              "chars": 369
+            }
+          ],
+          "end_daf": 7.76
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 7.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 7.76,
+              "end_daf": 7.78,
+              "chars": 125
+            },
+            {
+              "ot": 2,
+              "start_daf": 7.78,
+              "end_daf": 8.11,
+              "chars": 1780
+            },
+            {
+              "ot": 3,
+              "start_daf": 8.11,
+              "end_daf": 8.76,
+              "chars": 3592
+            },
+            {
+              "ot": 4,
+              "start_daf": 8.76,
+              "end_daf": 8.87,
+              "chars": 601
+            },
+            {
+              "ot": 5,
+              "start_daf": 8.87,
+              "end_daf": 9.34,
+              "chars": 2578
+            },
+            {
+              "ot": 6,
+              "start_daf": 9.34,
+              "end_daf": 9.74,
+              "chars": 2190
+            },
+            {
+              "ot": 7,
+              "start_daf": 9.74,
+              "end_daf": 9.75,
+              "chars": 71
+            }
+          ],
+          "end_daf": 9.75
+        },
+        {
+          "halakha": 3,
+          "siman": 1,
+          "start_daf": 9.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 9.75,
+              "end_daf": 9.77,
+              "chars": 123
+            }
+          ],
+          "end_daf": 9.77
+        },
+        {
+          "halakha": 3,
+          "siman": 2,
+          "start_daf": 9.77,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 9.77,
+              "end_daf": 10.08,
+              "chars": 1688
+            },
+            {
+              "ot": 2,
+              "start_daf": 10.08,
+              "end_daf": 10.36,
+              "chars": 1574
+            }
+          ],
+          "end_daf": 10.36
+        },
+        {
+          "halakha": 3,
+          "siman": 3,
+          "start_daf": 10.36,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 10.36,
+              "end_daf": 10.86,
+              "chars": 2735
+            }
+          ],
+          "end_daf": 10.86
+        },
+        {
+          "halakha": 3,
+          "siman": 4,
+          "start_daf": 10.86,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 10.86,
+              "end_daf": 10.97,
+              "chars": 622
+            }
+          ],
+          "end_daf": 10.97
+        },
+        {
+          "halakha": 3,
+          "siman": 5,
+          "start_daf": 10.97,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 10.97,
+              "end_daf": 11.86,
+              "chars": 4886
+            }
+          ],
+          "end_daf": 11.86
+        },
+        {
+          "halakha": 3,
+          "siman": 6,
+          "start_daf": 11.86,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 11.86,
+              "end_daf": 12.11,
+              "chars": 1375
+            }
+          ],
+          "end_daf": 12.11
+        },
+        {
+          "halakha": 3,
+          "siman": 7,
+          "start_daf": 12.11,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 12.11,
+              "end_daf": 12.54,
+              "chars": 2329
+            }
+          ],
+          "end_daf": 12.54
+        },
+        {
+          "halakha": 3,
+          "siman": 8,
+          "start_daf": 12.54,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 12.54,
+              "end_daf": 12.89,
+              "chars": 1956
+            }
+          ],
+          "end_daf": 12.89
+        },
+        {
+          "halakha": 3,
+          "siman": 9,
+          "start_daf": 12.89,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 12.89,
+              "end_daf": 13.87,
+              "chars": 5363
+            }
+          ],
+          "end_daf": 13.87
+        },
+        {
+          "halakha": 3,
+          "siman": 10,
+          "start_daf": 13.87,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 13.87,
+              "end_daf": 14.03,
+              "chars": 919
+            }
+          ],
+          "end_daf": 14.03
+        },
+        {
+          "halakha": 3,
+          "siman": 11,
+          "start_daf": 14.03,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 14.03,
+              "end_daf": 14.84,
+              "chars": 4435
+            },
+            {
+              "ot": 2,
+              "start_daf": 14.84,
+              "end_daf": 15.51,
+              "chars": 3658
+            },
+            {
+              "ot": 3,
+              "start_daf": 15.51,
+              "end_daf": 16.07,
+              "chars": 3118
+            },
+            {
+              "ot": 4,
+              "start_daf": 16.07,
+              "end_daf": 16.18,
+              "chars": 570
+            }
+          ],
+          "end_daf": 16.18
+        },
+        {
+          "halakha": 3,
+          "siman": 12,
+          "start_daf": 16.18,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 16.18,
+              "end_daf": 16.82,
+              "chars": 3566
+            },
+            {
+              "ot": 2,
+              "start_daf": 16.82,
+              "end_daf": 16.89,
+              "chars": 377
+            }
+          ],
+          "end_daf": 16.89
+        },
+        {
+          "halakha": 3,
+          "siman": 13,
+          "start_daf": 16.89,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 16.89,
+              "end_daf": 17.05,
+              "chars": 872
+            }
+          ],
+          "end_daf": 17.05
+        },
+        {
+          "halakha": 3,
+          "siman": 14,
+          "start_daf": 17.05,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 17.05,
+              "end_daf": 17.52,
+              "chars": 2593
+            },
+            {
+              "ot": 2,
+              "start_daf": 17.52,
+              "end_daf": 18.65,
+              "chars": 6193
+            },
+            {
+              "ot": 3,
+              "start_daf": 18.65,
+              "end_daf": 19.04,
+              "chars": 2137
+            }
+          ],
+          "end_daf": 19.04
+        },
+        {
+          "halakha": 3,
+          "siman": 15,
+          "start_daf": 19.04,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 19.04,
+              "end_daf": 19.53,
+              "chars": 2685
+            }
+          ],
+          "end_daf": 19.53
+        },
+        {
+          "halakha": 3,
+          "siman": 16,
+          "start_daf": 19.53,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 19.53,
+              "end_daf": 20.07,
+              "chars": 3011
+            },
+            {
+              "ot": 2,
+              "start_daf": 20.07,
+              "end_daf": 20.74,
+              "chars": 3677
+            },
+            {
+              "ot": 3,
+              "start_daf": 20.74,
+              "end_daf": 20.75,
+              "chars": 19
+            }
+          ],
+          "end_daf": 20.75
+        },
+        {
+          "halakha": 3,
+          "siman": 17,
+          "start_daf": 20.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 20.75,
+              "end_daf": 20.8,
+              "chars": 320
+            },
+            {
+              "ot": 2,
+              "start_daf": 20.8,
+              "end_daf": 21.23,
+              "chars": 2354
+            },
+            {
+              "ot": 3,
+              "start_daf": 21.23,
+              "end_daf": 21.78,
+              "chars": 3043
+            },
+            {
+              "ot": 4,
+              "start_daf": 21.78,
+              "end_daf": 22.16,
+              "chars": 2050
+            },
+            {
+              "ot": 5,
+              "start_daf": 22.16,
+              "end_daf": 22.29,
+              "chars": 722
+            }
+          ],
+          "end_daf": 22.29
+        },
+        {
+          "halakha": 3,
+          "siman": 18,
+          "start_daf": 22.29,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 22.29,
+              "end_daf": 23.29,
+              "chars": 5524
+            }
+          ],
+          "end_daf": 23.29
+        },
+        {
+          "halakha": 3,
+          "siman": 19,
+          "start_daf": 23.29,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 23.29,
+              "end_daf": 23.75,
+              "chars": 2511
+            }
+          ],
+          "end_daf": 23.75
+        },
+        {
+          "halakha": 3,
+          "siman": 20,
+          "start_daf": 23.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 23.75,
+              "end_daf": 24.5,
+              "chars": 4136
+            },
+            {
+              "ot": 2,
+              "start_daf": 24.5,
+              "end_daf": 25.52,
+              "chars": 5618
+            }
+          ],
+          "end_daf": 25.52
+        },
+        {
+          "halakha": 3,
+          "siman": 21,
+          "start_daf": 25.52,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 25.52,
+              "end_daf": 26.17,
+              "chars": 3571
+            }
+          ],
+          "end_daf": 26.17
+        },
+        {
+          "halakha": 3,
+          "siman": 22,
+          "start_daf": 26.17,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 26.17,
+              "end_daf": 27.24,
+              "chars": 5879
+            }
+          ],
+          "end_daf": 27.24
+        },
+        {
+          "halakha": 3,
+          "siman": 23,
+          "start_daf": 27.24,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 27.24,
+              "end_daf": 27.36,
+              "chars": 643
+            }
+          ],
+          "end_daf": 27.36
+        },
+        {
+          "halakha": 3,
+          "siman": 24,
+          "start_daf": 27.36,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 27.36,
+              "end_daf": 28.03,
+              "chars": 3679
+            },
+            {
+              "ot": 2,
+              "start_daf": 28.03,
+              "end_daf": 28.13,
+              "chars": 544
+            }
+          ],
+          "end_daf": 28.13
+        },
+        {
+          "halakha": 3,
+          "siman": 25,
+          "start_daf": 28.13,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 28.13,
+              "end_daf": 28.65,
+              "chars": 2883
+            }
+          ],
+          "end_daf": 28.65
+        },
+        {
+          "halakha": 3,
+          "siman": 26,
+          "start_daf": 28.65,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 28.65,
+              "end_daf": 28.96,
+              "chars": 1701
+            }
+          ],
+          "end_daf": 28.96
+        },
+        {
+          "halakha": 3,
+          "siman": 27,
+          "start_daf": 28.96,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 28.96,
+              "end_daf": 29.42,
+              "chars": 2507
+            },
+            {
+              "ot": 2,
+              "start_daf": 29.42,
+              "end_daf": 30.44,
+              "chars": 5634
+            }
+          ],
+          "end_daf": 30.44
+        },
+        {
+          "halakha": 3,
+          "siman": 28,
+          "start_daf": 30.44,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 30.44,
+              "end_daf": 31.31,
+              "chars": 4771
+            },
+            {
+              "ot": 2,
+              "start_daf": 31.31,
+              "end_daf": 31.86,
+              "chars": 3038
+            }
+          ],
+          "end_daf": 31.86
+        },
+        {
+          "halakha": 3,
+          "siman": 29,
+          "start_daf": 31.86,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 31.86,
+              "end_daf": 32.09,
+              "chars": 1265
+            }
+          ],
+          "end_daf": 32.09
+        },
+        {
+          "halakha": 3,
+          "siman": 30,
+          "start_daf": 32.09,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 32.09,
+              "end_daf": 32.19,
+              "chars": 553
+            },
+            {
+              "ot": 2,
+              "start_daf": 32.19,
+              "end_daf": 33.31,
+              "chars": 6180
+            },
+            {
+              "ot": 3,
+              "start_daf": 33.31,
+              "end_daf": 33.89,
+              "chars": 3167
+            },
+            {
+              "ot": 4,
+              "start_daf": 33.89,
+              "end_daf": 34.21,
+              "chars": 1742
+            }
+          ],
+          "end_daf": 34.21
+        },
+        {
+          "halakha": 3,
+          "siman": 31,
+          "start_daf": 34.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 34.21,
+              "end_daf": 34.74,
+              "chars": 2960
+            }
+          ],
+          "end_daf": 34.74
+        },
+        {
+          "halakha": 3,
+          "siman": 32,
+          "start_daf": 34.74,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 34.74,
+              "end_daf": 35.21,
+              "chars": 2534
+            }
+          ],
+          "end_daf": 35.21
+        },
+        {
+          "halakha": 3,
+          "siman": 33,
+          "start_daf": 35.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 35.21,
+              "end_daf": 35.76,
+              "chars": 3039
+            }
+          ],
+          "end_daf": 35.76
+        },
+        {
+          "halakha": 3,
+          "siman": 34,
+          "start_daf": 35.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 35.76,
+              "end_daf": 36.68,
+              "chars": 5055
+            }
+          ],
+          "end_daf": 36.68
+        },
+        {
+          "halakha": 3,
+          "siman": 35,
+          "start_daf": 36.68,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 36.68,
+              "end_daf": 37.27,
+              "chars": 3284
+            },
+            {
+              "ot": 2,
+              "start_daf": 37.27,
+              "end_daf": 37.61,
+              "chars": 1828
+            },
+            {
+              "ot": 3,
+              "start_daf": 37.61,
+              "end_daf": 38.88,
+              "chars": 6985
+            },
+            {
+              "ot": 4,
+              "start_daf": 38.88,
+              "end_daf": 39.49,
+              "chars": 3397
+            },
+            {
+              "ot": 5,
+              "start_daf": 39.49,
+              "end_daf": 39.59,
+              "chars": 524
+            }
+          ],
+          "end_daf": 39.59
+        },
+        {
+          "halakha": 3,
+          "siman": 36,
+          "start_daf": 39.59,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 39.59,
+              "end_daf": 39.72,
+              "chars": 719
+            },
+            {
+              "ot": 2,
+              "start_daf": 39.72,
+              "end_daf": 40.19,
+              "chars": 2606
+            },
+            {
+              "ot": 3,
+              "start_daf": 40.19,
+              "end_daf": 40.27,
+              "chars": 438
+            },
+            {
+              "ot": 4,
+              "start_daf": 40.27,
+              "end_daf": 40.28,
+              "chars": 36
+            },
+            {
+              "ot": 5,
+              "start_daf": 40.28,
+              "end_daf": 40.38,
+              "chars": 577
+            },
+            {
+              "ot": 6,
+              "start_daf": 40.38,
+              "end_daf": 40.4,
+              "chars": 92
+            }
+          ],
+          "end_daf": 40.4
+        },
+        {
+          "halakha": 4,
+          "siman": 1,
+          "start_daf": 40.4,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 40.4,
+              "end_daf": 40.41,
+              "chars": 62
+            },
+            {
+              "ot": 2,
+              "start_daf": 40.41,
+              "end_daf": 40.52,
+              "chars": 611
+            },
+            {
+              "ot": 3,
+              "start_daf": 40.52,
+              "end_daf": 40.82,
+              "chars": 1634
+            },
+            {
+              "ot": 4,
+              "start_daf": 40.82,
+              "end_daf": 41.03,
+              "chars": 1127
+            },
+            {
+              "ot": 5,
+              "start_daf": 41.03,
+              "end_daf": 41.16,
+              "chars": 742
+            },
+            {
+              "ot": 6,
+              "start_daf": 41.16,
+              "end_daf": 41.47,
+              "chars": 1699
+            }
+          ],
+          "end_daf": 41.47
+        },
+        {
+          "halakha": 5,
+          "siman": 1,
+          "start_daf": 41.47,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 41.47,
+              "end_daf": 41.48,
+              "chars": 39
+            },
+            {
+              "ot": 2,
+              "start_daf": 41.48,
+              "end_daf": 41.62,
+              "chars": 763
+            }
+          ],
+          "end_daf": 41.62
+        },
+        {
+          "halakha": 5,
+          "siman": 2,
+          "start_daf": 41.62,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 41.62,
+              "end_daf": 41.71,
+              "chars": 527
+            }
+          ],
+          "end_daf": 41.71
+        },
+        {
+          "halakha": 5,
+          "siman": 3,
+          "start_daf": 41.71,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 41.71,
+              "end_daf": 42.24,
+              "chars": 2916
+            }
+          ],
+          "end_daf": 42.24
+        },
+        {
+          "halakha": 5,
+          "siman": 4,
+          "start_daf": 42.24,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 42.24,
+              "end_daf": 43.11,
+              "chars": 4788
+            }
+          ],
+          "end_daf": 43.11
+        },
+        {
+          "halakha": 5,
+          "siman": 5,
+          "start_daf": 43.11,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 43.11,
+              "end_daf": 44.2,
+              "chars": 5987
+            },
+            {
+              "ot": 2,
+              "start_daf": 44.2,
+              "end_daf": 44.47,
+              "chars": 1468
+            }
+          ],
+          "end_daf": 44.47
+        },
+        {
+          "halakha": 5,
+          "siman": 6,
+          "start_daf": 44.47,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 44.47,
+              "end_daf": 45.1,
+              "chars": 3502
+            },
+            {
+              "ot": 2,
+              "start_daf": 45.1,
+              "end_daf": 45.22,
+              "chars": 615
+            }
+          ],
+          "end_daf": 45.22
+        },
+        {
+          "halakha": 5,
+          "siman": 7,
+          "start_daf": 45.22,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 45.22,
+              "end_daf": 45.36,
+              "chars": 805
+            }
+          ],
+          "end_daf": 45.36
+        },
+        {
+          "halakha": 5,
+          "siman": 8,
+          "start_daf": 45.36,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 45.36,
+              "end_daf": 45.83,
+              "chars": 2557
+            }
+          ],
+          "end_daf": 45.83
+        },
+        {
+          "halakha": 5,
+          "siman": 9,
+          "start_daf": 45.83,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 45.83,
+              "end_daf": 46.11,
+              "chars": 1551
+            }
+          ],
+          "end_daf": 46.11
+        },
+        {
+          "halakha": 5,
+          "siman": 10,
+          "start_daf": 46.11,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 46.11,
+              "end_daf": 46.28,
+              "chars": 933
+            }
+          ],
+          "end_daf": 46.28
+        },
+        {
+          "halakha": 5,
+          "siman": 11,
+          "start_daf": 46.28,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 46.28,
+              "end_daf": 46.43,
+              "chars": 836
+            }
+          ],
+          "end_daf": 46.43
+        },
+        {
+          "halakha": 5,
+          "siman": 12,
+          "start_daf": 46.43,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 46.43,
+              "end_daf": 47.37,
+              "chars": 5140
+            }
+          ],
+          "end_daf": 47.37
+        },
+        {
+          "halakha": 5,
+          "siman": 13,
+          "start_daf": 47.37,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 47.37,
+              "end_daf": 47.71,
+              "chars": 1870
+            },
+            {
+              "ot": 2,
+              "start_daf": 47.71,
+              "end_daf": 47.71,
+              "chars": 32
+            }
+          ],
+          "end_daf": 47.71
+        },
+        {
+          "halakha": 5,
+          "siman": 14,
+          "start_daf": 47.71,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 47.71,
+              "end_daf": 48.34,
+              "chars": 3475
+            }
+          ],
+          "end_daf": 48.34
+        },
+        {
+          "halakha": 5,
+          "siman": 15,
+          "start_daf": 48.34,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 48.34,
+              "end_daf": 48.76,
+              "chars": 2319
+            }
+          ],
+          "end_daf": 48.76
+        },
+        {
+          "halakha": 5,
+          "siman": 16,
+          "start_daf": 48.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 48.76,
+              "end_daf": 49.18,
+              "chars": 2281
+            }
+          ],
+          "end_daf": 49.18
+        },
+        {
+          "halakha": 5,
+          "siman": 17,
+          "start_daf": 49.18,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 49.18,
+              "end_daf": 49.43,
+              "chars": 1353
+            },
+            {
+              "ot": 2,
+              "start_daf": 49.43,
+              "end_daf": 49.43,
+              "chars": 41
+            }
+          ],
+          "end_daf": 49.43
+        },
+        {
+          "halakha": 5,
+          "siman": 18,
+          "start_daf": 49.43,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 49.43,
+              "end_daf": 50.62,
+              "chars": 6530
+            }
+          ],
+          "end_daf": 50.62
+        },
+        {
+          "halakha": 5,
+          "siman": 19,
+          "start_daf": 50.62,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 50.62,
+              "end_daf": 51.72,
+              "chars": 6032
+            }
+          ],
+          "end_daf": 51.72
+        },
+        {
+          "halakha": 5,
+          "siman": 20,
+          "start_daf": 51.72,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 51.72,
+              "end_daf": 52.12,
+              "chars": 2221
+            }
+          ],
+          "end_daf": 52.12
+        },
+        {
+          "halakha": 5,
+          "siman": 21,
+          "start_daf": 52.12,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 52.12,
+              "end_daf": 52.76,
+              "chars": 3513
+            }
+          ],
+          "end_daf": 52.76
+        },
+        {
+          "halakha": 5,
+          "siman": 22,
+          "start_daf": 52.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 52.76,
+              "end_daf": 52.97,
+              "chars": 1178
+            }
+          ],
+          "end_daf": 52.97
+        },
+        {
+          "halakha": 5,
+          "siman": 23,
+          "start_daf": 52.97,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 52.97,
+              "end_daf": 53.03,
+              "chars": 307
+            }
+          ],
+          "end_daf": 53.03
+        },
+        {
+          "halakha": 5,
+          "siman": 24,
+          "start_daf": 53.03,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 53.03,
+              "end_daf": 53.22,
+              "chars": 1068
+            },
+            {
+              "ot": 2,
+              "start_daf": 53.22,
+              "end_daf": 53.47,
+              "chars": 1357
+            },
+            {
+              "ot": 3,
+              "start_daf": 53.47,
+              "end_daf": 53.48,
+              "chars": 39
+            }
+          ],
+          "end_daf": 53.48
+        },
+        {
+          "halakha": 5,
+          "siman": 25,
+          "start_daf": 53.48,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 53.48,
+              "end_daf": 54.14,
+              "chars": 3655
+            },
+            {
+              "ot": 2,
+              "start_daf": 54.14,
+              "end_daf": 54.47,
+              "chars": 1820
+            }
+          ],
+          "end_daf": 54.47
+        }
+      ],
+      "end_daf": 54.47
+    },
+    {
+      "name_en": "Laws of Matrimony",
+      "name_he": "הלכות אישות",
+      "name_short": "Hilkhot Matrimony",
+      "start_daf": 54.47,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 54.47,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 54.47,
+              "end_daf": 54.49,
+              "chars": 87
+            },
+            {
+              "ot": 2,
+              "start_daf": 54.49,
+              "end_daf": 54.74,
+              "chars": 1390
+            }
+          ],
+          "end_daf": 54.74
+        },
+        {
+          "halakha": 1,
+          "siman": 2,
+          "start_daf": 54.74,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 54.74,
+              "end_daf": 54.98,
+              "chars": 1318
+            }
+          ],
+          "end_daf": 54.98
+        },
+        {
+          "halakha": 1,
+          "siman": 3,
+          "start_daf": 54.98,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 54.98,
+              "end_daf": 55.22,
+              "chars": 1331
+            }
+          ],
+          "end_daf": 55.22
+        },
+        {
+          "halakha": 1,
+          "siman": 4,
+          "start_daf": 55.22,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 55.22,
+              "end_daf": 55.32,
+              "chars": 510
+            }
+          ],
+          "end_daf": 55.32
+        },
+        {
+          "halakha": 1,
+          "siman": 5,
+          "start_daf": 55.32,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 55.32,
+              "end_daf": 55.73,
+              "chars": 2279
+            }
+          ],
+          "end_daf": 55.73
+        },
+        {
+          "halakha": 1,
+          "siman": 6,
+          "start_daf": 55.73,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 55.73,
+              "end_daf": 55.84,
+              "chars": 622
+            },
+            {
+              "ot": 2,
+              "start_daf": 55.84,
+              "end_daf": 56.01,
+              "chars": 917
+            }
+          ],
+          "end_daf": 56.01
+        },
+        {
+          "halakha": 1,
+          "siman": 7,
+          "start_daf": 56.01,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 56.01,
+              "end_daf": 56.59,
+              "chars": 3211
+            }
+          ],
+          "end_daf": 56.59
+        },
+        {
+          "halakha": 1,
+          "siman": 8,
+          "start_daf": 56.59,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 56.59,
+              "end_daf": 56.78,
+              "chars": 1038
+            }
+          ],
+          "end_daf": 56.78
+        },
+        {
+          "halakha": 1,
+          "siman": 9,
+          "start_daf": 56.78,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 56.78,
+              "end_daf": 56.98,
+              "chars": 1084
+            }
+          ],
+          "end_daf": 56.98
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 56.98,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 56.98,
+              "end_daf": 56.99,
+              "chars": 70
+            }
+          ],
+          "end_daf": 56.99
+        },
+        {
+          "halakha": 3,
+          "siman": 1,
+          "start_daf": 56.99,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 56.99,
+              "end_daf": 57.07,
+              "chars": 405
+            },
+            {
+              "ot": 2,
+              "start_daf": 57.07,
+              "end_daf": 57.21,
+              "chars": 784
+            }
+          ],
+          "end_daf": 57.21
+        },
+        {
+          "halakha": 3,
+          "siman": 2,
+          "start_daf": 57.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 57.21,
+              "end_daf": 57.76,
+              "chars": 3029
+            }
+          ],
+          "end_daf": 57.76
+        },
+        {
+          "halakha": 3,
+          "siman": 3,
+          "start_daf": 57.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 57.76,
+              "end_daf": 58.04,
+              "chars": 1552
+            }
+          ],
+          "end_daf": 58.04
+        },
+        {
+          "halakha": 3,
+          "siman": 4,
+          "start_daf": 58.04,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 58.04,
+              "end_daf": 58.41,
+              "chars": 2018
+            }
+          ],
+          "end_daf": 58.41
+        },
+        {
+          "halakha": 3,
+          "siman": 5,
+          "start_daf": 58.41,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 58.41,
+              "end_daf": 58.56,
+              "chars": 811
+            }
+          ],
+          "end_daf": 58.56
+        },
+        {
+          "halakha": 3,
+          "siman": 6,
+          "start_daf": 58.56,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 58.56,
+              "end_daf": 59.46,
+              "chars": 4951
+            }
+          ],
+          "end_daf": 59.46
+        },
+        {
+          "halakha": 3,
+          "siman": 7,
+          "start_daf": 59.46,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 59.46,
+              "end_daf": 60.04,
+              "chars": 3230
+            },
+            {
+              "ot": 2,
+              "start_daf": 60.04,
+              "end_daf": 60.44,
+              "chars": 2208
+            }
+          ],
+          "end_daf": 60.44
+        },
+        {
+          "halakha": 3,
+          "siman": 8,
+          "start_daf": 60.44,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 60.44,
+              "end_daf": 60.63,
+              "chars": 1026
+            }
+          ],
+          "end_daf": 60.63
+        },
+        {
+          "halakha": 3,
+          "siman": 9,
+          "start_daf": 60.63,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 60.63,
+              "end_daf": 60.71,
+              "chars": 431
+            },
+            {
+              "ot": 2,
+              "start_daf": 60.71,
+              "end_daf": 60.71,
+              "chars": 21
+            }
+          ],
+          "end_daf": 60.71
+        },
+        {
+          "halakha": 3,
+          "siman": 10,
+          "start_daf": 60.71,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 60.71,
+              "end_daf": 61.31,
+              "chars": 3293
+            }
+          ],
+          "end_daf": 61.31
+        },
+        {
+          "halakha": 3,
+          "siman": 11,
+          "start_daf": 61.31,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 61.31,
+              "end_daf": 61.72,
+              "chars": 2220
+            }
+          ],
+          "end_daf": 61.72
+        },
+        {
+          "halakha": 3,
+          "siman": 12,
+          "start_daf": 61.72,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 61.72,
+              "end_daf": 61.77,
+              "chars": 315
+            },
+            {
+              "ot": 2,
+              "start_daf": 61.77,
+              "end_daf": 62.48,
+              "chars": 3906
+            }
+          ],
+          "end_daf": 62.48
+        },
+        {
+          "halakha": 3,
+          "siman": 13,
+          "start_daf": 62.48,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 62.48,
+              "end_daf": 62.98,
+              "chars": 2753
+            }
+          ],
+          "end_daf": 62.98
+        },
+        {
+          "halakha": 3,
+          "siman": 14,
+          "start_daf": 62.98,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 62.98,
+              "end_daf": 63.24,
+              "chars": 1430
+            }
+          ],
+          "end_daf": 63.24
+        },
+        {
+          "halakha": 3,
+          "siman": 15,
+          "start_daf": 63.24,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 63.24,
+              "end_daf": 63.62,
+              "chars": 2082
+            }
+          ],
+          "end_daf": 63.62
+        },
+        {
+          "halakha": 3,
+          "siman": 16,
+          "start_daf": 63.62,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 63.62,
+              "end_daf": 63.69,
+              "chars": 356
+            }
+          ],
+          "end_daf": 63.69
+        },
+        {
+          "halakha": 3,
+          "siman": 17,
+          "start_daf": 63.69,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 63.69,
+              "end_daf": 63.89,
+              "chars": 1112
+            },
+            {
+              "ot": 2,
+              "start_daf": 63.89,
+              "end_daf": 63.9,
+              "chars": 59
+            }
+          ],
+          "end_daf": 63.9
+        },
+        {
+          "halakha": 3,
+          "siman": 18,
+          "start_daf": 63.9,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 63.9,
+              "end_daf": 64.01,
+              "chars": 621
+            }
+          ],
+          "end_daf": 64.01
+        },
+        {
+          "halakha": 3,
+          "siman": 19,
+          "start_daf": 64.01,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 64.01,
+              "end_daf": 64.4,
+              "chars": 2134
+            },
+            {
+              "ot": 2,
+              "start_daf": 64.4,
+              "end_daf": 64.96,
+              "chars": 3075
+            },
+            {
+              "ot": 3,
+              "start_daf": 64.96,
+              "end_daf": 65.28,
+              "chars": 1738
+            },
+            {
+              "ot": 4,
+              "start_daf": 65.28,
+              "end_daf": 65.81,
+              "chars": 2944
+            },
+            {
+              "ot": 5,
+              "start_daf": 65.81,
+              "end_daf": 65.82,
+              "chars": 54
+            }
+          ],
+          "end_daf": 65.82
+        }
+      ],
+      "end_daf": 65.82
+    },
+    {
+      "name_en": "Laws of Sanctification",
+      "name_he": "הלכות קדושין",
+      "name_short": "Hilkhot Sanctification",
+      "start_daf": 65.82,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 65.82,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 65.82,
+              "end_daf": 65.85,
+              "chars": 135
+            },
+            {
+              "ot": 2,
+              "start_daf": 65.85,
+              "end_daf": 65.94,
+              "chars": 530
+            },
+            {
+              "ot": 3,
+              "start_daf": 65.94,
+              "end_daf": 66.36,
+              "chars": 2322
+            },
+            {
+              "ot": 4,
+              "start_daf": 66.36,
+              "end_daf": 66.57,
+              "chars": 1155
+            },
+            {
+              "ot": 5,
+              "start_daf": 66.57,
+              "end_daf": 66.82,
+              "chars": 1347
+            },
+            {
+              "ot": 6,
+              "start_daf": 66.82,
+              "end_daf": 67.08,
+              "chars": 1414
+            },
+            {
+              "ot": 7,
+              "start_daf": 67.08,
+              "end_daf": 67.17,
+              "chars": 505
+            },
+            {
+              "ot": 8,
+              "start_daf": 67.17,
+              "end_daf": 67.34,
+              "chars": 919
+            },
+            {
+              "ot": 9,
+              "start_daf": 67.34,
+              "end_daf": 67.39,
+              "chars": 308
+            },
+            {
+              "ot": 10,
+              "start_daf": 67.39,
+              "end_daf": 67.56,
+              "chars": 931
+            },
+            {
+              "ot": 11,
+              "start_daf": 67.56,
+              "end_daf": 67.75,
+              "chars": 1042
+            },
+            {
+              "ot": 12,
+              "start_daf": 67.75,
+              "end_daf": 67.82,
+              "chars": 392
+            },
+            {
+              "ot": 13,
+              "start_daf": 67.82,
+              "end_daf": 67.83,
+              "chars": 36
+            }
+          ],
+          "end_daf": 67.83
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 67.83,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 67.83,
+              "end_daf": 67.83,
+              "chars": 34
+            },
+            {
+              "ot": 2,
+              "start_daf": 67.83,
+              "end_daf": 68.23,
+              "chars": 2201
+            }
+          ],
+          "end_daf": 68.23
+        },
+        {
+          "halakha": 2,
+          "siman": 2,
+          "start_daf": 68.23,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 68.23,
+              "end_daf": 69.27,
+              "chars": 5674
+            }
+          ],
+          "end_daf": 69.27
+        },
+        {
+          "halakha": 2,
+          "siman": 3,
+          "start_daf": 69.27,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 69.27,
+              "end_daf": 69.74,
+              "chars": 2604
+            },
+            {
+              "ot": 2,
+              "start_daf": 69.74,
+              "end_daf": 69.81,
+              "chars": 362
+            }
+          ],
+          "end_daf": 69.81
+        },
+        {
+          "halakha": 2,
+          "siman": 4,
+          "start_daf": 69.81,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 69.81,
+              "end_daf": 69.97,
+              "chars": 902
+            },
+            {
+              "ot": 2,
+              "start_daf": 69.97,
+              "end_daf": 70.03,
+              "chars": 357
+            }
+          ],
+          "end_daf": 70.03
+        },
+        {
+          "halakha": 2,
+          "siman": 5,
+          "start_daf": 70.03,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 70.03,
+              "end_daf": 70.56,
+              "chars": 2897
+            },
+            {
+              "ot": 2,
+              "start_daf": 70.56,
+              "end_daf": 70.73,
+              "chars": 912
+            }
+          ],
+          "end_daf": 70.73
+        },
+        {
+          "halakha": 2,
+          "siman": 6,
+          "start_daf": 70.73,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 70.73,
+              "end_daf": 70.89,
+              "chars": 915
+            },
+            {
+              "ot": 2,
+              "start_daf": 70.89,
+              "end_daf": 70.97,
+              "chars": 410
+            }
+          ],
+          "end_daf": 70.97
+        },
+        {
+          "halakha": 2,
+          "siman": 7,
+          "start_daf": 70.97,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 70.97,
+              "end_daf": 71.17,
+              "chars": 1125
+            }
+          ],
+          "end_daf": 71.17
+        },
+        {
+          "halakha": 2,
+          "siman": 8,
+          "start_daf": 71.17,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 71.17,
+              "end_daf": 71.97,
+              "chars": 4390
+            }
+          ],
+          "end_daf": 71.97
+        },
+        {
+          "halakha": 3,
+          "siman": 1,
+          "start_daf": 71.97,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 71.97,
+              "end_daf": 71.99,
+              "chars": 106
+            },
+            {
+              "ot": 2,
+              "start_daf": 71.99,
+              "end_daf": 72.37,
+              "chars": 2101
+            }
+          ],
+          "end_daf": 72.37
+        },
+        {
+          "halakha": 3,
+          "siman": 2,
+          "start_daf": 72.37,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 72.37,
+              "end_daf": 72.96,
+              "chars": 3238
+            }
+          ],
+          "end_daf": 72.96
+        },
+        {
+          "halakha": 3,
+          "siman": 3,
+          "start_daf": 72.96,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 72.96,
+              "end_daf": 73.85,
+              "chars": 4894
+            },
+            {
+              "ot": 2,
+              "start_daf": 73.85,
+              "end_daf": 74.12,
+              "chars": 1480
+            },
+            {
+              "ot": 3,
+              "start_daf": 74.12,
+              "end_daf": 74.48,
+              "chars": 1960
+            }
+          ],
+          "end_daf": 74.48
+        },
+        {
+          "halakha": 3,
+          "siman": 4,
+          "start_daf": 74.48,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 74.48,
+              "end_daf": 75.48,
+              "chars": 5529
+            },
+            {
+              "ot": 2,
+              "start_daf": 75.48,
+              "end_daf": 75.95,
+              "chars": 2587
+            }
+          ],
+          "end_daf": 75.95
+        },
+        {
+          "halakha": 3,
+          "siman": 5,
+          "start_daf": 75.95,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 75.95,
+              "end_daf": 76.42,
+              "chars": 2598
+            },
+            {
+              "ot": 2,
+              "start_daf": 76.42,
+              "end_daf": 76.54,
+              "chars": 624
+            }
+          ],
+          "end_daf": 76.54
+        },
+        {
+          "halakha": 3,
+          "siman": 6,
+          "start_daf": 76.54,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 76.54,
+              "end_daf": 76.73,
+              "chars": 1060
+            }
+          ],
+          "end_daf": 76.73
+        },
+        {
+          "halakha": 3,
+          "siman": 7,
+          "start_daf": 76.73,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 76.73,
+              "end_daf": 76.84,
+              "chars": 603
+            }
+          ],
+          "end_daf": 76.84
+        },
+        {
+          "halakha": 3,
+          "siman": 8,
+          "start_daf": 76.84,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 76.84,
+              "end_daf": 77.06,
+              "chars": 1191
+            },
+            {
+              "ot": 2,
+              "start_daf": 77.06,
+              "end_daf": 77.19,
+              "chars": 720
+            },
+            {
+              "ot": 3,
+              "start_daf": 77.19,
+              "end_daf": 77.27,
+              "chars": 463
+            }
+          ],
+          "end_daf": 77.27
+        },
+        {
+          "halakha": 3,
+          "siman": 9,
+          "start_daf": 77.27,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 77.27,
+              "end_daf": 77.33,
+              "chars": 340
+            },
+            {
+              "ot": 2,
+              "start_daf": 77.33,
+              "end_daf": 77.42,
+              "chars": 484
+            }
+          ],
+          "end_daf": 77.42
+        },
+        {
+          "halakha": 3,
+          "siman": 10,
+          "start_daf": 77.42,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 77.42,
+              "end_daf": 77.49,
+              "chars": 386
+            },
+            {
+              "ot": 2,
+              "start_daf": 77.49,
+              "end_daf": 77.49,
+              "chars": 21
+            }
+          ],
+          "end_daf": 77.49
+        },
+        {
+          "halakha": 3,
+          "siman": 11,
+          "start_daf": 77.49,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 77.49,
+              "end_daf": 78.62,
+              "chars": 6169
+            },
+            {
+              "ot": 2,
+              "start_daf": 78.62,
+              "end_daf": 79.09,
+              "chars": 2604
+            }
+          ],
+          "end_daf": 79.09
+        },
+        {
+          "halakha": 3,
+          "siman": 12,
+          "start_daf": 79.09,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 79.09,
+              "end_daf": 79.34,
+              "chars": 1354
+            }
+          ],
+          "end_daf": 79.34
+        },
+        {
+          "halakha": 3,
+          "siman": 13,
+          "start_daf": 79.34,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 79.34,
+              "end_daf": 79.58,
+              "chars": 1327
+            }
+          ],
+          "end_daf": 79.58
+        },
+        {
+          "halakha": 3,
+          "siman": 14,
+          "start_daf": 79.58,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 79.58,
+              "end_daf": 80.37,
+              "chars": 4349
+            }
+          ],
+          "end_daf": 80.37
+        },
+        {
+          "halakha": 3,
+          "siman": 15,
+          "start_daf": 80.37,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 80.37,
+              "end_daf": 80.85,
+              "chars": 2647
+            },
+            {
+              "ot": 2,
+              "start_daf": 80.85,
+              "end_daf": 80.9,
+              "chars": 297
+            }
+          ],
+          "end_daf": 80.9
+        },
+        {
+          "halakha": 3,
+          "siman": 16,
+          "start_daf": 80.9,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 80.9,
+              "end_daf": 81.22,
+              "chars": 1717
+            }
+          ],
+          "end_daf": 81.22
+        },
+        {
+          "halakha": 3,
+          "siman": 17,
+          "start_daf": 81.22,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 81.22,
+              "end_daf": 81.8,
+              "chars": 3205
+            }
+          ],
+          "end_daf": 81.8
+        },
+        {
+          "halakha": 3,
+          "siman": 18,
+          "start_daf": 81.8,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 81.8,
+              "end_daf": 82.64,
+              "chars": 4647
+            },
+            {
+              "ot": 2,
+              "start_daf": 82.64,
+              "end_daf": 83.3,
+              "chars": 3637
+            }
+          ],
+          "end_daf": 83.3
+        },
+        {
+          "halakha": 3,
+          "siman": 19,
+          "start_daf": 83.3,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 83.3,
+              "end_daf": 83.75,
+              "chars": 2446
+            }
+          ],
+          "end_daf": 83.75
+        },
+        {
+          "halakha": 3,
+          "siman": 20,
+          "start_daf": 83.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 83.75,
+              "end_daf": 84.21,
+              "chars": 2562
+            },
+            {
+              "ot": 2,
+              "start_daf": 84.21,
+              "end_daf": 84.9,
+              "chars": 3757
+            },
+            {
+              "ot": 3,
+              "start_daf": 84.9,
+              "end_daf": 85.08,
+              "chars": 980
+            }
+          ],
+          "end_daf": 85.08
+        },
+        {
+          "halakha": 3,
+          "siman": 21,
+          "start_daf": 85.08,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 85.08,
+              "end_daf": 86.65,
+              "chars": 8662
+            }
+          ],
+          "end_daf": 86.65
+        },
+        {
+          "halakha": 3,
+          "siman": 22,
+          "start_daf": 86.65,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 86.65,
+              "end_daf": 86.68,
+              "chars": 177
+            },
+            {
+              "ot": 2,
+              "start_daf": 86.68,
+              "end_daf": 86.94,
+              "chars": 1417
+            },
+            {
+              "ot": 3,
+              "start_daf": 86.94,
+              "end_daf": 87.3,
+              "chars": 1949
+            }
+          ],
+          "end_daf": 87.3
+        },
+        {
+          "halakha": 3,
+          "siman": 23,
+          "start_daf": 87.3,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 87.3,
+              "end_daf": 87.69,
+              "chars": 2165
+            },
+            {
+              "ot": 2,
+              "start_daf": 87.69,
+              "end_daf": 87.69,
+              "chars": 15
+            },
+            {
+              "ot": 3,
+              "start_daf": 87.69,
+              "end_daf": 87.71,
+              "chars": 101
+            }
+          ],
+          "end_daf": 87.71
+        }
+      ],
+      "end_daf": 87.71
+    },
+    {
+      "name_en": "Laws of a Bill of Marriage",
+      "name_he": "הלכות כתובות",
+      "name_short": "Hilkhot a Bill of Marriage",
+      "start_daf": 87.71,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 87.71,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 87.71,
+              "end_daf": 87.73,
+              "chars": 96
+            },
+            {
+              "ot": 2,
+              "start_daf": 87.73,
+              "end_daf": 87.96,
+              "chars": 1305
+            },
+            {
+              "ot": 3,
+              "start_daf": 87.96,
+              "end_daf": 88.13,
+              "chars": 913
+            },
+            {
+              "ot": 4,
+              "start_daf": 88.13,
+              "end_daf": 88.84,
+              "chars": 3886
+            },
+            {
+              "ot": 5,
+              "start_daf": 88.84,
+              "end_daf": 89.14,
+              "chars": 1675
+            },
+            {
+              "ot": 6,
+              "start_daf": 89.14,
+              "end_daf": 89.16,
+              "chars": 84
+            }
+          ],
+          "end_daf": 89.16
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 89.16,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 89.16,
+              "end_daf": 89.19,
+              "chars": 184
+            },
+            {
+              "ot": 2,
+              "start_daf": 89.19,
+              "end_daf": 89.47,
+              "chars": 1541
+            },
+            {
+              "ot": 3,
+              "start_daf": 89.47,
+              "end_daf": 90.09,
+              "chars": 3383
+            },
+            {
+              "ot": 4,
+              "start_daf": 90.09,
+              "end_daf": 90.72,
+              "chars": 3484
+            },
+            {
+              "ot": 5,
+              "start_daf": 90.72,
+              "end_daf": 90.73,
+              "chars": 36
+            },
+            {
+              "ot": 6,
+              "start_daf": 90.73,
+              "end_daf": 90.74,
+              "chars": 52
+            },
+            {
+              "ot": 7,
+              "start_daf": 90.74,
+              "end_daf": 90.74,
+              "chars": 52
+            },
+            {
+              "ot": 8,
+              "start_daf": 90.74,
+              "end_daf": 90.76,
+              "chars": 62
+            }
+          ],
+          "end_daf": 90.76
+        }
+      ],
+      "end_daf": 90.76
+    },
+    {
+      "name_en": "Laws of a Bill of Divorce",
+      "name_he": "הלכות גטין",
+      "name_short": "Hilkhot a Bill of Divorce",
+      "start_daf": 90.76,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 90.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 90.76,
+              "end_daf": 90.78,
+              "chars": 132
+            },
+            {
+              "ot": 2,
+              "start_daf": 90.78,
+              "end_daf": 90.93,
+              "chars": 809
+            },
+            {
+              "ot": 3,
+              "start_daf": 90.93,
+              "end_daf": 91.28,
+              "chars": 1937
+            },
+            {
+              "ot": 4,
+              "start_daf": 91.28,
+              "end_daf": 91.67,
+              "chars": 2122
+            },
+            {
+              "ot": 5,
+              "start_daf": 91.67,
+              "end_daf": 91.86,
+              "chars": 1085
+            },
+            {
+              "ot": 6,
+              "start_daf": 91.86,
+              "end_daf": 91.94,
+              "chars": 432
+            },
+            {
+              "ot": 7,
+              "start_daf": 91.94,
+              "end_daf": 92.02,
+              "chars": 435
+            },
+            {
+              "ot": 8,
+              "start_daf": 92.02,
+              "end_daf": 92.13,
+              "chars": 606
+            },
+            {
+              "ot": 9,
+              "start_daf": 92.13,
+              "end_daf": 92.26,
+              "chars": 715
+            },
+            {
+              "ot": 10,
+              "start_daf": 92.26,
+              "end_daf": 92.36,
+              "chars": 549
+            },
+            {
+              "ot": 11,
+              "start_daf": 92.36,
+              "end_daf": 92.37,
+              "chars": 82
+            }
+          ],
+          "end_daf": 92.37
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 92.37,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 92.37,
+              "end_daf": 92.4,
+              "chars": 160
+            },
+            {
+              "ot": 2,
+              "start_daf": 92.4,
+              "end_daf": 92.52,
+              "chars": 648
+            },
+            {
+              "ot": 3,
+              "start_daf": 92.52,
+              "end_daf": 92.84,
+              "chars": 1756
+            },
+            {
+              "ot": 4,
+              "start_daf": 92.84,
+              "end_daf": 93.23,
+              "chars": 2157
+            },
+            {
+              "ot": 5,
+              "start_daf": 93.23,
+              "end_daf": 93.45,
+              "chars": 1167
+            },
+            {
+              "ot": 6,
+              "start_daf": 93.45,
+              "end_daf": 93.67,
+              "chars": 1256
+            }
+          ],
+          "end_daf": 93.67
+        },
+        {
+          "halakha": 3,
+          "siman": 1,
+          "start_daf": 93.67,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 93.67,
+              "end_daf": 93.69,
+              "chars": 114
+            },
+            {
+              "ot": 2,
+              "start_daf": 93.69,
+              "end_daf": 94.44,
+              "chars": 4107
+            }
+          ],
+          "end_daf": 94.44
+        },
+        {
+          "halakha": 3,
+          "siman": 2,
+          "start_daf": 94.44,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 94.44,
+              "end_daf": 94.7,
+              "chars": 1407
+            },
+            {
+              "ot": 2,
+              "start_daf": 94.7,
+              "end_daf": 95.06,
+              "chars": 2019
+            },
+            {
+              "ot": 3,
+              "start_daf": 95.06,
+              "end_daf": 95.47,
+              "chars": 2250
+            }
+          ],
+          "end_daf": 95.47
+        },
+        {
+          "halakha": 3,
+          "siman": 3,
+          "start_daf": 95.47,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 95.47,
+              "end_daf": 95.85,
+              "chars": 2095
+            }
+          ],
+          "end_daf": 95.85
+        },
+        {
+          "halakha": 3,
+          "siman": 4,
+          "start_daf": 95.85,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 95.85,
+              "end_daf": 96.78,
+              "chars": 5075
+            }
+          ],
+          "end_daf": 96.78
+        },
+        {
+          "halakha": 3,
+          "siman": 5,
+          "start_daf": 96.78,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 96.78,
+              "end_daf": 97.62,
+              "chars": 4654
+            },
+            {
+              "ot": 2,
+              "start_daf": 97.62,
+              "end_daf": 97.76,
+              "chars": 732
+            },
+            {
+              "ot": 3,
+              "start_daf": 97.76,
+              "end_daf": 97.99,
+              "chars": 1292
+            }
+          ],
+          "end_daf": 97.99
+        },
+        {
+          "halakha": 3,
+          "siman": 6,
+          "start_daf": 97.99,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 97.99,
+              "end_daf": 98.31,
+              "chars": 1734
+            }
+          ],
+          "end_daf": 98.31
+        },
+        {
+          "halakha": 3,
+          "siman": 7,
+          "start_daf": 98.31,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 98.31,
+              "end_daf": 98.41,
+              "chars": 551
+            }
+          ],
+          "end_daf": 98.41
+        },
+        {
+          "halakha": 3,
+          "siman": 8,
+          "start_daf": 98.41,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 98.41,
+              "end_daf": 98.71,
+              "chars": 1678
+            }
+          ],
+          "end_daf": 98.71
+        },
+        {
+          "halakha": 3,
+          "siman": 9,
+          "start_daf": 98.71,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 98.71,
+              "end_daf": 99.55,
+              "chars": 4617
+            }
+          ],
+          "end_daf": 99.55
+        },
+        {
+          "halakha": 3,
+          "siman": 10,
+          "start_daf": 99.55,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 99.55,
+              "end_daf": 99.68,
+              "chars": 706
+            },
+            {
+              "ot": 2,
+              "start_daf": 99.68,
+              "end_daf": 99.73,
+              "chars": 287
+            },
+            {
+              "ot": 3,
+              "start_daf": 99.73,
+              "end_daf": 99.93,
+              "chars": 1074
+            }
+          ],
+          "end_daf": 99.93
+        },
+        {
+          "halakha": 3,
+          "siman": 11,
+          "start_daf": 99.93,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 99.93,
+              "end_daf": 100.14,
+              "chars": 1158
+            }
+          ],
+          "end_daf": 100.14
+        },
+        {
+          "halakha": 3,
+          "siman": 12,
+          "start_daf": 100.14,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 100.14,
+              "end_daf": 100.34,
+              "chars": 1097
+            }
+          ],
+          "end_daf": 100.34
+        },
+        {
+          "halakha": 3,
+          "siman": 13,
+          "start_daf": 100.34,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 100.34,
+              "end_daf": 100.8,
+              "chars": 2533
+            }
+          ],
+          "end_daf": 100.8
+        },
+        {
+          "halakha": 3,
+          "siman": 14,
+          "start_daf": 100.8,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 100.8,
+              "end_daf": 101.83,
+              "chars": 5669
+            }
+          ],
+          "end_daf": 101.83
+        },
+        {
+          "halakha": 3,
+          "siman": 15,
+          "start_daf": 101.83,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 101.83,
+              "end_daf": 102.51,
+              "chars": 3756
+            }
+          ],
+          "end_daf": 102.51
+        },
+        {
+          "halakha": 3,
+          "siman": 16,
+          "start_daf": 102.51,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 102.51,
+              "end_daf": 102.57,
+              "chars": 326
+            },
+            {
+              "ot": 2,
+              "start_daf": 102.57,
+              "end_daf": 103.15,
+              "chars": 3200
+            },
+            {
+              "ot": 3,
+              "start_daf": 103.15,
+              "end_daf": 103.6,
+              "chars": 2475
+            }
+          ],
+          "end_daf": 103.6
+        },
+        {
+          "halakha": 3,
+          "siman": 17,
+          "start_daf": 103.6,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 103.6,
+              "end_daf": 103.81,
+              "chars": 1155
+            }
+          ],
+          "end_daf": 103.81
+        },
+        {
+          "halakha": 3,
+          "siman": 18,
+          "start_daf": 103.81,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 103.81,
+              "end_daf": 103.85,
+              "chars": 201
+            },
+            {
+              "ot": 2,
+              "start_daf": 103.85,
+              "end_daf": 104.9,
+              "chars": 5789
+            },
+            {
+              "ot": 3,
+              "start_daf": 104.9,
+              "end_daf": 105.03,
+              "chars": 712
+            }
+          ],
+          "end_daf": 105.03
+        },
+        {
+          "halakha": 3,
+          "siman": 19,
+          "start_daf": 105.03,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 105.03,
+              "end_daf": 105.7,
+              "chars": 3658
+            }
+          ],
+          "end_daf": 105.7
+        },
+        {
+          "halakha": 3,
+          "siman": 20,
+          "start_daf": 105.7,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 105.7,
+              "end_daf": 106.42,
+              "chars": 3971
+            },
+            {
+              "ot": 2,
+              "start_daf": 106.42,
+              "end_daf": 106.92,
+              "chars": 2774
+            }
+          ],
+          "end_daf": 106.92
+        },
+        {
+          "halakha": 3,
+          "siman": 21,
+          "start_daf": 106.92,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 106.92,
+              "end_daf": 107.41,
+              "chars": 2705
+            }
+          ],
+          "end_daf": 107.41
+        },
+        {
+          "halakha": 3,
+          "siman": 22,
+          "start_daf": 107.41,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 107.41,
+              "end_daf": 107.82,
+              "chars": 2245
+            }
+          ],
+          "end_daf": 107.82
+        },
+        {
+          "halakha": 3,
+          "siman": 23,
+          "start_daf": 107.82,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 107.82,
+              "end_daf": 107.88,
+              "chars": 315
+            },
+            {
+              "ot": 2,
+              "start_daf": 107.88,
+              "end_daf": 108.77,
+              "chars": 4919
+            }
+          ],
+          "end_daf": 108.77
+        },
+        {
+          "halakha": 3,
+          "siman": 24,
+          "start_daf": 108.77,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 108.77,
+              "end_daf": 109.5,
+              "chars": 3975
+            },
+            {
+              "ot": 2,
+              "start_daf": 109.5,
+              "end_daf": 109.82,
+              "chars": 1798
+            },
+            {
+              "ot": 3,
+              "start_daf": 109.82,
+              "end_daf": 110.32,
+              "chars": 2725
+            },
+            {
+              "ot": 4,
+              "start_daf": 110.32,
+              "end_daf": 110.73,
+              "chars": 2264
+            }
+          ],
+          "end_daf": 110.73
+        },
+        {
+          "halakha": 3,
+          "siman": 25,
+          "start_daf": 110.73,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 110.73,
+              "end_daf": 111.06,
+              "chars": 1819
+            },
+            {
+              "ot": 2,
+              "start_daf": 111.06,
+              "end_daf": 111.07,
+              "chars": 36
+            }
+          ],
+          "end_daf": 111.07
+        },
+        {
+          "halakha": 3,
+          "siman": 26,
+          "start_daf": 111.07,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 111.07,
+              "end_daf": 111.83,
+              "chars": 4201
+            }
+          ],
+          "end_daf": 111.83
+        },
+        {
+          "halakha": 3,
+          "siman": 27,
+          "start_daf": 111.83,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 111.83,
+              "end_daf": 112.02,
+              "chars": 1045
+            },
+            {
+              "ot": 2,
+              "start_daf": 112.02,
+              "end_daf": 112.16,
+              "chars": 737
+            },
+            {
+              "ot": 3,
+              "start_daf": 112.16,
+              "end_daf": 112.16,
+              "chars": 17
+            }
+          ],
+          "end_daf": 112.16
+        },
+        {
+          "halakha": 3,
+          "siman": 28,
+          "start_daf": 112.16,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 112.16,
+              "end_daf": 113.04,
+              "chars": 4856
+            },
+            {
+              "ot": 2,
+              "start_daf": 113.04,
+              "end_daf": 113.05,
+              "chars": 36
+            },
+            {
+              "ot": 3,
+              "start_daf": 113.05,
+              "end_daf": 113.21,
+              "chars": 900
+            }
+          ],
+          "end_daf": 113.21
+        },
+        {
+          "halakha": 4,
+          "siman": 1,
+          "start_daf": 113.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 113.21,
+              "end_daf": 113.23,
+              "chars": 103
+            },
+            {
+              "ot": 2,
+              "start_daf": 113.23,
+              "end_daf": 113.46,
+              "chars": 1260
+            }
+          ],
+          "end_daf": 113.46
+        },
+        {
+          "halakha": 4,
+          "siman": 2,
+          "start_daf": 113.46,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 113.46,
+              "end_daf": 113.88,
+              "chars": 2321
+            }
+          ],
+          "end_daf": 113.88
+        },
+        {
+          "halakha": 4,
+          "siman": 3,
+          "start_daf": 113.88,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 113.88,
+              "end_daf": 114.28,
+              "chars": 2205
+            },
+            {
+              "ot": 2,
+              "start_daf": 114.28,
+              "end_daf": 114.66,
+              "chars": 2085
+            },
+            {
+              "ot": 3,
+              "start_daf": 114.66,
+              "end_daf": 115.14,
+              "chars": 2606
+            }
+          ],
+          "end_daf": 115.14
+        },
+        {
+          "halakha": 4,
+          "siman": 4,
+          "start_daf": 115.14,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 115.14,
+              "end_daf": 115.37,
+              "chars": 1302
+            }
+          ],
+          "end_daf": 115.37
+        },
+        {
+          "halakha": 4,
+          "siman": 5,
+          "start_daf": 115.37,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 115.37,
+              "end_daf": 115.79,
+              "chars": 2294
+            }
+          ],
+          "end_daf": 115.79
+        },
+        {
+          "halakha": 4,
+          "siman": 6,
+          "start_daf": 115.79,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 115.79,
+              "end_daf": 116.27,
+              "chars": 2644
+            }
+          ],
+          "end_daf": 116.27
+        },
+        {
+          "halakha": 4,
+          "siman": 7,
+          "start_daf": 116.27,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 116.27,
+              "end_daf": 116.81,
+              "chars": 2993
+            },
+            {
+              "ot": 2,
+              "start_daf": 116.81,
+              "end_daf": 116.82,
+              "chars": 39
+            }
+          ],
+          "end_daf": 116.82
+        },
+        {
+          "halakha": 4,
+          "siman": 8,
+          "start_daf": 116.82,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 116.82,
+              "end_daf": 117.5,
+              "chars": 3749
+            },
+            {
+              "ot": 2,
+              "start_daf": 117.5,
+              "end_daf": 118.03,
+              "chars": 2894
+            }
+          ],
+          "end_daf": 118.03
+        },
+        {
+          "halakha": 4,
+          "siman": 9,
+          "start_daf": 118.03,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 118.03,
+              "end_daf": 119.5,
+              "chars": 8063
+            }
+          ],
+          "end_daf": 119.5
+        },
+        {
+          "halakha": 4,
+          "siman": 10,
+          "start_daf": 119.5,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 119.5,
+              "end_daf": 119.64,
+              "chars": 809
+            }
+          ],
+          "end_daf": 119.64
+        },
+        {
+          "halakha": 4,
+          "siman": 11,
+          "start_daf": 119.64,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 119.64,
+              "end_daf": 119.84,
+              "chars": 1097
+            }
+          ],
+          "end_daf": 119.84
+        },
+        {
+          "halakha": 4,
+          "siman": 12,
+          "start_daf": 119.84,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 119.84,
+              "end_daf": 120.18,
+              "chars": 1869
+            }
+          ],
+          "end_daf": 120.18
+        },
+        {
+          "halakha": 4,
+          "siman": 13,
+          "start_daf": 120.18,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 120.18,
+              "end_daf": 121.04,
+              "chars": 4702
+            },
+            {
+              "ot": 2,
+              "start_daf": 121.04,
+              "end_daf": 121.06,
+              "chars": 135
+            },
+            {
+              "ot": 3,
+              "start_daf": 121.06,
+              "end_daf": 121.06,
+              "chars": 17
+            }
+          ],
+          "end_daf": 121.06
+        },
+        {
+          "halakha": 4,
+          "siman": 14,
+          "start_daf": 121.06,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 121.06,
+              "end_daf": 121.47,
+              "chars": 2260
+            },
+            {
+              "ot": 2,
+              "start_daf": 121.47,
+              "end_daf": 122.31,
+              "chars": 4570
+            },
+            {
+              "ot": 3,
+              "start_daf": 122.31,
+              "end_daf": 122.4,
+              "chars": 540
+            },
+            {
+              "ot": 4,
+              "start_daf": 122.4,
+              "end_daf": 122.41,
+              "chars": 36
+            }
+          ],
+          "end_daf": 122.41
+        }
+      ],
+      "end_daf": 122.41
+    },
+    {
+      "name_en": "Laws of Levirate Marriage",
+      "name_he": "הלכות יבום",
+      "name_short": "Hilkhot Levirate Marriage",
+      "start_daf": 122.41,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 122.41,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 122.41,
+              "end_daf": 122.54,
+              "chars": 698
+            }
+          ],
+          "end_daf": 122.54
+        },
+        {
+          "halakha": 1,
+          "siman": 2,
+          "start_daf": 122.54,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 122.54,
+              "end_daf": 123.01,
+              "chars": 2591
+            },
+            {
+              "ot": 2,
+              "start_daf": 123.01,
+              "end_daf": 123.84,
+              "chars": 4554
+            }
+          ],
+          "end_daf": 123.84
+        },
+        {
+          "halakha": 1,
+          "siman": 3,
+          "start_daf": 123.84,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 123.84,
+              "end_daf": 124.08,
+              "chars": 1343
+            }
+          ],
+          "end_daf": 124.08
+        },
+        {
+          "halakha": 1,
+          "siman": 4,
+          "start_daf": 124.08,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 124.08,
+              "end_daf": 124.52,
+              "chars": 2392
+            }
+          ],
+          "end_daf": 124.52
+        },
+        {
+          "halakha": 1,
+          "siman": 5,
+          "start_daf": 124.52,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 124.52,
+              "end_daf": 124.77,
+              "chars": 1402
+            },
+            {
+              "ot": 2,
+              "start_daf": 124.77,
+              "end_daf": 124.95,
+              "chars": 1004
+            }
+          ],
+          "end_daf": 124.95
+        },
+        {
+          "halakha": 1,
+          "siman": 6,
+          "start_daf": 124.95,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 124.95,
+              "end_daf": 125.24,
+              "chars": 1562
+            },
+            {
+              "ot": 2,
+              "start_daf": 125.24,
+              "end_daf": 125.86,
+              "chars": 3434
+            }
+          ],
+          "end_daf": 125.86
+        },
+        {
+          "halakha": 1,
+          "siman": 7,
+          "start_daf": 125.86,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 125.86,
+              "end_daf": 125.95,
+              "chars": 494
+            },
+            {
+              "ot": 2,
+              "start_daf": 125.95,
+              "end_daf": 125.95,
+              "chars": 17
+            },
+            {
+              "ot": 3,
+              "start_daf": 125.95,
+              "end_daf": 125.95,
+              "chars": 1
+            }
+          ],
+          "end_daf": 125.95
+        },
+        {
+          "halakha": 1,
+          "siman": 8,
+          "start_daf": 125.95,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 125.95,
+              "end_daf": 126.24,
+              "chars": 1570
+            },
+            {
+              "ot": 2,
+              "start_daf": 126.24,
+              "end_daf": 126.25,
+              "chars": 36
+            }
+          ],
+          "end_daf": 126.25
+        },
+        {
+          "halakha": 2,
+          "siman": 1,
+          "start_daf": 126.25,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 126.25,
+              "end_daf": 126.27,
+              "chars": 124
+            },
+            {
+              "ot": 2,
+              "start_daf": 126.27,
+              "end_daf": 126.32,
+              "chars": 294
+            },
+            {
+              "ot": 3,
+              "start_daf": 126.32,
+              "end_daf": 126.81,
+              "chars": 2664
+            }
+          ],
+          "end_daf": 126.81
+        },
+        {
+          "halakha": 2,
+          "siman": 2,
+          "start_daf": 126.81,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 126.81,
+              "end_daf": 126.96,
+              "chars": 859
+            }
+          ],
+          "end_daf": 126.96
+        },
+        {
+          "halakha": 2,
+          "siman": 3,
+          "start_daf": 126.96,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 126.96,
+              "end_daf": 127.52,
+              "chars": 3068
+            },
+            {
+              "ot": 2,
+              "start_daf": 127.52,
+              "end_daf": 127.52,
+              "chars": 1
+            }
+          ],
+          "end_daf": 127.52
+        },
+        {
+          "halakha": 2,
+          "siman": 4,
+          "start_daf": 127.52,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 127.52,
+              "end_daf": 127.67,
+              "chars": 796
+            }
+          ],
+          "end_daf": 127.67
+        },
+        {
+          "halakha": 2,
+          "siman": 5,
+          "start_daf": 127.67,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 127.67,
+              "end_daf": 128.47,
+              "chars": 4402
+            }
+          ],
+          "end_daf": 128.47
+        },
+        {
+          "halakha": 2,
+          "siman": 6,
+          "start_daf": 128.47,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 128.47,
+              "end_daf": 128.65,
+              "chars": 1016
+            },
+            {
+              "ot": 2,
+              "start_daf": 128.65,
+              "end_daf": 128.69,
+              "chars": 215
+            }
+          ],
+          "end_daf": 128.69
+        },
+        {
+          "halakha": 2,
+          "siman": 7,
+          "start_daf": 128.69,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 128.69,
+              "end_daf": 128.79,
+              "chars": 533
+            }
+          ],
+          "end_daf": 128.79
+        },
+        {
+          "halakha": 3,
+          "siman": 1,
+          "start_daf": 128.79,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 128.79,
+              "end_daf": 128.82,
+              "chars": 192
+            },
+            {
+              "ot": 2,
+              "start_daf": 128.82,
+              "end_daf": 129.57,
+              "chars": 4107
+            }
+          ],
+          "end_daf": 129.57
+        },
+        {
+          "halakha": 3,
+          "siman": 2,
+          "start_daf": 129.57,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 129.57,
+              "end_daf": 130.39,
+              "chars": 4497
+            },
+            {
+              "ot": 2,
+              "start_daf": 130.39,
+              "end_daf": 130.76,
+              "chars": 2051
+            }
+          ],
+          "end_daf": 130.76
+        },
+        {
+          "halakha": 3,
+          "siman": 3,
+          "start_daf": 130.76,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 130.76,
+              "end_daf": 131.08,
+              "chars": 1764
+            }
+          ],
+          "end_daf": 131.08
+        },
+        {
+          "halakha": 3,
+          "siman": 4,
+          "start_daf": 131.08,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 131.08,
+              "end_daf": 131.15,
+              "chars": 394
+            },
+            {
+              "ot": 2,
+              "start_daf": 131.15,
+              "end_daf": 131.66,
+              "chars": 2786
+            }
+          ],
+          "end_daf": 131.66
+        },
+        {
+          "halakha": 3,
+          "siman": 5,
+          "start_daf": 131.66,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 131.66,
+              "end_daf": 133.02,
+              "chars": 7473
+            }
+          ],
+          "end_daf": 133.02
+        },
+        {
+          "halakha": 3,
+          "siman": 6,
+          "start_daf": 133.02,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 133.02,
+              "end_daf": 134.22,
+              "chars": 6643
+            },
+            {
+              "ot": 2,
+              "start_daf": 134.22,
+              "end_daf": 134.4,
+              "chars": 946
+            }
+          ],
+          "end_daf": 134.4
+        },
+        {
+          "halakha": 3,
+          "siman": 7,
+          "start_daf": 134.4,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 134.4,
+              "end_daf": 135.15,
+              "chars": 4148
+            },
+            {
+              "ot": 2,
+              "start_daf": 135.15,
+              "end_daf": 135.27,
+              "chars": 675
+            }
+          ],
+          "end_daf": 135.27
+        },
+        {
+          "halakha": 3,
+          "siman": 8,
+          "start_daf": 135.27,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 135.27,
+              "end_daf": 135.95,
+              "chars": 3731
+            },
+            {
+              "ot": 2,
+              "start_daf": 135.95,
+              "end_daf": 136.13,
+              "chars": 975
+            },
+            {
+              "ot": 3,
+              "start_daf": 136.13,
+              "end_daf": 136.36,
+              "chars": 1269
+            }
+          ],
+          "end_daf": 136.36
+        },
+        {
+          "halakha": 3,
+          "siman": 9,
+          "start_daf": 136.36,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 136.36,
+              "end_daf": 136.45,
+              "chars": 492
+            },
+            {
+              "ot": 2,
+              "start_daf": 136.45,
+              "end_daf": 136.9,
+              "chars": 2497
+            }
+          ],
+          "end_daf": 136.9
+        },
+        {
+          "halakha": 3,
+          "siman": 10,
+          "start_daf": 136.9,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 136.9,
+              "end_daf": 137.23,
+              "chars": 1791
+            },
+            {
+              "ot": 2,
+              "start_daf": 137.23,
+              "end_daf": 137.66,
+              "chars": 2348
+            },
+            {
+              "ot": 3,
+              "start_daf": 137.66,
+              "end_daf": 138.4,
+              "chars": 4089
+            }
+          ],
+          "end_daf": 138.4
+        },
+        {
+          "halakha": 3,
+          "siman": 11,
+          "start_daf": 138.4,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 138.4,
+              "end_daf": 139.46,
+              "chars": 5853
+            },
+            {
+              "ot": 2,
+              "start_daf": 139.46,
+              "end_daf": 139.47,
+              "chars": 37
+            },
+            {
+              "ot": 3,
+              "start_daf": 139.47,
+              "end_daf": 139.56,
+              "chars": 511
+            }
+          ],
+          "end_daf": 139.56
+        },
+        {
+          "halakha": 3,
+          "siman": 12,
+          "start_daf": 139.56,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 139.56,
+              "end_daf": 139.62,
+              "chars": 292
+            }
+          ],
+          "end_daf": 139.62
+        },
+        {
+          "halakha": 3,
+          "siman": 13,
+          "start_daf": 139.62,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 139.62,
+              "end_daf": 139.75,
+              "chars": 756
+            }
+          ],
+          "end_daf": 139.75
+        },
+        {
+          "halakha": 3,
+          "siman": 14,
+          "start_daf": 139.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 139.75,
+              "end_daf": 139.99,
+              "chars": 1289
+            }
+          ],
+          "end_daf": 139.99
+        },
+        {
+          "halakha": 3,
+          "siman": 15,
+          "start_daf": 139.99,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 139.99,
+              "end_daf": 140.51,
+              "chars": 2860
+            }
+          ],
+          "end_daf": 140.51
+        },
+        {
+          "halakha": 3,
+          "siman": 16,
+          "start_daf": 140.51,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 140.51,
+              "end_daf": 141.24,
+              "chars": 4051
+            }
+          ],
+          "end_daf": 141.24
+        },
+        {
+          "halakha": 3,
+          "siman": 17,
+          "start_daf": 141.24,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 141.24,
+              "end_daf": 142.06,
+              "chars": 4492
+            },
+            {
+              "ot": 2,
+              "start_daf": 142.06,
+              "end_daf": 142.89,
+              "chars": 4546
+            },
+            {
+              "ot": 3,
+              "start_daf": 142.89,
+              "end_daf": 143.75,
+              "chars": 4755
+            }
+          ],
+          "end_daf": 143.75
+        },
+        {
+          "halakha": 3,
+          "siman": 18,
+          "start_daf": 143.75,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 143.75,
+              "end_daf": 144.01,
+              "chars": 1400
+            }
+          ],
+          "end_daf": 144.01
+        },
+        {
+          "halakha": 3,
+          "siman": 19,
+          "start_daf": 144.01,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 144.01,
+              "end_daf": 144.21,
+              "chars": 1135
+            },
+            {
+              "ot": 2,
+              "start_daf": 144.21,
+              "end_daf": 144.69,
+              "chars": 2642
+            }
+          ],
+          "end_daf": 144.69
+        },
+        {
+          "halakha": 3,
+          "siman": 20,
+          "start_daf": 144.69,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 144.69,
+              "end_daf": 145.87,
+              "chars": 6479
+            }
+          ],
+          "end_daf": 145.87
+        },
+        {
+          "halakha": 3,
+          "siman": 21,
+          "start_daf": 145.87,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 145.87,
+              "end_daf": 146.1,
+              "chars": 1255
+            }
+          ],
+          "end_daf": 146.1
+        },
+        {
+          "halakha": 3,
+          "siman": 22,
+          "start_daf": 146.1,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 146.1,
+              "end_daf": 146.21,
+              "chars": 585
+            }
+          ],
+          "end_daf": 146.21
+        },
+        {
+          "halakha": 3,
+          "siman": 23,
+          "start_daf": 146.21,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 146.21,
+              "end_daf": 146.55,
+              "chars": 1872
+            }
+          ],
+          "end_daf": 146.55
+        },
+        {
+          "halakha": 3,
+          "siman": 24,
+          "start_daf": 146.55,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 146.55,
+              "end_daf": 146.75,
+              "chars": 1144
+            },
+            {
+              "ot": 2,
+              "start_daf": 146.75,
+              "end_daf": 146.92,
+              "chars": 932
+            }
+          ],
+          "end_daf": 146.92
+        },
+        {
+          "halakha": 3,
+          "siman": 25,
+          "start_daf": 146.92,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 146.92,
+              "end_daf": 147.3,
+              "chars": 2057
+            },
+            {
+              "ot": 2,
+              "start_daf": 147.3,
+              "end_daf": 147.39,
+              "chars": 518
+            }
+          ],
+          "end_daf": 147.39
+        },
+        {
+          "halakha": 3,
+          "siman": 26,
+          "start_daf": 147.39,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 147.39,
+              "end_daf": 148.11,
+              "chars": 3929
+            },
+            {
+              "ot": 2,
+              "start_daf": 148.11,
+              "end_daf": 148.19,
+              "chars": 437
+            },
+            {
+              "ot": 3,
+              "start_daf": 148.19,
+              "end_daf": 148.22,
+              "chars": 212
+            }
+          ],
+          "end_daf": 148.22
+        },
+        {
+          "halakha": 3,
+          "siman": 27,
+          "start_daf": 148.22,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 148.22,
+              "end_daf": 149.02,
+              "chars": 4360
+            }
+          ],
+          "end_daf": 149.02
+        },
+        {
+          "halakha": 3,
+          "siman": 28,
+          "start_daf": 149.02,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 149.02,
+              "end_daf": 149.24,
+              "chars": 1211
+            }
+          ],
+          "end_daf": 149.24
+        },
+        {
+          "halakha": 3,
+          "siman": 29,
+          "start_daf": 149.24,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 149.24,
+              "end_daf": 149.85,
+              "chars": 3349
+            },
+            {
+              "ot": 2,
+              "start_daf": 149.85,
+              "end_daf": 150.23,
+              "chars": 2088
+            },
+            {
+              "ot": 3,
+              "start_daf": 150.23,
+              "end_daf": 150.23,
+              "chars": 36
+            },
+            {
+              "ot": 4,
+              "start_daf": 150.23,
+              "end_daf": 150.25,
+              "chars": 80
+            },
+            {
+              "ot": 5,
+              "start_daf": 150.25,
+              "end_daf": 150.26,
+              "chars": 49
+            },
+            {
+              "ot": 6,
+              "start_daf": 150.26,
+              "end_daf": 150.27,
+              "chars": 62
+            }
+          ],
+          "end_daf": 150.27
+        }
+      ],
+      "end_daf": 150.27
+    },
+    {
+      "name_en": "Laws of Adulterer",
+      "name_he": "הלכות סוטה",
+      "name_short": "Hilkhot Adulterer",
+      "start_daf": 150.27,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 150.27,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 150.27,
+              "end_daf": 150.29,
+              "chars": 125
+            },
+            {
+              "ot": 2,
+              "start_daf": 150.29,
+              "end_daf": 150.42,
+              "chars": 700
+            },
+            {
+              "ot": 3,
+              "start_daf": 150.42,
+              "end_daf": 150.49,
+              "chars": 379
+            },
+            {
+              "ot": 4,
+              "start_daf": 150.49,
+              "end_daf": 150.68,
+              "chars": 1079
+            },
+            {
+              "ot": 5,
+              "start_daf": 150.68,
+              "end_daf": 151.29,
+              "chars": 3326
+            },
+            {
+              "ot": 6,
+              "start_daf": 151.29,
+              "end_daf": 151.78,
+              "chars": 2685
+            },
+            {
+              "ot": 7,
+              "start_daf": 151.78,
+              "end_daf": 151.86,
+              "chars": 442
+            },
+            {
+              "ot": 8,
+              "start_daf": 151.86,
+              "end_daf": 151.96,
+              "chars": 594
+            },
+            {
+              "ot": 9,
+              "start_daf": 151.96,
+              "end_daf": 152.13,
+              "chars": 897
+            },
+            {
+              "ot": 10,
+              "start_daf": 152.13,
+              "end_daf": 152.14,
+              "chars": 76
+            },
+            {
+              "ot": 11,
+              "start_daf": 152.14,
+              "end_daf": 152.15,
+              "chars": 26
+            }
+          ],
+          "end_daf": 152.15
+        }
+      ],
+      "end_daf": 152.15
+    },
+    {
+      "name_en": "Laws of Rape and Seduction",
+      "name_he": "הלכות אונס ומפתה",
+      "name_short": "Hilkhot Rape and Seduction",
+      "start_daf": 152.15,
+      "simanim": [
+        {
+          "halakha": 1,
+          "siman": 1,
+          "start_daf": 152.15,
+          "otot": [
+            {
+              "ot": 1,
+              "start_daf": 152.15,
+              "end_daf": 152.16,
+              "chars": 57
+            },
+            {
+              "ot": 2,
+              "start_daf": 152.16,
+              "end_daf": 152.24,
+              "chars": 486
+            },
+            {
+              "ot": 3,
+              "start_daf": 152.24,
+              "end_daf": 152.78,
+              "chars": 2944
+            },
+            {
+              "ot": 4,
+              "start_daf": 152.78,
+              "end_daf": 152.85,
+              "chars": 413
+            },
+            {
+              "ot": 5,
+              "start_daf": 152.85,
+              "end_daf": 153.12,
+              "chars": 1448
+            },
+            {
+              "ot": 6,
+              "start_daf": 153.12,
+              "end_daf": 153.18,
+              "chars": 324
+            },
+            {
+              "ot": 7,
+              "start_daf": 153.18,
+              "end_daf": 153.18,
+              "chars": 45
+            },
+            {
+              "ot": 8,
+              "start_daf": 153.18,
+              "end_daf": 153.2,
+              "chars": 69
+            }
+          ],
+          "end_daf": 153.2
+        }
+      ],
+      "end_daf": 153.2
+    }
+  ]
+}
