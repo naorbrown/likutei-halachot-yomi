@@ -17,6 +17,7 @@ from .hebrew_calendar import (
     MONTH_ADAR, MONTH_ADAR_II, MONTH_NISAN, MONTH_IYAR, MONTH_SIVAN,
     MONTH_TAMMUZ, MONTH_AV, MONTH_ELUL, get_month_length
 )
+from .daf_mapper import get_daf_mapper, DafMapper
 
 logger = logging.getLogger(__name__)
 
@@ -398,6 +399,14 @@ class ScheduleManager:
         self.data_dir = data_dir
         self.ashreinu_schedule_file = data_dir / "ashreinu_schedule_5786.json"
         self._schedule: Optional[Dict] = None
+        self._daf_mapper: Optional[DafMapper] = None
+
+    @property
+    def daf_mapper(self) -> DafMapper:
+        """Get or create the DafMapper instance."""
+        if self._daf_mapper is None:
+            self._daf_mapper = get_daf_mapper(self.data_dir)
+        return self._daf_mapper
 
     def load_schedule(self) -> Dict:
         """Load the Ashreinu schedule from JSON file."""
@@ -455,25 +464,61 @@ class ScheduleManager:
 
         # Handle special cases like "hakdama" (introduction)
         if daf == "hakdama":
-            ref = f"Likutei Halakhot, {volume.replace('_', ' ')} {part}, Introduction"
+            ref = f"Likutei_Halakhot,_Author's_Introduction"
             he_ref = self._build_hebrew_ref(volume, part, daf)
             description = f"הקדמה - {parsha}" if parsha else "הקדמה"
+            portion = DailyPortion(
+                ref=ref,
+                he_ref=he_ref,
+                description=description,
+                section_name=f"{volume.replace('_', ' ')} Part {part}",
+                chapter=0,
+                subsection=0,
+            )
+            return [portion]
+
+        # Try to get valid Sefaria reference using daf mapper
+        sefaria_ref = self.daf_mapper.get_sefaria_ref(volume, part, daf)
+
+        if sefaria_ref:
+            # We have a valid Sefaria reference
+            description_parts = [f"דף {daf}"]
+            if sefaria_ref.halakha_he:
+                description_parts.append(sefaria_ref.halakha_he)
+            if parsha:
+                description_parts.append(parsha)
+            description = " - ".join(description_parts)
+
+            if note:
+                description += f" ({note})"
+
+            portion = DailyPortion(
+                ref=sefaria_ref.ref,
+                he_ref=sefaria_ref.he_ref,
+                description=description,
+                section_name=f"{volume.replace('_', ' ')} Part {part}",
+                chapter=daf,
+                subsection=sefaria_ref.ot,
+            )
         else:
+            # No daf mapping available - use fallback reference
+            # This won't fetch text from Sefaria but will still show HebrewBooks link
+            logger.warning(f"No daf mapping for {volume} Part {part} daf {daf}, using fallback")
             ref = self._build_sefaria_ref(volume, part, daf)
             he_ref = self._build_hebrew_ref(volume, part, daf)
             description = f"דף {daf} - {parsha}" if parsha else f"דף {daf}"
 
-        if note:
-            description += f" ({note})"
+            if note:
+                description += f" ({note})"
 
-        portion = DailyPortion(
-            ref=ref,
-            he_ref=he_ref,
-            description=description,
-            section_name=f"{volume.replace('_', ' ')} Part {part}",
-            chapter=daf if isinstance(daf, int) else 0,
-            subsection=0,
-        )
+            portion = DailyPortion(
+                ref=ref,
+                he_ref=he_ref,
+                description=description,
+                section_name=f"{volume.replace('_', ' ')} Part {part}",
+                chapter=daf,
+                subsection=0,
+            )
 
         return [portion]
 

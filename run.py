@@ -36,6 +36,11 @@ def parse_args():
         help="Run in test mode (don't send to Telegram)",
     )
     parser.add_argument(
+        "--serve",
+        action="store_true",
+        help="Run as interactive bot (long-polling mode)",
+    )
+    parser.add_argument(
         "--date",
         type=str,
         help="Override date (YYYY-MM-DD format)",
@@ -105,7 +110,19 @@ async def async_main():
         print(preview)
         return 0
 
-    # Run the bot
+    if args.serve:
+        # Run as interactive bot
+        from src.telegram_bot import InteractiveTelegramBot
+        print("Starting interactive bot...")
+        print("Press Ctrl+C to stop")
+        interactive_bot = InteractiveTelegramBot(config, app)
+        try:
+            await interactive_bot.run_polling()
+        except KeyboardInterrupt:
+            print("\nBot stopped.")
+        return 0
+
+    # Run the bot (one-shot mode for cron/GitHub Actions)
     success = await app.run(gregorian_date)
     return 0 if success else 1
 

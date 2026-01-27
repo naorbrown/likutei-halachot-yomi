@@ -1,11 +1,15 @@
 """
 Telegram bot for sending Likutei Halachot Yomi.
+
+Supports two modes:
+1. One-shot mode: Send daily portion via cron/GitHub Actions
+2. Interactive mode: Long-polling bot that responds to commands
 """
 
 import asyncio
 import logging
 import re
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 
 from telegram import Bot, Update, BotCommand
 from telegram.constants import ParseMode
@@ -14,6 +18,9 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 
 from .config import Config
 from .message_formatter import FormattedMessage
+
+if TYPE_CHECKING:
+    from .app import LikuteiHalachotYomiApp
 
 logger = logging.getLogger(__name__)
 
@@ -167,3 +174,164 @@ class TelegramBot:
         except TelegramError as e:
             logger.error(f"Failed to set bot description: {e}")
             return False
+
+
+class InteractiveTelegramBot:
+    """
+    Interactive Telegram bot that responds to commands.
+
+    This runs as a long-polling bot, listening for and responding to user commands.
+    """
+
+    def __init__(self, config: Config, app: "LikuteiHalachotYomiApp"):
+        self.config = config
+        self.app = app
+        self.application: Optional[Application] = None
+
+    async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /start command."""
+        welcome_message = """ברוכים הבאים לליקוטי הלכות יומי! 📖
+
+הבוט שולח כל יום את הדף היומי בליקוטי הלכות לפי לוח אשרינו הרשמי.
+
+פקודות זמינות:
+/today - קבל את ההלכה של היום
+/about - אודות הבוט
+/help - עזרה
+
+נ נח נחמ נחמן מאומן! 🙏"""
+
+        await update.message.reply_text(welcome_message)
+        logger.info(f"Start command from user {update.effective_user.id}")
+
+    async def today_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /today command - send today's portion."""
+        logger.info(f"Today command from user {update.effective_user.id}")
+
+        try:
+            # Get today's Hebrew date
+            from .hebrew_calendar import get_hebrew_date
+            hebrew_date = get_hebrew_date()
+
+            # Get daily portions
+            portions = self.app.schedule_manager.get_daily_portions(hebrew_date)
+
+            if not portions:
+                await update.message.reply_text(
+                    "לא נמצא לימוד להיום. נסה שוב מאוחר יותר."
+                )
+                return
+
+            # Fetch texts from Sefaria
+            sefaria_texts = []
+            for portion in portions:
+                logger.info(f"Fetching: {portion.ref}")
+                text = self.app.sefaria_client.get_text(portion.ref)
+                sefaria_texts.append(text)
+
+            # Format messages
+            messages = self.app.formatter.format_daily_message(
+                hebrew_date=hebrew_date,
+                portions=portions,
+                sefaria_texts=sefaria_texts,
+            )
+
+            # Send messages
+            for message in messages:
+                try:
+                    await update.message.reply_text(
+                        text=message.text,
+                        parse_mode=message.parse_mode,
+                        disable_web_page_preview=False,
+                    )
+                except TelegramError as e:
+                    logger.error(f"Error sending message: {e}")
+                    # Try without formatting
+                    plain_text = re.sub(r'<[^>]+>', '', message.text)
+                    await update.message.reply_text(text=plain_text)
+
+        except Exception as e:
+            logger.error(f"Error in today_command: {e}", exc_info=True)
+            await update.message.reply_text(
+                "אירעה שגיאה. נסה שוב מאוחר יותר."
+            )
+
+    async def about_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /about command."""
+        about_message = """📖 ליקוטי הלכות יומי
+
+ליקוטי הלכות הוא ספרו המרכזי של רבי נתן מברסלב, תלמידו הגדול של רבי נחמן מברסלב.
+
+הספר מיישם את תורות רבי נחמן על ארבעת חלקי השולחן ערוך:
+• אורח חיים
+• יורה דעה
+• אבן העזר
+• חושן משפט
+
+🔄 מחזור הלימוד: 4 שנים
+📅 שנה נוכחית: תשפ״ו (מחזור ה׳)
+📚 מקור הלוח: אשרינו - קהילת ברסלב העולמית
+
+🔗 טקסט מספריא
+💻 קוד פתוח: github.com/naorbrown/likutei-halachot-yomi
+
+נ נח נחמ נחמן מאומן! 🙏"""
+
+        await update.message.reply_text(about_message)
+
+    async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /help command."""
+        help_message = """עזרה - ליקוטי הלכות יומי 📖
+
+פקודות זמינות:
+
+/start - התחל לקבל ליקוטי הלכות יומי
+/today - קבל את ההלכה של היום
+/about - אודות הבוט והלימוד
+/help - הצג הודעה זו
+
+הבוט שולח אוטומטית את הדף היומי בכל יום.
+ניתן גם לבקש את הדף באופן ידני עם /today.
+
+לשאלות ובעיות: github.com/naorbrown/likutei-halachot-yomi/issues"""
+
+        await update.message.reply_text(help_message)
+
+    async def run_polling(self):
+        """Run the bot in long-polling mode."""
+        logger.info("Starting interactive bot in polling mode...")
+
+        # Build application
+        self.application = (
+            Application.builder()
+            .token(self.config.telegram_bot_token)
+            .build()
+        )
+
+        # Add command handlers
+        self.application.add_handler(CommandHandler("start", self.start_command))
+        self.application.add_handler(CommandHandler("today", self.today_command))
+        self.application.add_handler(CommandHandler("about", self.about_command))
+        self.application.add_handler(CommandHandler("help", self.help_command))
+
+        # Set up bot commands menu
+        bot = TelegramBot(self.config)
+        await bot.setup_commands()
+
+        # Start polling
+        logger.info("Bot is now polling for updates...")
+        await self.application.initialize()
+        await self.application.start()
+        await self.application.updater.start_polling(drop_pending_updates=False)
+
+        # Keep running until interrupted
+        try:
+            while True:
+                await asyncio.sleep(1)
+        except asyncio.CancelledError:
+            pass
+        finally:
+            logger.info("Stopping bot...")
+            await self.application.updater.stop()
+            await self.application.stop()
+            await self.application.shutdown()
