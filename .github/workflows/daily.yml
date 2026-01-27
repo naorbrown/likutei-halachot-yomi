@@ -1,0 +1,41 @@
+name: Daily Likutei Halachot
+
+on:
+  schedule:
+    # Runs at 6:00 AM Israel Time (4:00 AM UTC in winter, 3:00 AM UTC in summer)
+    # Using 4:00 AM UTC to cover most of the year
+    - cron: '0 4 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  send-daily-portion:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Send daily Likutei Halachot
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python run.py
+
+      - name: Log success
+        if: success()
+        run: echo "Daily Likutei Halachot sent successfully!"
+
+      - name: Log failure
+        if: failure()
+        run: echo "Failed to send daily Likutei Halachot"

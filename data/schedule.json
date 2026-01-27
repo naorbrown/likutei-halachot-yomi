@@ -1,0 +1,4271 @@
+{
+  "meta": {
+    "description": "Likutei Halachot Yomi - Daily Learning Schedule",
+    "source": "Based on sequential learning through Likutei Halachot",
+    "sefaria_url": "https://www.sefaria.org/Likutei_Halakhot",
+    "ashreinu_url": "https://www.breslevnews.net/אשרינו-לוח-דף-היומי-בליקוטי-הלכות-ל/",
+    "generated_for_year": 5786
+  },
+  "schedule": {
+    "tishrei:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct.1.1",
+          "heRef": "ליקוטי הלכות, הלכות השכמת הבוקר 1",
+          "description": "",
+          "sectionName": "Laws of Morning Conduct",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct.2.1",
+          "heRef": "ליקוטי הלכות, הלכות השכמת הבוקר 2",
+          "description": "",
+          "sectionName": "Laws of Morning Conduct",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct.3.1",
+          "heRef": "ליקוטי הלכות, הלכות השכמת הבוקר 3",
+          "description": "",
+          "sectionName": "Laws of Morning Conduct",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct.4.1",
+          "heRef": "ליקוטי הלכות, הלכות השכמת הבוקר 4",
+          "description": "",
+          "sectionName": "Laws of Morning Conduct",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Conduct.5.1",
+          "heRef": "ליקוטי הלכות, הלכות השכמת הבוקר 5",
+          "description": "",
+          "sectionName": "Laws of Morning Conduct",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 1",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 2",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 3",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 4",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.5.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 5",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Morning_Hand_Washing.6.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים שחרית 6",
+          "description": "",
+          "sectionName": "Laws of Morning Hand Washing",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ציצית 1",
+          "description": "",
+          "sectionName": "Laws of Fringes",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ציצית 2",
+          "description": "",
+          "sectionName": "Laws of Fringes",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ציצית 3",
+          "description": "",
+          "sectionName": "Laws of Fringes",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ציצית 4",
+          "description": "",
+          "sectionName": "Laws of Fringes",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Fringes.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ציצית 5",
+          "description": "",
+          "sectionName": "Laws of Fringes",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 1",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 2",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 3",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 4",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 5",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Phylacteries.6.1",
+          "heRef": "ליקוטי הלכות, הלכות תפילין 6",
+          "description": "",
+          "sectionName": "Laws of Phylacteries",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת השחר 1",
+          "description": "",
+          "sectionName": "Laws for Morning Blessings",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת השחר 2",
+          "description": "",
+          "sectionName": "Laws for Morning Blessings",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת השחר 3",
+          "description": "",
+          "sectionName": "Laws for Morning Blessings",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת השחר 4",
+          "description": "",
+          "sectionName": "Laws for Morning Blessings",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת השחר 5",
+          "description": "",
+          "sectionName": "Laws for Morning Blessings",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 1",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 2",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tishrei:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 3",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 4",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 5",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Torah_Blessings.6.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות התורה 6",
+          "description": "",
+          "sectionName": "Laws of Torah Blessings",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Kaddish.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קדיש 1",
+          "description": "",
+          "sectionName": "Laws of Kaddish",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע 1",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema.2.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע 2",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema.3.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע 3",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema.4.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע 4",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema.5.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע 5",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלה 1",
+          "description": "",
+          "sectionName": "Laws of Prayer",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלה 2",
+          "description": "",
+          "sectionName": "Laws of Prayer",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלה 3",
+          "description": "",
+          "sectionName": "Laws of Prayer",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלה 4",
+          "description": "",
+          "sectionName": "Laws of Prayer",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Prayer.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלה 5",
+          "description": "",
+          "sectionName": "Laws of Prayer",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נשיאת כפים 1",
+          "description": "",
+          "sectionName": "Laws of Priestly Blessings",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נשיאת כפים 2",
+          "description": "",
+          "sectionName": "Laws of Priestly Blessings",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נשיאת כפים 3",
+          "description": "",
+          "sectionName": "Laws of Priestly Blessings",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נשיאת כפים 4",
+          "description": "",
+          "sectionName": "Laws of Priestly Blessings",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Priestly_Blessings.5.1",
+          "heRef": "ליקוטי הלכות, הלכות נשיאת כפים 5",
+          "description": "",
+          "sectionName": "Laws of Priestly Blessings",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Tachanun.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נפילת אפים 1",
+          "description": "",
+          "sectionName": "Laws of Tachanun",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Tachanun.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נפילת אפים 2",
+          "description": "",
+          "sectionName": "Laws of Tachanun",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Sidra_Kaddish.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קדושה דסידרא 1",
+          "description": "",
+          "sectionName": "Laws of Sidra Kaddish",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Sidra_Kaddish.2.1",
+          "heRef": "ליקוטי הלכות, הלכות קדושה דסידרא 2",
+          "description": "",
+          "sectionName": "Laws of Sidra Kaddish",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 1",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.2.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 2",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.3.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 3",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.4.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 4",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.5.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 5",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reading_the_Torah.6.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת התורה 6",
+          "description": "",
+          "sectionName": "Laws of Reading the Torah",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "cheshvan:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.1.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 1",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.2.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 2",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.3.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 3",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.4.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 4",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.5.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 5",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.6.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 6",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Synagogue.7.1",
+          "heRef": "ליקוטי הלכות, הלכות בית הכנסת 7",
+          "description": "",
+          "sectionName": "Laws of the Synagogue",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business.1.1",
+          "heRef": "ליקוטי הלכות, הלכות משא ומתן 1",
+          "description": "",
+          "sectionName": "Laws of Business",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business.2.1",
+          "heRef": "ליקוטי הלכות, הלכות משא ומתן 2",
+          "description": "",
+          "sectionName": "Laws of Business",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business.3.1",
+          "heRef": "ליקוטי הלכות, הלכות משא ומתן 3",
+          "description": "",
+          "sectionName": "Laws of Business",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business.4.1",
+          "heRef": "ליקוטי הלכות, הלכות משא ומתן 4",
+          "description": "",
+          "sectionName": "Laws of Business",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Business.5.1",
+          "heRef": "ליקוטי הלכות, הלכות משא ומתן 5",
+          "description": "",
+          "sectionName": "Laws of Business",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 1",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 2",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 3",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 4",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.5.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 5",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Washing_One's_Hands_for_a_Meal.6.1",
+          "heRef": "ליקוטי הלכות, הלכות נטילת ידים לסעודה ובציעת הפת 6",
+          "description": "",
+          "sectionName": "Laws of Washing One's Hands for a Meal",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals.1.1",
+          "heRef": "ליקוטי הלכות, הלכות סעודה 1",
+          "description": "",
+          "sectionName": "Laws of Meals",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals.2.1",
+          "heRef": "ליקוטי הלכות, הלכות סעודה 2",
+          "description": "",
+          "sectionName": "Laws of Meals",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals.3.1",
+          "heRef": "ליקוטי הלכות, הלכות סעודה 3",
+          "description": "",
+          "sectionName": "Laws of Meals",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals.4.1",
+          "heRef": "ליקוטי הלכות, הלכות סעודה 4",
+          "description": "",
+          "sectionName": "Laws of Meals",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Meals.5.1",
+          "heRef": "ליקוטי הלכות, הלכות סעודה 5",
+          "description": "",
+          "sectionName": "Laws of Meals",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת המזון ומים אחרונים 1",
+          "description": "",
+          "sectionName": "Laws of Grace After Meals and Washing after Meals",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת המזון ומים אחרונים 2",
+          "description": "",
+          "sectionName": "Laws of Grace After Meals and Washing after Meals",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת המזון ומים אחרונים 3",
+          "description": "",
+          "sectionName": "Laws of Grace After Meals and Washing after Meals",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת המזון ומים אחרונים 4",
+          "description": "",
+          "sectionName": "Laws of Grace After Meals and Washing after Meals",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Grace_After_Meals_and_Washing_after_Meals.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת המזון ומים אחרונים 5",
+          "description": "",
+          "sectionName": "Laws of Grace After Meals and Washing after Meals",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הפרות 1",
+          "description": "",
+          "sectionName": "Laws of Blessings Over Fruit",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הפרות 2",
+          "description": "",
+          "sectionName": "Laws of Blessings Over Fruit",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "kislev:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הפרות 3",
+          "description": "",
+          "sectionName": "Laws of Blessings Over Fruit",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הפרות 4",
+          "description": "",
+          "sectionName": "Laws of Blessings Over Fruit",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessings_Over_Fruit.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הפרות 5",
+          "description": "",
+          "sectionName": "Laws of Blessings Over Fruit",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הריח 1",
+          "description": "",
+          "sectionName": "Laws of Blessing on Fragrance",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הריח 2",
+          "description": "",
+          "sectionName": "Laws of Blessing on Fragrance",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הריח 3",
+          "description": "",
+          "sectionName": "Laws of Blessing on Fragrance",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הריח 4",
+          "description": "",
+          "sectionName": "Laws of Blessing on Fragrance",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Fragrance.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הריח 5",
+          "description": "",
+          "sectionName": "Laws of Blessing on Fragrance",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הודאה 1",
+          "description": "",
+          "sectionName": "Laws of Thanksgiving Blessings",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הודאה 2",
+          "description": "",
+          "sectionName": "Laws of Thanksgiving Blessings",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הודאה 3",
+          "description": "",
+          "sectionName": "Laws of Thanksgiving Blessings",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הודאה 4",
+          "description": "",
+          "sectionName": "Laws of Thanksgiving Blessings",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Thanksgiving_Blessings.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכת הודאה 5",
+          "description": "",
+          "sectionName": "Laws of Thanksgiving Blessings",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות הראיה וברכות פרטיות 1",
+          "description": "",
+          "sectionName": "Laws of Blessing on Sights and Other Blessings",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות הראיה וברכות פרטיות 2",
+          "description": "",
+          "sectionName": "Laws of Blessing on Sights and Other Blessings",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות הראיה וברכות פרטיות 3",
+          "description": "",
+          "sectionName": "Laws of Blessing on Sights and Other Blessings",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות הראיה וברכות פרטיות 4",
+          "description": "",
+          "sectionName": "Laws of Blessing on Sights and Other Blessings",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Blessing_on_Sights_and_Other_Blessings.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ברכות הראיה וברכות פרטיות 5",
+          "description": "",
+          "sectionName": "Laws of Blessing on Sights and Other Blessings",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 1",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 2",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 3",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 4",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 5",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.6.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 6",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Afternoon_Prayer.7.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת המנחה 7",
+          "description": "",
+          "sectionName": "Laws for Afternoon Prayer",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת ערבית 1",
+          "description": "",
+          "sectionName": "Laws for Evening Prayer",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת ערבית 2",
+          "description": "",
+          "sectionName": "Laws for Evening Prayer",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת ערבית 3",
+          "description": "",
+          "sectionName": "Laws for Evening Prayer",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת ערבית 4",
+          "description": "",
+          "sectionName": "Laws for Evening Prayer",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tevet:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Evening_Prayer.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תפלת ערבית 5",
+          "description": "",
+          "sectionName": "Laws for Evening Prayer",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע שעל המטה 1",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema Before Retiring",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring.2.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע שעל המטה 2",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema Before Retiring",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring.3.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע שעל המטה 3",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema Before Retiring",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring.4.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע שעל המטה 4",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema Before Retiring",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Reciting_Shema_Before_Retiring.5.1",
+          "heRef": "ליקוטי הלכות, הלכות קריאת שמע שעל המטה 5",
+          "description": "",
+          "sectionName": "Laws of Reciting Shema Before Retiring",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.1.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 1",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.2.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 2",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.3.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 3",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.4.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 4",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.5.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 5",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.6.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 6",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Sabbath.7.1",
+          "heRef": "ליקוטי הלכות, הלכות שבת 7",
+          "description": "",
+          "sectionName": "Laws of the Sabbath",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תחומין וערובי תחומין 1",
+          "description": "",
+          "sectionName": "Laws of Joining Domains",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תחומין וערובי תחומין 2",
+          "description": "",
+          "sectionName": "Laws of Joining Domains",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תחומין וערובי תחומין 3",
+          "description": "",
+          "sectionName": "Laws of Joining Domains",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תחומין וערובי תחומין 4",
+          "description": "",
+          "sectionName": "Laws of Joining Domains",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Joining_Domains.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תחומין וערובי תחומין 5",
+          "description": "",
+          "sectionName": "Laws of Joining Domains",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 1",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 2",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 3",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 4",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 5",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.6.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 6",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Moon.7.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש חדש 7",
+          "description": "",
+          "sectionName": "Laws of the New Moon",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.1.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 1",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.2.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 2",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.3.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 3",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.4.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 4",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.5.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 5",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "shevat:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.6.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 6",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.7.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 7",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.8.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 8",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 8,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Passover.9.1",
+          "heRef": "ליקוטי הלכות, הלכות פסח 9",
+          "description": "",
+          "sectionName": "Laws of Passover",
+          "chapter": 9,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ספירת העמר 1",
+          "description": "",
+          "sectionName": "Laws of Counter the Omer",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ספירת העמר 2",
+          "description": "",
+          "sectionName": "Laws of Counter the Omer",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ספירת העמר 3",
+          "description": "",
+          "sectionName": "Laws of Counter the Omer",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ספירת העמר 4",
+          "description": "",
+          "sectionName": "Laws of Counter the Omer",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Counter_the_Omer.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ספירת העמר 5",
+          "description": "",
+          "sectionName": "Laws of Counter the Omer",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Shavuot_Festival.1.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 1",
+          "description": "",
+          "sectionName": "Laws of the Shavuot Festival",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Shavuot_Festival.2.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 2",
+          "description": "",
+          "sectionName": "Laws of the Shavuot Festival",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Shavuot_Festival.3.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 3",
+          "description": "",
+          "sectionName": "Laws of the Shavuot Festival",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Shavuot_Festival.4.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 4",
+          "description": "",
+          "sectionName": "Laws of the Shavuot Festival",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day.1.1",
+          "heRef": "ליקוטי הלכות, הלכות יום טוב 1",
+          "description": "",
+          "sectionName": "Laws of the Festival Day",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day.2.1",
+          "heRef": "ליקוטי הלכות, הלכות יום טוב 2",
+          "description": "",
+          "sectionName": "Laws of the Festival Day",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day.3.1",
+          "heRef": "ליקוטי הלכות, הלכות יום טוב 3",
+          "description": "",
+          "sectionName": "Laws of the Festival Day",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day.4.1",
+          "heRef": "ליקוטי הלכות, הלכות יום טוב 4",
+          "description": "",
+          "sectionName": "Laws of the Festival Day",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_Day.5.1",
+          "heRef": "ליקוטי הלכות, הלכות יום טוב 5",
+          "description": "",
+          "sectionName": "Laws of the Festival Day",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Week_Days_of_a_Festival.1.1",
+          "heRef": "ליקוטי הלכות, הלכות חול המועד 1",
+          "description": "",
+          "sectionName": "Laws of the Week Days of a Festival",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Week_Days_of_a_Festival.2.1",
+          "heRef": "ליקוטי הלכות, הלכות חול המועד 2",
+          "description": "",
+          "sectionName": "Laws of the Week Days of a Festival",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Week_Days_of_a_Festival.3.1",
+          "heRef": "ליקוטי הלכות, הלכות חול המועד 3",
+          "description": "",
+          "sectionName": "Laws of the Week Days of a Festival",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תשעה באב ותעניות 1",
+          "description": "",
+          "sectionName": "Laws of the Ninth of Av and Other Fast Days",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תשעה באב ותעניות 2",
+          "description": "",
+          "sectionName": "Laws of the Ninth of Av and Other Fast Days",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תשעה באב ותעניות 3",
+          "description": "",
+          "sectionName": "Laws of the Ninth of Av and Other Fast Days",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תשעה באב ותעניות 4",
+          "description": "",
+          "sectionName": "Laws of the Ninth of Av and Other Fast Days",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Ninth_of_Av_and_Other_Fast_Days.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תשעה באב ותעניות 5",
+          "description": "",
+          "sectionName": "Laws of the Ninth of Av and Other Fast Days",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 1",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 2",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 3",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "adar:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 4",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 5",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_New_Year.6.1",
+          "heRef": "ליקוטי הלכות, הלכות ראש השנה 6",
+          "description": "",
+          "sectionName": "Laws of the New Year",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement.1.1",
+          "heRef": "ליקוטי הלכות, הלכות יום הכפורים 1",
+          "description": "",
+          "sectionName": "Laws of the Day of Atonement",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement.2.1",
+          "heRef": "ליקוטי הלכות, הלכות יום הכפורים 2",
+          "description": "",
+          "sectionName": "Laws of the Day of Atonement",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement.3.1",
+          "heRef": "ליקוטי הלכות, הלכות יום הכפורים 3",
+          "description": "",
+          "sectionName": "Laws of the Day of Atonement",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement.4.1",
+          "heRef": "ליקוטי הלכות, הלכות יום הכפורים 4",
+          "description": "",
+          "sectionName": "Laws of the Day of Atonement",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Day_of_Atonement.5.1",
+          "heRef": "ליקוטי הלכות, הלכות יום הכפורים 5",
+          "description": "",
+          "sectionName": "Laws of the Day of Atonement",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.1.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 1",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.2.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 2",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.3.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 3",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.4.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 4",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.5.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 5",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.6.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 6",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.7.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 7",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Festival_of_Booths.8.1",
+          "heRef": "ליקוטי הלכות, הלכות סוכה 8",
+          "description": "",
+          "sectionName": "Laws of the Festival of Booths",
+          "chapter": 8,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.1.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 1",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.2.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 2",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.3.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 3",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.4.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 4",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.5.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 5",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Palm_Branch.6.1",
+          "heRef": "ליקוטי הלכות, הלכות לולב ואתרוג 6",
+          "description": "",
+          "sectionName": "Laws of the Palm Branch",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hoshana_Rabba_Festival.1.1",
+          "heRef": "ליקוטי הלכות, הלכות הושענא רבה 1",
+          "description": "",
+          "sectionName": "Laws of the Hoshana Rabba Festival",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hoshana_Rabba_Festival.2.1",
+          "heRef": "ליקוטי הלכות, הלכות הושענא רבה 2",
+          "description": "",
+          "sectionName": "Laws of the Hoshana Rabba Festival",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.1.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 1",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.2.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 2",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.3.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 3",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.4.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 4",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.5.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 5",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.6.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 6",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "nisan:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Hannukah_Festival.7.1",
+          "heRef": "ליקוטי הלכות, הלכות חנוכה 7",
+          "description": "",
+          "sectionName": "Laws of the Hannukah Festival",
+          "chapter": 7,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Four_Festive_Torah_Portions.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ארבע פרשיות 1",
+          "description": "",
+          "sectionName": "Laws of the Four Festive Torah Portions",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Four_Festive_Torah_Portions.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ארבע פרשיות 2",
+          "description": "",
+          "sectionName": "Laws of the Four Festive Torah Portions",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_the_Four_Festive_Torah_Portions.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ארבע פרשיות 3",
+          "description": "",
+          "sectionName": "Laws of the Four Festive Torah Portions",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.1.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 1",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.2.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 2",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.3.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 3",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.4.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 4",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.5.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 5",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Orach_Chaim,_Laws_of_Purim.6.1",
+          "heRef": "ליקוטי הלכות, הלכות פורים 6",
+          "description": "",
+          "sectionName": "Laws of Purim",
+          "chapter": 6,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering.1.1",
+          "heRef": "ליקוטי הלכות, הלכות שחיטה 1",
+          "description": "",
+          "sectionName": "Laws of Slaughtering",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering.2.1",
+          "heRef": "ליקוטי הלכות, הלכות שחיטה 2",
+          "description": "",
+          "sectionName": "Laws of Slaughtering",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering.3.1",
+          "heRef": "ליקוטי הלכות, הלכות שחיטה 3",
+          "description": "",
+          "sectionName": "Laws of Slaughtering",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering.4.1",
+          "heRef": "ליקוטי הלכות, הלכות שחיטה 4",
+          "description": "",
+          "sectionName": "Laws of Slaughtering",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Slaughtering.5.1",
+          "heRef": "ליקוטי הלכות, הלכות שחיטה 5",
+          "description": "",
+          "sectionName": "Laws of Slaughtering",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Unfit_Animals.1.1",
+          "heRef": "ליקוטי הלכות, הלכות טרפות 1",
+          "description": "",
+          "sectionName": "Laws of Unfit Animals",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Unfit_Animals.2.1",
+          "heRef": "ליקוטי הלכות, הלכות טרפות 2",
+          "description": "",
+          "sectionName": "Laws of Unfit Animals",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Unfit_Animals.3.1",
+          "heRef": "ליקוטי הלכות, הלכות טרפות 3",
+          "description": "",
+          "sectionName": "Laws of Unfit Animals",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Unfit_Animals.4.1",
+          "heRef": "ליקוטי הלכות, הלכות טרפות 4",
+          "description": "",
+          "sectionName": "Laws of Unfit Animals",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Priestly_Gifts.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מתנות כהונה 1",
+          "description": "",
+          "sectionName": "Laws of Priestly Gifts",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Priestly_Gifts.2.1",
+          "heRef": "ליקוטי הלכות, הלכות מתנות כהונה 2",
+          "description": "",
+          "sectionName": "Laws of Priestly Gifts",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Priestly_Gifts.3.1",
+          "heRef": "ליקוטי הלכות, הלכות מתנות כהונה 3",
+          "description": "",
+          "sectionName": "Laws of Priestly Gifts",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Priestly_Gifts.4.1",
+          "heRef": "ליקוטי הלכות, הלכות מתנות כהונה 4",
+          "description": "",
+          "sectionName": "Laws of Priestly Gifts",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Limb_from_a_Live_Animal.1.1",
+          "heRef": "ליקוטי הלכות, הלכות אבר מן החי 1",
+          "description": "",
+          "sectionName": "Laws of a Limb from a Live Animal",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Limb_from_a_Live_Animal.2.1",
+          "heRef": "ליקוטי הלכות, הלכות אבר מן החי 2",
+          "description": "",
+          "sectionName": "Laws of a Limb from a Live Animal",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Limb_from_a_Live_Animal.3.1",
+          "heRef": "ליקוטי הלכות, הלכות אבר מן החי 3",
+          "description": "",
+          "sectionName": "Laws of a Limb from a Live Animal",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Limb_from_a_Live_Animal.4.1",
+          "heRef": "ליקוטי הלכות, הלכות אבר מן החי 4",
+          "description": "",
+          "sectionName": "Laws of a Limb from a Live Animal",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved.1.1",
+          "heRef": "ליקוטי הלכות, הלכות הלכות בשר שנתעלם מן העין 1",
+          "description": "",
+          "sectionName": "Laws of Meat that was Unobserved",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved.2.1",
+          "heRef": "ליקוטי הלכות, הלכות הלכות בשר שנתעלם מן העין 2",
+          "description": "",
+          "sectionName": "Laws of Meat that was Unobserved",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "iyar:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood.1.1",
+          "heRef": "ליקוטי הלכות, הלכות חלב ודם 1",
+          "description": "",
+          "sectionName": "Laws of Fat and Blood",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood.2.1",
+          "heRef": "ליקוטי הלכות, הלכות חלב ודם 2",
+          "description": "",
+          "sectionName": "Laws of Fat and Blood",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood.3.1",
+          "heRef": "ליקוטי הלכות, הלכות חלב ודם 3",
+          "description": "",
+          "sectionName": "Laws of Fat and Blood",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood.4.1",
+          "heRef": "ליקוטי הלכות, הלכות חלב ודם 4",
+          "description": "",
+          "sectionName": "Laws of Fat and Blood",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fat_and_Blood.5.1",
+          "heRef": "ליקוטי הלכות, הלכות חלב ודם 5",
+          "description": "",
+          "sectionName": "Laws of Fat and Blood",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood.1.1",
+          "heRef": "ליקוטי הלכות, הלכות דם 1",
+          "description": "",
+          "sectionName": "Laws of Blood",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood.2.1",
+          "heRef": "ליקוטי הלכות, הלכות דם 2",
+          "description": "",
+          "sectionName": "Laws of Blood",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood.3.1",
+          "heRef": "ליקוטי הלכות, הלכות דם 3",
+          "description": "",
+          "sectionName": "Laws of Blood",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood.4.1",
+          "heRef": "ליקוטי הלכות, הלכות דם 4",
+          "description": "",
+          "sectionName": "Laws of Blood",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Blood.5.1",
+          "heRef": "ליקוטי הלכות, הלכות דם 5",
+          "description": "",
+          "sectionName": "Laws of Blood",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מליחה 1",
+          "description": "",
+          "sectionName": "Laws of Salting",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting.2.1",
+          "heRef": "ליקוטי הלכות, הלכות מליחה 2",
+          "description": "",
+          "sectionName": "Laws of Salting",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting.3.1",
+          "heRef": "ליקוטי הלכות, הלכות מליחה 3",
+          "description": "",
+          "sectionName": "Laws of Salting",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting.4.1",
+          "heRef": "ליקוטי הלכות, הלכות מליחה 4",
+          "description": "",
+          "sectionName": "Laws of Salting",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Salting.5.1",
+          "heRef": "ליקוטי הלכות, הלכות מליחה 5",
+          "description": "",
+          "sectionName": "Laws of Salting",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Domesticated_and_Undomesticated_Animals.1.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני בהמה וחיה טהורה 1",
+          "description": "",
+          "sectionName": "Laws of Domesticated and Undomesticated Animals",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Domesticated_and_Undomesticated_Animals.2.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני בהמה וחיה טהורה 2",
+          "description": "",
+          "sectionName": "Laws of Domesticated and Undomesticated Animals",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Domesticated_and_Undomesticated_Animals.3.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני בהמה וחיה טהורה 3",
+          "description": "",
+          "sectionName": "Laws of Domesticated and Undomesticated Animals",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Domesticated_and_Undomesticated_Animals.4.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני בהמה וחיה טהורה 4",
+          "description": "",
+          "sectionName": "Laws of Domesticated and Undomesticated Animals",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Things_that_Come_from_a_Live_Animal.1.1",
+          "heRef": "ליקוטי הלכות, הלכות דברים היוצאים מן החי 1",
+          "description": "",
+          "sectionName": "Laws of Things that Come from a Live Animal",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Things_that_Come_from_a_Live_Animal.2.1",
+          "heRef": "ליקוטי הלכות, הלכות דברים היוצאים מן החי 2",
+          "description": "",
+          "sectionName": "Laws of Things that Come from a Live Animal",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Things_that_Come_from_a_Live_Animal.3.1",
+          "heRef": "ליקוטי הלכות, הלכות דברים היוצאים מן החי 3",
+          "description": "",
+          "sectionName": "Laws of Things that Come from a Live Animal",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Things_that_Come_from_a_Live_Animal.4.1",
+          "heRef": "ליקוטי הלכות, הלכות דברים היוצאים מן החי 4",
+          "description": "",
+          "sectionName": "Laws of Things that Come from a Live Animal",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Birds.1.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני עוף טהור 1",
+          "description": "",
+          "sectionName": "Laws of Birds",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Birds.2.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני עוף טהור 2",
+          "description": "",
+          "sectionName": "Laws of Birds",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Birds.3.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני עוף טהור 3",
+          "description": "",
+          "sectionName": "Laws of Birds",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Birds.4.1",
+          "heRef": "ליקוטי הלכות, הלכות סימני עוף טהור 4",
+          "description": "",
+          "sectionName": "Laws of Birds",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fish.1.1",
+          "heRef": "ליקוטי הלכות, הלכות דגים 1",
+          "description": "",
+          "sectionName": "Laws of Fish",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fish.2.1",
+          "heRef": "ליקוטי הלכות, הלכות דגים 2",
+          "description": "",
+          "sectionName": "Laws of Fish",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Fish.3.1",
+          "heRef": "ליקוטי הלכות, הלכות דגים 3",
+          "description": "",
+          "sectionName": "Laws of Fish",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "sivan:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Insects.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תולעים 1",
+          "description": "",
+          "sectionName": "Laws of Insects",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Insects.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תולעים 2",
+          "description": "",
+          "sectionName": "Laws of Insects",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Insects.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תולעים 3",
+          "description": "",
+          "sectionName": "Laws of Insects",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Eggs.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ביצים 1",
+          "description": "",
+          "sectionName": "Laws of Eggs",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Eggs.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ביצים 2",
+          "description": "",
+          "sectionName": "Laws of Eggs",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Eggs.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ביצים 3",
+          "description": "",
+          "sectionName": "Laws of Eggs",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Eggs.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ביצים 4",
+          "description": "",
+          "sectionName": "Laws of Eggs",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk.1.1",
+          "heRef": "ליקוטי הלכות, הלכות בשר בחלב 1",
+          "description": "",
+          "sectionName": "Laws of Meat and Milk",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk.2.1",
+          "heRef": "ליקוטי הלכות, הלכות בשר בחלב 2",
+          "description": "",
+          "sectionName": "Laws of Meat and Milk",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk.3.1",
+          "heRef": "ליקוטי הלכות, הלכות בשר בחלב 3",
+          "description": "",
+          "sectionName": "Laws of Meat and Milk",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk.4.1",
+          "heRef": "ליקוטי הלכות, הלכות בשר בחלב 4",
+          "description": "",
+          "sectionName": "Laws of Meat and Milk",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_and_Milk.5.1",
+          "heRef": "ליקוטי הלכות, הלכות בשר בחלב 5",
+          "description": "",
+          "sectionName": "Laws of Meat and Milk",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures.1.1",
+          "heRef": "ליקוטי הלכות, הלכות תערובות 1",
+          "description": "",
+          "sectionName": "Laws of Mixtures",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures.2.1",
+          "heRef": "ליקוטי הלכות, הלכות תערובות 2",
+          "description": "",
+          "sectionName": "Laws of Mixtures",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures.3.1",
+          "heRef": "ליקוטי הלכות, הלכות תערובות 3",
+          "description": "",
+          "sectionName": "Laws of Mixtures",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures.4.1",
+          "heRef": "ליקוטי הלכות, הלכות תערובות 4",
+          "description": "",
+          "sectionName": "Laws of Mixtures",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Mixtures.5.1",
+          "heRef": "ליקוטי הלכות, הלכות תערובות 5",
+          "description": "",
+          "sectionName": "Laws of Mixtures",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Non_Jewish_Food.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מאכלי עכו\"ם 1",
+          "description": "",
+          "sectionName": "Laws of Non Jewish Food",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Non_Jewish_Food.2.1",
+          "heRef": "ליקוטי הלכות, הלכות מאכלי עכו\"ם 2",
+          "description": "",
+          "sectionName": "Laws of Non Jewish Food",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Non_Jewish_Food.3.1",
+          "heRef": "ליקוטי הלכות, הלכות מאכלי עכו\"ם 3",
+          "description": "",
+          "sectionName": "Laws of Non Jewish Food",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Non_Jewish_Food.4.1",
+          "heRef": "ליקוטי הלכות, הלכות מאכלי עכו\"ם 4",
+          "description": "",
+          "sectionName": "Laws of Non Jewish Food",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Kashering_Vessels.1.1",
+          "heRef": "ליקוטי הלכות, הלכות הכשר כלים 1",
+          "description": "",
+          "sectionName": "Laws of Kashering Vessels",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Kashering_Vessels.2.1",
+          "heRef": "ליקוטי הלכות, הלכות הכשר כלים 2",
+          "description": "",
+          "sectionName": "Laws of Kashering Vessels",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Kashering_Vessels.3.1",
+          "heRef": "ליקוטי הלכות, הלכות הכשר כלים 3",
+          "description": "",
+          "sectionName": "Laws of Kashering Vessels",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Kashering_Vessels.4.1",
+          "heRef": "ליקוטי הלכות, הלכות הכשר כלים 4",
+          "description": "",
+          "sectionName": "Laws of Kashering Vessels",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Taste_Transfer.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נותן טעם לפגם 1",
+          "description": "",
+          "sectionName": "Laws of Taste Transfer",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Taste_Transfer.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נותן טעם לפגם 2",
+          "description": "",
+          "sectionName": "Laws of Taste Transfer",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Taste_Transfer.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נותן טעם לפגם 3",
+          "description": "",
+          "sectionName": "Laws of Taste Transfer",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Taste_Transfer.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נותן טעם לפגם 4",
+          "description": "",
+          "sectionName": "Laws of Taste Transfer",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "tammuz:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Libational_Wine.1.1",
+          "heRef": "ליקוטי הלכות, הלכות יין נסך 1",
+          "description": "",
+          "sectionName": "Laws of Libational Wine",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Libational_Wine.2.1",
+          "heRef": "ליקוטי הלכות, הלכות יין נסך 2",
+          "description": "",
+          "sectionName": "Laws of Libational Wine",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Libational_Wine.3.1",
+          "heRef": "ליקוטי הלכות, הלכות יין נסך 3",
+          "description": "",
+          "sectionName": "Laws of Libational Wine",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Libational_Wine.4.1",
+          "heRef": "ליקוטי הלכות, הלכות יין נסך 4",
+          "description": "",
+          "sectionName": "Laws of Libational Wine",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Wine_Vessels.1.1",
+          "heRef": "ליקוטי הלכות, הלכות כלי היין 1",
+          "description": "",
+          "sectionName": "Laws of Wine Vessels",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Wine_Vessels.2.1",
+          "heRef": "ליקוטי הלכות, הלכות כלי היין 2",
+          "description": "",
+          "sectionName": "Laws of Wine Vessels",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Wine_Vessels.3.1",
+          "heRef": "ליקוטי הלכות, הלכות כלי היין 3",
+          "description": "",
+          "sectionName": "Laws of Wine Vessels",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idol_Worship.1.1",
+          "heRef": "ליקוטי הלכות, הלכות עבודת אלילים 1",
+          "description": "",
+          "sectionName": "Laws of Idol Worship",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idol_Worship.2.1",
+          "heRef": "ליקוטי הלכות, הלכות עבודת אלילים 2",
+          "description": "",
+          "sectionName": "Laws of Idol Worship",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idol_Worship.3.1",
+          "heRef": "ליקוטי הלכות, הלכות עבודת אלילים 3",
+          "description": "",
+          "sectionName": "Laws of Idol Worship",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idol_Worship.4.1",
+          "heRef": "ליקוטי הלכות, הלכות עבודת אלילים 4",
+          "description": "",
+          "sectionName": "Laws of Idol Worship",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest.1.1",
+          "heRef": "ליקוטי הלכות, הלכות ריבית 1",
+          "description": "",
+          "sectionName": "Laws of Interest",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest.2.1",
+          "heRef": "ליקוטי הלכות, הלכות ריבית 2",
+          "description": "",
+          "sectionName": "Laws of Interest",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest.3.1",
+          "heRef": "ליקוטי הלכות, הלכות ריבית 3",
+          "description": "",
+          "sectionName": "Laws of Interest",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest.4.1",
+          "heRef": "ליקוטי הלכות, הלכות ריבית 4",
+          "description": "",
+          "sectionName": "Laws of Interest",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Interest.5.1",
+          "heRef": "ליקוטי הלכות, הלכות ריבית 5",
+          "description": "",
+          "sectionName": "Laws of Interest",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idolatrous_Practices.1.1",
+          "heRef": "ליקוטי הלכות, הלכות חוקות העכו\"ם 1",
+          "description": "",
+          "sectionName": "Laws of Idolatrous Practices",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idolatrous_Practices.2.1",
+          "heRef": "ליקוטי הלכות, הלכות חוקות העכו\"ם 2",
+          "description": "",
+          "sectionName": "Laws of Idolatrous Practices",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idolatrous_Practices.3.1",
+          "heRef": "ליקוטי הלכות, הלכות חוקות העכו\"ם 3",
+          "description": "",
+          "sectionName": "Laws of Idolatrous Practices",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Idolatrous_Practices.4.1",
+          "heRef": "ליקוטי הלכות, הלכות חוקות העכו\"ם 4",
+          "description": "",
+          "sectionName": "Laws of Idolatrous Practices",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Sourcerers_and_Enchanters.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מעונן ומנחש 1",
+          "description": "",
+          "sectionName": "Laws of Sourcerers and Enchanters",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Sourcerers_and_Enchanters.2.1",
+          "heRef": "ליקוטי הלכות, הלכות מעונן ומנחש 2",
+          "description": "",
+          "sectionName": "Laws of Sourcerers and Enchanters",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Sourcerers_and_Enchanters.3.1",
+          "heRef": "ליקוטי הלכות, הלכות מעונן ומנחש 3",
+          "description": "",
+          "sectionName": "Laws of Sourcerers and Enchanters",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving_and_Tatooing.1.1",
+          "heRef": "ליקוטי הלכות, הלכות קרחה וכתובת קעקע 1",
+          "description": "",
+          "sectionName": "Laws of Shaving and Tatooing",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving_and_Tatooing.2.1",
+          "heRef": "ליקוטי הלכות, הלכות קרחה וכתובת קעקע 2",
+          "description": "",
+          "sectionName": "Laws of Shaving and Tatooing",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving_and_Tatooing.3.1",
+          "heRef": "ליקוטי הלכות, הלכות קרחה וכתובת קעקע 3",
+          "description": "",
+          "sectionName": "Laws of Shaving and Tatooing",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving_and_Tatooing.4.1",
+          "heRef": "ליקוטי הלכות, הלכות קרחה וכתובת קעקע 4",
+          "description": "",
+          "sectionName": "Laws of Shaving and Tatooing",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving.1.1",
+          "heRef": "ליקוטי הלכות, הלכות גילוח 1",
+          "description": "",
+          "sectionName": "Laws of Shaving",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving.2.1",
+          "heRef": "ליקוטי הלכות, הלכות גילוח 2",
+          "description": "",
+          "sectionName": "Laws of Shaving",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving.3.1",
+          "heRef": "ליקוטי הלכות, הלכות גילוח 3",
+          "description": "",
+          "sectionName": "Laws of Shaving",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "av:30": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving.4.1",
+          "heRef": "ליקוטי הלכות, הלכות גילוח 4",
+          "description": "",
+          "sectionName": "Laws of Shaving",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:1": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Shaving.5.1",
+          "heRef": "ליקוטי הלכות, הלכות גילוח 5",
+          "description": "",
+          "sectionName": "Laws of Shaving",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:2": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Forbidden_Dresss.1.1",
+          "heRef": "ליקוטי הלכות, הלכות לא ילבש 1",
+          "description": "",
+          "sectionName": "Laws of Forbidden Dresss",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:3": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Forbidden_Dresss.2.1",
+          "heRef": "ליקוטי הלכות, הלכות לא ילבש 2",
+          "description": "",
+          "sectionName": "Laws of Forbidden Dresss",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:4": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Forbidden_Dresss.3.1",
+          "heRef": "ליקוטי הלכות, הלכות לא ילבש 3",
+          "description": "",
+          "sectionName": "Laws of Forbidden Dresss",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:5": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Forbidden_Dresss.4.1",
+          "heRef": "ליקוטי הלכות, הלכות לא ילבש 4",
+          "description": "",
+          "sectionName": "Laws of Forbidden Dresss",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:6": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Menstruant.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נדה 1",
+          "description": "",
+          "sectionName": "Laws of a Menstruant",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:7": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Menstruant.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נדה 2",
+          "description": "",
+          "sectionName": "Laws of a Menstruant",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:8": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Menstruant.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נדה 3",
+          "description": "",
+          "sectionName": "Laws of a Menstruant",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:9": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_a_Menstruant.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נדה 4",
+          "description": "",
+          "sectionName": "Laws of a Menstruant",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:10": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Ritual_Baths.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מקוואות 1",
+          "description": "",
+          "sectionName": "Laws of Ritual Baths",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:11": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Ritual_Baths.2.1",
+          "heRef": "ליקוטי הלכות, הלכות מקוואות 2",
+          "description": "",
+          "sectionName": "Laws of Ritual Baths",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:12": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Ritual_Baths.3.1",
+          "heRef": "ליקוטי הלכות, הלכות מקוואות 3",
+          "description": "",
+          "sectionName": "Laws of Ritual Baths",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:13": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Ritual_Baths.4.1",
+          "heRef": "ליקוטי הלכות, הלכות מקוואות 4",
+          "description": "",
+          "sectionName": "Laws of Ritual Baths",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:14": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows.1.1",
+          "heRef": "ליקוטי הלכות, הלכות נדרים 1",
+          "description": "",
+          "sectionName": "Laws of Vows",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:15": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows.2.1",
+          "heRef": "ליקוטי הלכות, הלכות נדרים 2",
+          "description": "",
+          "sectionName": "Laws of Vows",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:16": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows.3.1",
+          "heRef": "ליקוטי הלכות, הלכות נדרים 3",
+          "description": "",
+          "sectionName": "Laws of Vows",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:17": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows.4.1",
+          "heRef": "ליקוטי הלכות, הלכות נדרים 4",
+          "description": "",
+          "sectionName": "Laws of Vows",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:18": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Vows.5.1",
+          "heRef": "ליקוטי הלכות, הלכות נדרים 5",
+          "description": "",
+          "sectionName": "Laws of Vows",
+          "chapter": 5,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:19": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Oaths.1.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 1",
+          "description": "",
+          "sectionName": "Laws of Oaths",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:20": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Oaths.2.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 2",
+          "description": "",
+          "sectionName": "Laws of Oaths",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:21": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Oaths.3.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 3",
+          "description": "",
+          "sectionName": "Laws of Oaths",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:22": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Oaths.4.1",
+          "heRef": "ליקוטי הלכות, הלכות שבועות 4",
+          "description": "",
+          "sectionName": "Laws of Oaths",
+          "chapter": 4,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:23": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Father_and_Mother.1.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד אב ואם 1",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Father and Mother",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:24": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Father_and_Mother.2.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד אב ואם 2",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Father and Mother",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:25": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Father_and_Mother.3.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד אב ואם 3",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Father and Mother",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:26": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Rabbi_and_a_Torah_Scholar.1.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד רבו ותלמיד חכם 1",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Rabbi and a Torah Scholar",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:27": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Rabbi_and_a_Torah_Scholar.2.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד רבו ותלמיד חכם 2",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Rabbi and a Torah Scholar",
+          "chapter": 2,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:28": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Honouring_One's_Rabbi_and_a_Torah_Scholar.3.1",
+          "heRef": "ליקוטי הלכות, הלכות כבוד רבו ותלמיד חכם 3",
+          "description": "",
+          "sectionName": "Laws of Honouring One's Rabbi and a Torah Scholar",
+          "chapter": 3,
+          "subsection": 1
+        }
+      ]
+    },
+    "elul:29": {
+      "portions": [
+        {
+          "ref": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Teachers.1.1",
+          "heRef": "ליקוטי הלכות, הלכות מלמדים 1",
+          "description": "",
+          "sectionName": "Laws of Teachers",
+          "chapter": 1,
+          "subsection": 1
+        }
+      ]
+    }
+  }
+}

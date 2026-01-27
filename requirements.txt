@@ -1,0 +1,6 @@
+# Core dependencies
+python-telegram-bot>=20.0,<22.0
+requests>=2.28.0,<3.0
+python-dotenv>=1.0.0,<2.0
+pyluach>=2.0.0,<3.0
+python-bidi>=0.4.0,<1.0
