@@ -167,4 +167,7 @@ class LikuteiHalachotBot:
         """Run the bot in polling mode (for interactive use)."""
         logger.info("Starting bot in polling mode...")
         app = self.build_app()
-        app.run_polling(allowed_updates=Update.ALL_TYPES)
+        app.run_polling(
+            allowed_updates=Update.ALL_TYPES,
+            drop_pending_updates=True,  # Clear any pending updates/conflicts
+        )
