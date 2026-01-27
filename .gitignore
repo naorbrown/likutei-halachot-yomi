@@ -55,3 +55,6 @@ htmlcov/
 
 # Claude
 .claude/
+
+# Source PDFs (data extracted to JSON)
+*.pdf

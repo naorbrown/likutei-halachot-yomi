@@ -384,79 +384,100 @@ def determine_chelek(section_name: str) -> str:
 
 
 class ScheduleManager:
-    """Manages the Likutei Halachot Yomi schedule."""
+    """Manages the Likutei Halachot Yomi schedule using Ashreinu calendar data."""
+
+    # Hebrew volume names for display
+    VOLUME_HEBREW = {
+        "Orach_Chaim": "אורח חיים",
+        "Yoreh_Deah": "יורה דעה",
+        "Even_HaEzer": "אבן העזר",
+        "Choshen_Mishpat": "חושן משפט",
+    }
 
     def __init__(self, data_dir: Path):
         self.data_dir = data_dir
-        self.schedule_file = data_dir / "schedule.json"
+        self.ashreinu_schedule_file = data_dir / "ashreinu_schedule_5786.json"
         self._schedule: Optional[Dict] = None
 
     def load_schedule(self) -> Dict:
-        """Load schedule from file or generate if not exists."""
+        """Load the Ashreinu schedule from JSON file."""
         if self._schedule is not None:
             return self._schedule
 
-        if self.schedule_file.exists():
+        if self.ashreinu_schedule_file.exists():
             try:
-                with open(self.schedule_file, 'r', encoding='utf-8') as f:
+                with open(self.ashreinu_schedule_file, 'r', encoding='utf-8') as f:
                     self._schedule = json.load(f)
-                    logger.info(f"Loaded schedule from {self.schedule_file}")
+                    logger.info(f"Loaded Ashreinu schedule from {self.ashreinu_schedule_file}")
                     return self._schedule
             except (json.JSONDecodeError, IOError) as e:
-                logger.error(f"Error loading schedule: {e}")
+                logger.error(f"Error loading Ashreinu schedule: {e}")
+                raise RuntimeError(f"Failed to load Ashreinu schedule: {e}")
 
-        # Generate default schedule
-        logger.info("Generating new schedule")
-        self._schedule = self._generate_default_schedule()
-        self.save_schedule()
-        return self._schedule
+        raise FileNotFoundError(f"Ashreinu schedule file not found: {self.ashreinu_schedule_file}")
 
-    def save_schedule(self):
-        """Save schedule to file."""
-        if self._schedule is None:
-            return
+    def _build_sefaria_ref(self, volume: str, part: int, daf: int) -> str:
+        """
+        Build a Sefaria reference for a Likutei Halachot daf.
 
-        with open(self.schedule_file, 'w', encoding='utf-8') as f:
-            json.dump(self._schedule, f, ensure_ascii=False, indent=2)
-        logger.info(f"Saved schedule to {self.schedule_file}")
+        Sefaria uses a different structure - we reference by volume and page.
+        Example: Likutei Halakhot, Orach Chaim 1:5 (volume part 1, page 5)
+        """
+        # Sefaria reference format for Likutei Halakhot
+        # The structure is: Likutei Halakhot, [Volume] [Part]:[Page]
+        return f"Likutei Halakhot, {volume.replace('_', ' ')} {part}:{daf}"
 
-    def _generate_default_schedule(self) -> Dict:
-        """Generate the default schedule structure."""
-        schedule_data = generate_yearly_schedule(5786)
-
-        return {
-            "meta": {
-                "description": "Likutei Halachot Yomi - Daily Learning Schedule",
-                "source": "Based on sequential learning through Likutei Halachot",
-                "sefaria_url": "https://www.sefaria.org/Likutei_Halakhot",
-                "ashreinu_url": "https://www.breslevnews.net/אשרינו-לוח-דף-היומי-בליקוטי-הלכות-ל/",
-                "generated_for_year": 5786,
-            },
-            "schedule": schedule_data,
-        }
+    def _build_hebrew_ref(self, volume: str, part: int, daf) -> str:
+        """Build a Hebrew reference string."""
+        volume_he = self.VOLUME_HEBREW.get(volume, volume)
+        if daf == "hakdama":
+            return f"ליקוטי הלכות, {volume_he} חלק {part}, הקדמה"
+        return f"ליקוטי הלכות, {volume_he} חלק {part}, דף {daf}"
 
     def get_daily_portions(self, hebrew_date: HebrewDate) -> List[DailyPortion]:
-        """Get the portions for a specific Hebrew date."""
+        """Get the portions for a specific Hebrew date from Ashreinu schedule."""
         schedule = self.load_schedule()
         schedule_data = schedule.get("schedule", {})
 
         key = f"{hebrew_date.month_key}:{hebrew_date.day}"
-        day_data = schedule_data.get(key, {})
-        portions_data = day_data.get("portions", [])
+        day_data = schedule_data.get(key)
 
-        return [DailyPortion.from_dict(p) for p in portions_data]
+        if day_data is None:
+            logger.warning(f"No schedule entry found for {key}")
+            return []
 
-    def update_portion(self, month_key: str, day: int, portions: List[DailyPortion]):
-        """Update the portions for a specific day."""
+        # Extract data from Ashreinu format
+        daf = day_data.get("daf")
+        volume = day_data.get("volume", "Orach_Chaim")
+        part = day_data.get("part", 1)
+        parsha = day_data.get("parsha", "")
+        note = day_data.get("note", "")
+
+        # Handle special cases like "hakdama" (introduction)
+        if daf == "hakdama":
+            ref = f"Likutei Halakhot, {volume.replace('_', ' ')} {part}, Introduction"
+            he_ref = self._build_hebrew_ref(volume, part, daf)
+            description = f"הקדמה - {parsha}" if parsha else "הקדמה"
+        else:
+            ref = self._build_sefaria_ref(volume, part, daf)
+            he_ref = self._build_hebrew_ref(volume, part, daf)
+            description = f"דף {daf} - {parsha}" if parsha else f"דף {daf}"
+
+        if note:
+            description += f" ({note})"
+
+        portion = DailyPortion(
+            ref=ref,
+            he_ref=he_ref,
+            description=description,
+            section_name=f"{volume.replace('_', ' ')} Part {part}",
+            chapter=daf if isinstance(daf, int) else 0,
+            subsection=0,
+        )
+
+        return [portion]
+
+    def get_schedule_meta(self) -> Dict[str, Any]:
+        """Get metadata about the schedule."""
         schedule = self.load_schedule()
-        key = f"{month_key}:{day}"
-
-        if "schedule" not in schedule:
-            schedule["schedule"] = {}
-
-        schedule["schedule"][key] = {
-            "portions": [p.to_dict() for p in portions]
-        }
-
-        self._schedule = schedule
-        self.save_schedule()
+        return schedule.get("meta", {})

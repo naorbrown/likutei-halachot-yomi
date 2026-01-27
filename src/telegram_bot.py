@@ -140,3 +140,30 @@ class TelegramBot:
         except TelegramError as e:
             logger.error(f"Failed to connect to Telegram: {e}")
             return False
+
+    async def set_bot_description(
+        self,
+        description: str,
+        short_description: str,
+    ) -> bool:
+        """
+        Set the bot's description and short description.
+
+        Args:
+            description: Full description shown in bot profile (up to 512 chars)
+            short_description: Short description shown in empty chat (up to 120 chars)
+
+        Returns:
+            True if both set successfully
+        """
+        try:
+            await self.bot.set_my_description(description=description)
+            logger.info("Bot description set successfully")
+
+            await self.bot.set_my_short_description(short_description=short_description)
+            logger.info("Bot short description set successfully")
+
+            return True
+        except TelegramError as e:
+            logger.error(f"Failed to set bot description: {e}")
+            return False
