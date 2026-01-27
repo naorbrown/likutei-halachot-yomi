@@ -4,12 +4,13 @@ Telegram bot for sending Likutei Halachot Yomi.
 
 import asyncio
 import logging
+import re
 from typing import List, Optional
 
-from telegram import Bot
+from telegram import Bot, Update, BotCommand
 from telegram.constants import ParseMode
 from telegram.error import TelegramError
-import re
+from telegram.ext import Application, CommandHandler, ContextTypes
 
 from .config import Config
 from .message_formatter import FormattedMessage
@@ -103,11 +104,25 @@ class TelegramBot:
 
         return success
 
+    async def setup_commands(self) -> bool:
+        """Set up bot commands for the menu."""
+        commands = [
+            BotCommand("start", "התחל לקבל ליקוטי הלכות יומי"),
+            BotCommand("today", "קבל את ההלכה של היום"),
+            BotCommand("about", "אודות הבוט"),
+            BotCommand("help", "עזרה"),
+        ]
+        try:
+            await self.bot.set_my_commands(commands)
+            logger.info("Bot commands set successfully")
+            return True
+        except TelegramError as e:
+            logger.error(f"Failed to set commands: {e}")
+            return False
+
     def _strip_html(self, text: str) -> str:
         """Remove HTML formatting from text."""
-        # Remove HTML tags
         text = re.sub(r'<[^>]+>', '', text)
-        # Unescape HTML entities
         text = text.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
         return text
 
