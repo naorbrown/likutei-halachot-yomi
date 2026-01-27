@@ -72,13 +72,13 @@ class TestStaticMessages:
     def test_welcome_message(self):
         result = format_welcome_message()
         assert "ברוכים הבאים" in result
-        assert "/start" in result
+        assert "Welcome" in result
         assert "/today" in result
 
     def test_about_message(self):
         result = format_about_message()
-        assert "רבי נתן" in result
-        assert "ספריא" in result
+        assert "Rebbe Natan" in result
+        assert "Sefaria" in result
         assert "GitHub" in result
 
     def test_error_message(self):

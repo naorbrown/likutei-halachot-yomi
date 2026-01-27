@@ -45,7 +45,7 @@ def format_halacha(halacha: Halacha, number: int) -> str:
         english_section = f"\n\n<i>{english}</i>"
 
     # Sefaria link
-    link = f'<a href="{halacha.sefaria_url}">📖 קרא עוד בספריא</a>'
+    link = f'<a href="{halacha.sefaria_url}">📖 Read more on Sefaria / קרא עוד בספריא</a>'
 
     return f"""{header}
 {subheader}
@@ -123,48 +123,61 @@ def format_daily_message_compact(pair: DailyPair, for_date: date) -> str:
 
 def format_welcome_message() -> str:
     """Format the welcome message for new users."""
-    return """<b>ברוכים הבאים! 📚</b>
+    return """<b>📚 Welcome to Likutei Halachot Yomi!</b>
+<b>📚 ברוכים הבאים לליקוטי הלכות יומי!</b>
 
-<b>ליקוטי הלכות יומי</b> שולח לכם כל יום שתי הלכות אקראיות מספר ליקוטי הלכות של רבי נתן מברסלב - תלמידו הגדול של רבי נחמן מאומן.
+Every day, receive two random halachot from Likutei Halachot by Rebbe Natan of Breslov - the chief disciple of Rebbe Nachman of Uman.
 
-<b>מה תקבלו:</b>
-• שתי הלכות כל יום - משני חלקים שונים
-• טקסט בעברית עם תרגום לאנגלית (כשזמין)
-• קישור ישיר לספריא להמשך הלימוד
+כל יום תקבלו שתי הלכות אקראיות מליקוטי הלכות לרבי נתן מברסלב - תלמידו הגדול של רבי נחמן מאומן.
 
-<b>פקודות:</b>
-/start - הודעת פתיחה
-/today - הלכות היום
-/about - אודות הבוט
+<b>What you'll receive / מה תקבלו:</b>
+• Two halachot daily from different volumes
+  שתי הלכות יומיות משני חלקים שונים
+• Hebrew text with English translation (when available)
+  טקסט בעברית עם תרגום לאנגלית (כשזמין)
+• Direct Sefaria links for further study
+  קישורים ישירים לספריא להמשך הלימוד
+
+<b>Commands / פקודות:</b>
+/today - Today's halachot / הלכות היום
+/about - About this bot / אודות הבוט
 
 <i>נ נח נחמ נחמן מאומן</i>
-🕯️ הפצת תורת רבי נחמן בעולם"""
+🕯️ Spreading the light of Rebbe Nachman"""
 
 
 def format_about_message() -> str:
     """Format the about message."""
-    return """<b>אודות ליקוטי הלכות יומי 📖</b>
+    return """<b>📖 About Likutei Halachot Yomi</b>
+<b>📖 אודות ליקוטי הלכות יומי</b>
 
-<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחובר על ידי רבי נתן מברסלב (1780-1844), תלמידו הגדול של רבי נחמן מאומן.
+<b>Likutei Halachot</b> is a foundational work of Breslov Chassidut, written by Rebbe Natan of Breslov (1780-1844), the foremost disciple of Rebbe Nachman of Uman.
 
-הספר מכיל ביאורים עמוקים על השולחן ערוך לפי תורת רבי נחמן, ומחולק לארבעה חלקים:
-• <b>אורח חיים</b> - הלכות יומיומיות
-• <b>יורה דעה</b> - הלכות איסור והיתר
-• <b>אבן העזר</b> - הלכות אישות
-• <b>חושן משפט</b> - הלכות ממונות
+<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחובר על ידי רבי נתן מברסלב, תלמידו הגדול של רבי נחמן מאומן.
 
-<b>מקור הטקסטים:</b>
-כל הטקסטים מגיעים מ<a href="https://www.sefaria.org/Likutei_Halakhot">ספריא</a> - ספריה דיגיטלית חינמית של טקסטים יהודיים.
+The work contains deep mystical insights on the Shulchan Aruch through the lens of Rebbe Nachman's teachings.
 
-<b>קוד פתוח:</b>
-הבוט הזה הוא קוד פתוח ב-<a href="https://github.com/naorbrown/likutei-halachot-yomi">GitHub</a>.
+<b>The Four Sections / ארבעת החלקים:</b>
+• <b>Orach Chaim</b> / אורח חיים - Daily conduct
+• <b>Yoreh Deah</b> / יורה דעה - Dietary laws
+• <b>Even HaEzer</b> / אבן העזר - Family law
+• <b>Choshen Mishpat</b> / חושן משפט - Civil law
+
+<b>Source / מקור:</b>
+All texts from <a href="https://www.sefaria.org/Likutei_Halakhot">Sefaria</a> - a free digital library of Jewish texts.
+
+<b>Open Source / קוד פתוח:</b>
+<a href="https://github.com/naorbrown/likutei-halachot-yomi">GitHub</a>
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_error_message() -> str:
     """Format an error message."""
-    return """<b>שגיאה 😔</b>
+    return """<b>😔 Error / שגיאה</b>
+
+Sorry, an error occurred while fetching the halachot.
+Please try again later.
 
 מצטערים, אירעה שגיאה בעת שליפת ההלכות.
 אנא נסו שוב מאוחר יותר.
