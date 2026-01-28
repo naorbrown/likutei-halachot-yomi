@@ -45,7 +45,9 @@ def format_halacha(halacha: Halacha, number: int) -> str:
         english_section = f"\n\n<i>{english}</i>"
 
     # Sefaria link
-    link = f'<a href="{halacha.sefaria_url}">📖 Read more on Sefaria / קרא עוד בספריא</a>'
+    link = (
+        f'<a href="{halacha.sefaria_url}">📖 Read more on Sefaria / קרא עוד בספריא</a>'
+    )
 
     return f"""{header}
 {subheader}
