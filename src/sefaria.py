@@ -69,7 +69,8 @@ class SefariaClient:
         try:
             response = self.session.get(url, timeout=self.timeout)
             response.raise_for_status()
-            return response.json()
+            result: dict[str, Any] = response.json()
+            return result
         except requests.RequestException as e:
             logger.error(f"Failed to fetch {reference}: {e}")
             return None
@@ -80,7 +81,8 @@ class SefariaClient:
         try:
             response = self.session.get(url, timeout=self.timeout)
             response.raise_for_status()
-            return response.json()
+            result: dict[str, Any] = response.json()
+            return result
         except requests.RequestException as e:
             logger.error(f"Failed to get structure for {section.section}: {e}")
             return None

@@ -66,6 +66,8 @@ class LikuteiHalachotBot:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /start command."""
+        if not update.effective_user or not update.message:
+            return
         logger.info(f"Start command from user {update.effective_user.id}")
         await update.message.reply_text(
             format_welcome_message(),
@@ -77,6 +79,8 @@ class LikuteiHalachotBot:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /today command."""
+        if not update.effective_user or not update.message:
+            return
         user_id = update.effective_user.id
         logger.info(f"Today command from user {user_id}")
 
@@ -100,6 +104,8 @@ class LikuteiHalachotBot:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle /about command."""
+        if not update.effective_user or not update.message:
+            return
         logger.info(f"About command from user {update.effective_user.id}")
         await update.message.reply_text(
             format_about_message(),
@@ -111,6 +117,8 @@ class LikuteiHalachotBot:
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
         """Handle unknown commands."""
+        if not update.message:
+            return
         await update.message.reply_text(
             "לא הבנתי את הפקודה. נסה /start או /today",
             parse_mode=ParseMode.HTML,
