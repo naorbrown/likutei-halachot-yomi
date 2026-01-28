@@ -72,6 +72,17 @@ For manual testing/recovery, you can trigger broadcasts via GitHub Actions:
 | `/about` | About the bot and sources |
 | `/help` | Help and usage information |
 
+### Group Chat Setup
+
+If using the bot in a **group chat**, you must disable privacy mode:
+
+1. Open [@BotFather](https://t.me/botfather)
+2. Send `/mybots` → Select your bot
+3. Go to **Bot Settings** → **Group Privacy**
+4. Click **Turn off**
+
+Without this, the bot only receives commands that mention it directly (e.g., `/today@YourBotName`).
+
 ## 🏗️ Architecture
 
 ```
