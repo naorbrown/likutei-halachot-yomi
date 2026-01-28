@@ -1,111 +1,115 @@
 """Message formatting for Telegram."""
 
-import logging
 from datetime import date
-
 from .models import DailyPair, Halacha
 
-logger = logging.getLogger(__name__)
-
-# Maximum Telegram message length
-MAX_MESSAGE_LENGTH = 4096
+MAX_MESSAGE_LENGTH = 4000
 
 
-def format_halacha(halacha: Halacha, number: int) -> str:
-    """Format a single halacha with hyperlinked title and full text."""
-    # Full title hyperlinked to Sefaria
+def split_text(text: str, max_len: int) -> list[str]:
+    """Split text into chunks at word boundaries."""
+    if len(text) <= max_len:
+        return [text]
+    chunks = []
+    while text:
+        if len(text) <= max_len:
+            chunks.append(text)
+            break
+        split_at = text.rfind(' ', 0, max_len)
+        if split_at == -1:
+            split_at = max_len
+        chunks.append(text[:split_at])
+        text = text[split_at:].lstrip()
+    return chunks
+
+
+def format_halacha_messages(halacha: Halacha, number: int, date_str: str = "") -> list[str]:
+    """Format a halacha into messages."""
     label = "א" if number == 1 else "ב"
-    title = f'<a href="{halacha.sefaria_url}"><b>{label}. הלכות {halacha.section.section_he}</b></a>'
+    emoji = "📜" if number == 1 else "📖"
+    title = f'{emoji} <a href="{halacha.sefaria_url}"><b>{label}. הלכות {halacha.section.section_he}</b></a>'
     volume = f"<i>{halacha.section.volume_he}</i>"
+    link = f'<a href="{halacha.sefaria_url}">המשך בספריא →</a>'
 
-    # Full Hebrew text
-    hebrew = halacha.hebrew_text
+    header = f"<b>📚 ליקוטי הלכות יומי</b> | {date_str}\n\n" if date_str else ""
+    base = f"{header}{title}\n{volume}\n\n"
+    footer = f"\n\n{link}"
 
-    # English if available
-    english_part = ""
-    if halacha.english_text:
-        english_part = f"\n\n<i>{halacha.english_text}</i>"
+    available = MAX_MESSAGE_LENGTH - len(base) - len(footer) - 100
+    hebrew_chunks = split_text(halacha.hebrew_text, available)
 
-    # Link at bottom
-    link = f'<a href="{halacha.sefaria_url}">📖 קרא עוד בספריא / Read more on Sefaria</a>'
+    messages = []
+    for i, chunk in enumerate(hebrew_chunks):
+        msg = f"{base}{chunk}" if i == 0 else f"{title} (המשך)\n\n{chunk}"
+        if i == len(hebrew_chunks) - 1:
+            msg += footer
+        messages.append(msg)
 
-    return f"""{title}
-{volume}
-
-{hebrew}{english_part}
-
-{link}"""
+    return messages
 
 
 def format_daily_message(pair: DailyPair, for_date: date | None = None) -> list[str]:
-    """Format daily message. Returns list of messages (split if too long)."""
+    """Format daily message as list of messages."""
     if for_date is None:
         for_date = date.today()
-
     date_str = for_date.strftime("%d/%m/%Y")
-    first = format_halacha(pair.first, 1)
-    second = format_halacha(pair.second, 2)
 
-    # Try single message first
-    single = f"""<b>📚 ליקוטי הלכות יומי</b> | {date_str}
-
-{first}
-
-━━━━━━━━━━━━━━━
-
-{second}
-
-<i>נ נח נחמ נחמן מאומן</i>"""
-
-    if len(single) <= MAX_MESSAGE_LENGTH:
-        return [single]
-
-    # Split into two messages
-    msg1 = f"""<b>📚 ליקוטי הלכות יומי</b> | {date_str}
-
-{first}"""
-
-    msg2 = f"""{second}
-
-<i>נ נח נחמ נחמן מאומן</i>"""
-
-    return [msg1, msg2]
+    messages = []
+    messages.extend(format_halacha_messages(pair.first, 1, date_str))
+    messages.extend(format_halacha_messages(pair.second, 2, ""))
+    messages[-1] += "\n\n<i>נ נח נחמ נחמן מאומן</i>"
+    return messages
 
 
 def format_welcome_message() -> str:
-    """Format the welcome message."""
     return """<b>📚 ברוכים הבאים לליקוטי הלכות יומי!</b>
 
-כל יום תקבלו שתי הלכות מליקוטי הלכות לרבי נתן מברסלב.
+שתי הלכות יומיות מספר ליקוטי הלכות של רבי נתן מברסלב.
 
 <b>פקודות:</b>
-/today - הלכות היום
-/about - אודות הבוט
+/today - 📖 הלכות היום
+/about - ℹ️ אודות
+/help - ❓ עזרה
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_about_message() -> str:
-    """Format the about message."""
-    return """<b>📖 אודות ליקוטי הלכות יומי</b>
+    return """<b>ℹ️ אודות ליקוטי הלכות יומי</b>
 
-<b>ליקוטי הלכות</b> - ספר יסוד בחסידות ברסלב מאת רבי נתן מברסלב.
+<b>ליקוטי הלכות</b> - ספר יסוד בחסידות ברסלב מאת רבי נתן מברסלב, תלמידו הגדול של רבי נחמן מאומן.
 
-<b>ארבעת החלקים:</b>
-• אורח חיים
-• יורה דעה
-• אבן העזר
-• חושן משפט
+הספר מכיל ביאורים עמוקים על השולחן ערוך לפי תורת רבי נחמן.
 
-<a href="https://www.sefaria.org/Likutei_Halakhot">ספריא</a> | <a href="https://github.com/naorbrown/likutei-halachot-yomi">GitHub</a>
+<b>קישורים:</b>
+📚 <a href="https://www.sefaria.org/Likutei_Halakhot">ספריא</a>
+💻 <a href="https://github.com/naorbrown/likutei-halachot-yomi">קוד פתוח</a>
+
+<i>נ נח נחמ נחמן מאומן</i>"""
+
+
+def format_help_message() -> str:
+    return """<b>❓ עזרה</b>
+
+<b>פקודות זמינות:</b>
+
+/start - התחלה והרשמה
+/today - קבלת הלכות היום
+/about - מידע על הבוט
+/help - הודעה זו
+
+<b>איך זה עובד?</b>
+כל יום מתפרסמות שתי הלכות חדשות משני חלקים שונים של ליקוטי הלכות.
+
+<b>שאלות?</b>
+פנו אלינו ב-<a href="https://github.com/naorbrown/likutei-halachot-yomi/issues">GitHub</a>
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_error_message() -> str:
-    """Format an error message."""
     return """<b>😔 שגיאה</b>
 
-אירעה שגיאה. אנא נסו שוב.
+אירעה שגיאה. אנא נסו שוב מאוחר יותר.
 
 <i>נ נח נחמ נחמן מאומן</i>"""

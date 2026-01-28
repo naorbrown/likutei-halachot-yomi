@@ -18,6 +18,7 @@ from .formatter import (
     format_about_message,
     format_daily_message,
     format_error_message,
+    format_help_message,
     format_welcome_message,
 )
 from .sefaria import SefariaClient
@@ -36,97 +37,78 @@ class LikuteiHalachotBot:
         self._app: Application | None = None
 
     async def _setup_commands(self, app: Application) -> None:
-        """Set up bot commands for the menu."""
+        """Set up bot commands menu."""
         commands = [
-            BotCommand("start", "התחל - הודעת פתיחה"),
-            BotCommand("today", "הלכות היום"),
+            BotCommand("start", "התחל לקבל ליקוטי הלכות יומי"),
+            BotCommand("today", "קבל את ההלכה של היום"),
             BotCommand("about", "אודות הבוט"),
+            BotCommand("help", "עזרה"),
         ]
         await app.bot.set_my_commands(commands)
         logger.info("Bot commands configured")
 
     async def _set_bot_description(self, app: Application) -> None:
-        """Set bot description and about text."""
-        # Short description (shown in search results)
-        await app.bot.set_my_short_description("שתי הלכות יומיות מליקוטי הלכות 📚")
-
-        # Full description (shown on bot profile)
+        """Set bot description."""
+        await app.bot.set_my_short_description("📚 שתי הלכות יומיות מליקוטי הלכות")
         await app.bot.set_my_description(
             "📚 ליקוטי הלכות יומי\n\n"
-            "קבלו כל יום שתי הלכות אקראיות מספר ליקוטי הלכות "
-            "של רבי נתן מברסלב.\n\n"
-            "• טקסט בעברית ואנגלית\n"
-            "• קישור לספריא\n"
-            "• משני חלקים שונים כל יום\n\n"
+            "שתי הלכות יומיות מספר ליקוטי הלכות של רבי נתן מברסלב.\n\n"
             "נ נח נחמ נחמן מאומן"
         )
         logger.info("Bot description configured")
 
-    async def start_command(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
+    async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /start command."""
-        if not update.effective_user or not update.message:
+        if not update.message:
             return
-        logger.info(f"Start command from user {update.effective_user.id}")
+        logger.info(f"Start from user {update.effective_user.id if update.effective_user else 'unknown'}")
         await update.message.reply_text(
             format_welcome_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
 
-    async def today_command(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
+    async def today_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /today command."""
-        if not update.effective_user or not update.message:
+        if not update.message:
             return
-        user_id = update.effective_user.id
-        logger.info(f"Today command from user {user_id}")
+        logger.info(f"Today from user {update.effective_user.id if update.effective_user else 'unknown'}")
 
         try:
             pair = self.selector.get_daily_pair(date.today())
-            if pair:
-                messages = format_daily_message(pair, date.today())
-            else:
-                messages = [format_error_message()]
+            messages = format_daily_message(pair, date.today()) if pair else [format_error_message()]
         except Exception as e:
-            logger.exception(f"Error getting daily halachot: {e}")
+            logger.exception(f"Error: {e}")
             messages = [format_error_message()]
 
         for msg in messages:
-            await update.message.reply_text(
-                msg,
-                parse_mode=ParseMode.HTML,
-                disable_web_page_preview=False,
-            )
+            await update.message.reply_text(msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    async def about_command(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
+    async def about_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle /about command."""
-        if not update.effective_user or not update.message:
+        if not update.message:
             return
-        logger.info(f"About command from user {update.effective_user.id}")
-        await update.message.reply_text(
-            format_about_message(),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
-        )
+        logger.info(f"About from user {update.effective_user.id if update.effective_user else 'unknown'}")
+        await update.message.reply_text(format_about_message(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
 
-    async def unknown_command(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
+    async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Handle /help command."""
+        if not update.message:
+            return
+        logger.info(f"Help from user {update.effective_user.id if update.effective_user else 'unknown'}")
+        await update.message.reply_text(format_help_message(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+
+    async def unknown_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         """Handle unknown commands."""
         if not update.message:
             return
         await update.message.reply_text(
-            "לא הבנתי את הפקודה. נסה /start או /today",
+            "לא הבנתי. נסה /help לרשימת הפקודות.",
             parse_mode=ParseMode.HTML,
         )
 
     def build_app(self) -> Application:
-        """Build and configure the Telegram application."""
+        """Build the Telegram application."""
         app = (
             Application.builder()
             .token(self.config.telegram_bot_token)
@@ -135,18 +117,18 @@ class LikuteiHalachotBot:
             .build()
         )
 
-        # Register handlers
         app.add_handler(CommandHandler("start", self.start_command))
         app.add_handler(CommandHandler("today", self.today_command))
         app.add_handler(CommandHandler("about", self.about_command))
+        app.add_handler(CommandHandler("help", self.help_command))
         app.add_handler(MessageHandler(filters.COMMAND, self.unknown_command))
 
         self._app = app
         return app
 
     async def send_daily_broadcast(self) -> bool:
-        """Send daily halachot to the configured chat."""
-        logger.info(f"Sending daily broadcast to {self.config.telegram_chat_id}")
+        """Send daily halachot to configured chat."""
+        logger.info(f"Broadcasting to {self.config.telegram_chat_id}")
 
         try:
             pair = self.selector.get_daily_pair(date.today())
@@ -155,7 +137,6 @@ class LikuteiHalachotBot:
                 return False
 
             messages = format_daily_message(pair, date.today())
-
             app = self.build_app()
             async with app:
                 for msg in messages:
@@ -163,21 +144,18 @@ class LikuteiHalachotBot:
                         chat_id=self.config.telegram_chat_id,
                         text=msg,
                         parse_mode=ParseMode.HTML,
-                        disable_web_page_preview=False,
+                        disable_web_page_preview=True,
                     )
 
-            logger.info("Daily broadcast sent successfully")
+            logger.info("Broadcast sent")
             return True
 
         except Exception as e:
-            logger.exception(f"Failed to send daily broadcast: {e}")
+            logger.exception(f"Broadcast failed: {e}")
             return False
 
     def run_polling(self) -> None:
-        """Run the bot in polling mode (for interactive use)."""
-        logger.info("Starting bot in polling mode...")
+        """Run bot in polling mode."""
+        logger.info("Starting polling...")
         app = self.build_app()
-        app.run_polling(
-            allowed_updates=Update.ALL_TYPES,
-            drop_pending_updates=True,  # Clear any pending updates/conflicts
-        )
+        app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
