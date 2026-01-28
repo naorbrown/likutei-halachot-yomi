@@ -37,6 +37,18 @@ class LikuteiHalachotBot:
         self.selector = HalachaSelector(self.client)
         self._app: Application | None = None
 
+    async def _send_startup_notification(self, app: Application) -> None:
+        """Send a notification when the bot starts (helps verify deployment)."""
+        if self.config.telegram_chat_id:
+            try:
+                await app.bot.send_message(
+                    chat_id=self.config.telegram_chat_id,
+                    text="🤖 Bot started successfully and is now listening for commands.",
+                )
+                logger.info("Startup notification sent")
+            except Exception as e:
+                logger.warning(f"Could not send startup notification: {e}")
+
     async def _setup_commands(self, app: Application) -> None:
         """Set up bot commands menu."""
         commands = [
@@ -153,6 +165,7 @@ class LikuteiHalachotBot:
             .token(self.config.telegram_bot_token)
             .post_init(self._setup_commands)
             .post_init(self._set_bot_description)
+            .post_init(self._send_startup_notification)
             .build()
         )
 
