@@ -27,7 +27,7 @@ def format_halacha_messages(halacha: Halacha, number: int, date_str: str = "") -
     """Format a halacha into messages."""
     label = "א" if number == 1 else "ב"
     emoji = "📜" if number == 1 else "📖"
-    title = f'{emoji} <a href="{halacha.sefaria_url}"><b>{label}. הלכות {halacha.section.section_he}</b></a>'
+    title = f'{emoji} <a href="{halacha.sefaria_url}"><b>{label}. {halacha.section.section_he}</b></a>'
     volume = f"<i>{halacha.section.volume_he}</i>"
     link = f'<a href="{halacha.sefaria_url}">המשך בספריא →</a>'
 

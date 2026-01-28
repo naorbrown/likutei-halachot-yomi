@@ -36,6 +36,12 @@ class TestFormatDailyMessage:
         assert "ליקוטי הלכות יומי" in combined
         assert "נ נח נחמ נחמן מאומן" in combined
 
+    def test_no_duplicate_halachot_in_title(self, sample_daily_pair, fixed_date):
+        """Ensure title doesn't duplicate 'הלכות' (section_he already contains it)."""
+        result = format_daily_message(sample_daily_pair, fixed_date)
+        combined = "".join(result)
+        assert "הלכות הלכות" not in combined
+
     def test_message_parts_under_length_limit(self, sample_daily_pair, fixed_date):
         result = format_daily_message(sample_daily_pair, fixed_date)
         for msg in result:

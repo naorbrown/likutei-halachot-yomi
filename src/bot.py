@@ -1,7 +1,8 @@
 """Telegram bot implementation."""
 
 import logging
-from datetime import date
+from datetime import date, time
+from zoneinfo import ZoneInfo
 
 from telegram import BotCommand, Update
 from telegram.constants import ParseMode
@@ -154,8 +155,41 @@ class LikuteiHalachotBot:
             logger.exception(f"Broadcast failed: {e}")
             return False
 
-    def run_polling(self) -> None:
-        """Run bot in polling mode."""
+    async def _scheduled_broadcast(self, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Send daily broadcast via scheduled job."""
+        logger.info("Running scheduled daily broadcast...")
+        try:
+            pair = self.selector.get_daily_pair(date.today())
+            if not pair:
+                logger.error("Failed to get daily pair for scheduled broadcast")
+                return
+
+            messages = format_daily_message(pair, date.today())
+            for msg in messages:
+                await context.bot.send_message(
+                    chat_id=self.config.telegram_chat_id,
+                    text=msg,
+                    parse_mode=ParseMode.HTML,
+                    disable_web_page_preview=True,
+                )
+            logger.info("Scheduled broadcast sent successfully")
+        except Exception as e:
+            logger.exception(f"Scheduled broadcast failed: {e}")
+
+    def run_polling(self, schedule_daily: bool = True) -> None:
+        """Run bot in polling mode with optional daily scheduling."""
         logger.info("Starting polling...")
         app = self.build_app()
+
+        if schedule_daily and self.config.telegram_chat_id:
+            # Schedule daily broadcast at 6:00 AM Israel time
+            israel_tz = ZoneInfo("Asia/Jerusalem")
+            broadcast_time = time(hour=6, minute=0, second=0, tzinfo=israel_tz)
+            app.job_queue.run_daily(
+                self._scheduled_broadcast,
+                time=broadcast_time,
+                name="daily_broadcast",
+            )
+            logger.info(f"Daily broadcast scheduled for {broadcast_time} Israel time")
+
         app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
