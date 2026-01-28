@@ -11,7 +11,7 @@ A Telegram bot delivering two daily halachot from **Likutei Halachot** by Rebbe 
 
 - **Daily Inspiration** — Two halachot delivered at 6 AM Israel time
 - **Fresh Content** — Different selections each day, never recycling year over year
-- **Interactive Commands** — `/start`, `/today`, `/about`
+- **Interactive Commands** — `/start`, `/today`, `/about`, `/help`
 - **Bilingual** — Hebrew text with English translation
 - **Deep Links** — Direct Sefaria links to continue learning
 
@@ -56,11 +56,12 @@ export TELEGRAM_CHAT_ID="your_chat_id"
 python scripts/run_polling.py
 ```
 
-### 4. Enable Daily Broadcasts
+### 4. Daily Broadcasts
 
-The GitHub Actions workflow sends daily broadcasts. Add these secrets to your forked repo:
-- Go to Settings → Secrets → Actions
-- Add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+Daily broadcasts are handled automatically by the Render worker at **6:00 AM Israel time**. The bot uses python-telegram-bot's built-in job scheduler for precise timing.
+
+For manual testing/recovery, you can trigger broadcasts via GitHub Actions:
+- Go to Actions → Daily Halachot → Run workflow
 
 ## 📱 Bot Commands
 
@@ -69,6 +70,7 @@ The GitHub Actions workflow sends daily broadcasts. Add these secrets to your fo
 | `/start` | Welcome message with instructions |
 | `/today` | Get today's two halachot |
 | `/about` | About the bot and sources |
+| `/help` | Help and usage information |
 
 ## 🏗️ Architecture
 
@@ -84,7 +86,7 @@ likutei-halachot-yomi/
 ├── main.py              # Daily broadcast CLI
 ├── render.yaml          # Render deployment config
 └── .github/workflows/
-    ├── daily.yml        # 6 AM broadcast (cron)
+    ├── daily.yml        # Manual broadcast trigger
     └── ci.yml           # Tests & linting
 ```
 
