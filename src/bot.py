@@ -213,7 +213,7 @@ class LikuteiHalachotBot:
         logger.info("Starting polling...")
         app = self.build_app()
 
-        if schedule_daily and self.config.telegram_chat_id:
+        if schedule_daily and self.config.telegram_chat_id and app.job_queue:
             # Schedule daily broadcast at 6:00 AM Israel time
             israel_tz = ZoneInfo("Asia/Jerusalem")
             broadcast_time = time(hour=6, minute=0, second=0, tzinfo=israel_tz)
