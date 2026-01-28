@@ -87,18 +87,19 @@ class LikuteiHalachotBot:
         try:
             pair = self.selector.get_daily_pair(date.today())
             if pair:
-                message = format_daily_message(pair, date.today())
+                messages = format_daily_message(pair, date.today())
             else:
-                message = format_error_message()
+                messages = [format_error_message()]
         except Exception as e:
             logger.exception(f"Error getting daily halachot: {e}")
-            message = format_error_message()
+            messages = [format_error_message()]
 
-        await update.message.reply_text(
-            message,
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=False,
-        )
+        for msg in messages:
+            await update.message.reply_text(
+                msg,
+                parse_mode=ParseMode.HTML,
+                disable_web_page_preview=False,
+            )
 
     async def about_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
@@ -153,16 +154,17 @@ class LikuteiHalachotBot:
                 logger.error("Failed to get daily pair")
                 return False
 
-            message = format_daily_message(pair, date.today())
+            messages = format_daily_message(pair, date.today())
 
             app = self.build_app()
             async with app:
-                await app.bot.send_message(
-                    chat_id=self.config.telegram_chat_id,
-                    text=message,
-                    parse_mode=ParseMode.HTML,
-                    disable_web_page_preview=False,
-                )
+                for msg in messages:
+                    await app.bot.send_message(
+                        chat_id=self.config.telegram_chat_id,
+                        text=msg,
+                        parse_mode=ParseMode.HTML,
+                        disable_web_page_preview=False,
+                    )
 
             logger.info("Daily broadcast sent successfully")
             return True
