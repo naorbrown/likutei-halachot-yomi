@@ -10,7 +10,7 @@ A Telegram bot that sends two random halachot from **Likutei Halachot** every da
 ## ✨ Features
 
 - **Daily Inspiration**: Two halachot delivered every day at 6 AM Israel time
-- **Fresh Content**: Different selection each year (Jan 1, 2026 ≠ Jan 1, 2027)
+- **Never Repeats**: Different halachot each day, year over year
 - **Interactive Commands**: `/start`, `/today`, `/about`
 - **Hebrew + English**: Original Hebrew text with English translation
 - **Sefaria Links**: Direct links to continue learning
