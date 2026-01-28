@@ -10,148 +10,84 @@ A Telegram bot that sends two random halachot from **Likutei Halachot** every da
 ## ✨ Features
 
 - **Daily Inspiration**: Two halachot delivered every day at 6 AM Israel time
-- **Two Different Volumes**: Each day's halachot come from two different sections (Orach Chaim, Yoreh Deah, Even HaEzer, or Choshen Mishpat)
-- **Hebrew + English**: Original Hebrew text with English translation when available
-- **Sefaria Links**: Direct links to continue learning on Sefaria
-- **Deterministic Selection**: Same date always produces the same halachot (reproducible)
+- **Interactive Commands**: `/start`, `/today`, `/about`
+- **Hebrew + English**: Original Hebrew text with English translation
+- **Sefaria Links**: Direct links to continue learning
+- **Rate Limited**: Protection against abuse (10 requests/user/minute)
 
-## 🚀 Quick Start
+## 🚀 Deployment
 
-### Prerequisites
+### Deploy to Vercel (Recommended - Free)
 
-- Python 3.10+
-- Telegram Bot Token (from [@BotFather](https://t.me/botfather))
-- Chat ID where messages should be sent
+1. **Fork this repository**
 
-### Installation
+2. **Go to [vercel.com](https://vercel.com)** and sign in with GitHub
 
-```bash
-# Clone the repository
-git clone https://github.com/naorbrown/likutei-halachot-yomi.git
-cd likutei-halachot-yomi
+3. **Import your forked repo**
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+4. **Add Environment Variables**:
+   - `TELEGRAM_BOT_TOKEN` - from [@BotFather](https://t.me/botfather)
+   - `TELEGRAM_CHAT_ID` - your chat/group ID
 
-# Install dependencies
-pip install -r requirements.txt
+5. **Deploy!**
 
-# Configure environment
-cp .env.example .env
-# Edit .env with your bot token and chat ID
-```
+6. **Set the Telegram webhook** (one-time):
+   ```bash
+   curl "https://api.telegram.org/bot<YOUR_TOKEN>/setWebhook?url=https://<YOUR_APP>.vercel.app/api/webhook"
+   ```
 
-### Usage
-
-```bash
-# Preview today's message (no Telegram required)
-python main.py --preview
-
-# Send daily message to configured chat
-python main.py
-
-# Run interactive bot (responds to commands)
-python main.py --serve
-```
+That's it! The bot will respond to commands and GitHub Actions sends daily messages at 6 AM Israel time.
 
 ### Bot Commands
 
 | Command | Description |
 |---------|-------------|
-| `/start` | Welcome message and introduction |
-| `/today` | Get today's two halachot |
-| `/about` | Information about the bot and Likutei Halachot |
-
-## 🚀 Deployment
-
-### Deploy to Render (Recommended)
-
-The bot runs on [Render](https://render.com) free tier with webhook mode - it sleeps when inactive and wakes instantly on incoming messages.
-
-1. Fork this repository
-2. Create a new Web Service on Render
-3. Connect your GitHub repo
-4. Set environment variables:
-   - `TELEGRAM_BOT_TOKEN` - from @BotFather
-   - `TELEGRAM_CHAT_ID` - your chat ID
-   - `WEBHOOK_URL` - your Render URL (e.g., `https://likutei-halachot-yomi.onrender.com`)
-5. Deploy! The webhook will be configured automatically.
-
-### Set up the webhook
-
-After deployment, make a POST request to set the webhook:
-```bash
-curl -X POST https://your-app.onrender.com/set-webhook
-```
+| `/start` | Welcome message |
+| `/today` | Get today's halachot |
+| `/about` | About the bot |
 
 ## 🏗️ Architecture
 
 ```
-likutei-halachot-yomi/
-├── main.py              # CLI entry point (broadcast, preview)
-├── web.py               # Webhook server for Render
+├── api/webhook.py      # Vercel serverless function (handles commands)
+├── main.py             # CLI for daily broadcast (GitHub Actions)
 ├── src/
-│   ├── bot.py           # Telegram bot implementation
-│   ├── config.py        # Configuration management
-│   ├── formatter.py     # Message formatting
-│   ├── models.py        # Data models
-│   ├── selector.py      # Halacha selection logic
-│   └── sefaria.py       # Sefaria API client
-├── data/
-│   └── sections.json    # Catalog of available sections
-├── tests/               # Test suite
-└── .github/workflows/   # CI/CD pipelines
+│   ├── bot.py          # Telegram bot logic
+│   ├── sefaria.py      # Sefaria API client
+│   ├── selector.py     # Halacha selection
+│   └── formatter.py    # Message formatting
+├── .github/workflows/
+│   ├── daily.yml       # 6 AM Israel time broadcast
+│   └── ci.yml          # Tests & linting
+└── vercel.json         # Vercel config
 ```
 
 ## 📖 About Likutei Halachot
 
-**Likutei Halachot** (ליקוטי הלכות) is a foundational text of Breslov Chassidut written by Rebbe Natan of Breslov (1780-1844), the foremost disciple of Rebbe Nachman of Uman. The work provides deep mystical insights on the Shulchan Aruch (Code of Jewish Law) through the lens of Rebbe Nachman's teachings.
+**Likutei Halachot** is written by Rebbe Natan of Breslov (1780-1844), providing mystical insights on the Shulchan Aruch through Rebbe Nachman's teachings.
 
-The work is divided into four sections following the structure of the Shulchan Aruch:
+Four sections:
+- **Orach Chaim** - Daily conduct, prayer, Shabbat
+- **Yoreh Deah** - Dietary laws, charity, Torah study
+- **Even HaEzer** - Marriage and family
+- **Choshen Mishpat** - Civil law
 
-- **Orach Chaim** (אורח חיים) - Daily conduct, prayer, Shabbat, holidays
-- **Yoreh Deah** (יורה דעה) - Dietary laws, vows, charity, Torah study
-- **Even HaEzer** (אבן העזר) - Marriage and family law
-- **Choshen Mishpat** (חושן משפט) - Civil and monetary law
-
-## 🔧 Development
+## 🔧 Local Development
 
 ```bash
-# Install dev dependencies
+# Install
 pip install -r requirements.txt
+
+# Preview today's message
+python main.py --preview
 
 # Run tests
 pytest
-
-# Run linter
-ruff check src/ tests/
-
-# Format code
-black src/ tests/
-
-# Type check
-mypy src/
 ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Sefaria](https://www.sefaria.org/) for providing free access to Jewish texts
-- The Breslov community for preserving and spreading these teachings
+MIT License
 
 ---
 
