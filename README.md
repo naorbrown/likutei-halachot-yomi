@@ -5,90 +5,120 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Telegram bot that sends two random halachot from **Likutei Halachot** every day, featuring texts from Rebbe Nachman's teachings as compiled by Rebbe Natan of Breslov.
+A Telegram bot delivering two daily halachot from **Likutei Halachot** by Rebbe Natan of Breslov — spreading the light of Rebbe Nachman's teachings.
 
 ## ✨ Features
 
-- **Daily Inspiration**: Two halachot delivered every day at 6 AM Israel time
-- **Never Repeats**: Different halachot each day, year over year
-- **Interactive Commands**: `/start`, `/today`, `/about`
-- **Hebrew + English**: Original Hebrew text with English translation
-- **Sefaria Links**: Direct links to continue learning
-- **Rate Limited**: Protection against abuse (10 requests/user/minute)
+- **Daily Inspiration** — Two halachot delivered at 6 AM Israel time
+- **Fresh Content** — Different selections each day, never recycling year over year
+- **Interactive Commands** — `/start`, `/today`, `/about`
+- **Bilingual** — Hebrew text with English translation
+- **Deep Links** — Direct Sefaria links to continue learning
 
-## 🚀 Deployment
+## 🚀 Quick Start
 
-### Deploy to Vercel (Recommended - Free)
+### 1. Create Your Bot
+Talk to [@BotFather](https://t.me/botfather) on Telegram:
+```
+/newbot
+```
+Save the token you receive.
 
-1. **Fork this repository**
+### 2. Get Your Chat ID
+Add [@userinfobot](https://t.me/userinfobot) to your group or message it directly to get your chat ID.
 
-2. **Go to [vercel.com](https://vercel.com)** and sign in with GitHub
+### 3. Deploy (Choose One)
 
-3. **Import your forked repo**
+#### Option A: Render (Recommended)
 
-4. **Add Environment Variables**:
-   - `TELEGRAM_BOT_TOKEN` - from [@BotFather](https://t.me/botfather)
-   - `TELEGRAM_CHAT_ID` - your chat/group ID
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
 
-5. **Deploy!**
+1. Fork this repo
+2. Go to [render.com](https://render.com) → New → Blueprint
+3. Connect your forked repo
+4. Add environment variables:
+   - `TELEGRAM_BOT_TOKEN` — Your bot token
+   - `TELEGRAM_CHAT_ID` — Your chat ID
+5. Deploy!
 
-6. **Set the Telegram webhook** (one-time):
-   ```bash
-   curl "https://api.telegram.org/bot<YOUR_TOKEN>/setWebhook?url=https://<YOUR_APP>.vercel.app/api/webhook"
-   ```
+#### Option B: Self-Host
 
-That's it! The bot will respond to commands and GitHub Actions sends daily messages at 6 AM Israel time.
+```bash
+git clone https://github.com/naorbrown/likutei-halachot-yomi.git
+cd likutei-halachot-yomi
+pip install -r requirements.txt
 
-### Bot Commands
+# Set environment variables
+export TELEGRAM_BOT_TOKEN="your_token"
+export TELEGRAM_CHAT_ID="your_chat_id"
+
+# Run the bot
+python scripts/run_polling.py
+```
+
+### 4. Enable Daily Broadcasts
+
+The GitHub Actions workflow sends daily broadcasts. Add these secrets to your forked repo:
+- Go to Settings → Secrets → Actions
+- Add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+
+## 📱 Bot Commands
 
 | Command | Description |
 |---------|-------------|
-| `/start` | Welcome message |
-| `/today` | Get today's halachot |
-| `/about` | About the bot |
+| `/start` | Welcome message with instructions |
+| `/today` | Get today's two halachot |
+| `/about` | About the bot and sources |
 
 ## 🏗️ Architecture
 
 ```
-├── api/webhook.py      # Vercel serverless function (handles commands)
-├── main.py             # CLI for daily broadcast (GitHub Actions)
+likutei-halachot-yomi/
 ├── src/
-│   ├── bot.py          # Telegram bot logic
-│   ├── sefaria.py      # Sefaria API client
-│   ├── selector.py     # Halacha selection
-│   └── formatter.py    # Message formatting
-├── .github/workflows/
-│   ├── daily.yml       # 6 AM Israel time broadcast
-│   └── ci.yml          # Tests & linting
-└── vercel.json         # Vercel config
+│   ├── bot.py           # Telegram bot with polling
+│   ├── sefaria.py       # Sefaria API client
+│   ├── selector.py      # Deterministic halacha selection
+│   └── formatter.py     # Message formatting (HTML)
+├── scripts/
+│   └── run_polling.py   # Bot runner script
+├── main.py              # Daily broadcast CLI
+├── render.yaml          # Render deployment config
+└── .github/workflows/
+    ├── daily.yml        # 6 AM broadcast (cron)
+    └── ci.yml           # Tests & linting
 ```
 
 ## 📖 About Likutei Halachot
 
-**Likutei Halachot** is written by Rebbe Natan of Breslov (1780-1844), providing mystical insights on the Shulchan Aruch through Rebbe Nachman's teachings.
+**Likutei Halachot** ("Collected Laws") was written by Rebbe Natan of Breslov (1780-1844), the primary student of Rebbe Nachman. It reveals mystical depths within the Shulchan Aruch, connecting practical law to spiritual insight.
 
-Four sections:
-- **Orach Chaim** - Daily conduct, prayer, Shabbat
-- **Yoreh Deah** - Dietary laws, charity, Torah study
-- **Even HaEzer** - Marriage and family
-- **Choshen Mishpat** - Civil law
+**Sections:**
+- **Orach Chaim** — Daily life, prayer, Shabbat, holidays
+- **Yoreh Deah** — Dietary laws, charity, Torah study
+- **Even HaEzer** — Marriage and family
+- **Choshen Mishpat** — Civil and monetary law
 
-## 🔧 Local Development
+Texts sourced from [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot).
+
+## 🧪 Development
 
 ```bash
-# Install
+# Install dependencies
 pip install -r requirements.txt
+
+# Run tests
+pytest
 
 # Preview today's message
 python main.py --preview
 
-# Run tests
-pytest
+# Run bot locally
+python scripts/run_polling.py
 ```
 
 ## 📄 License
 
-MIT License
+MIT License — feel free to use, modify, and distribute.
 
 ---
 
@@ -96,6 +126,6 @@ MIT License
 
 **נ נח נחמ נחמן מאומן**
 
-*Spreading the light of Rebbe Nachman's teachings*
+*Spreading the light of Rebbe Nachman's teachings, one halacha at a time*
 
 </div>
