@@ -1,9 +1,8 @@
 name: Daily Halachot
 
 on:
-  schedule:
-    # Run at 6:00 AM Israel time (4:00 AM UTC in winter, 3:00 AM UTC in summer)
-    - cron: "0 4 * * *"
+  # Daily scheduling is now handled by the Render worker with precise 6:00 AM Israel time
+  # Keep workflow_dispatch for manual testing/recovery
   workflow_dispatch: # Allow manual trigger
 
 jobs:

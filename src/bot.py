@@ -1,7 +1,8 @@
 """Telegram bot implementation."""
 
 import logging
-from datetime import date
+from datetime import date, time
+from zoneinfo import ZoneInfo
 
 from telegram import BotCommand, Update
 from telegram.constants import ParseMode
@@ -57,48 +58,80 @@ class LikuteiHalachotBot:
         )
         logger.info("Bot description configured")
 
-    async def start_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def start_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
         """Handle /start command."""
         if not update.message:
             return
-        logger.info(f"Start from user {update.effective_user.id if update.effective_user else 'unknown'}")
+        logger.info(
+            f"Start from user {update.effective_user.id if update.effective_user else 'unknown'}"
+        )
         await update.message.reply_text(
             format_welcome_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
 
-    async def today_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def today_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
         """Handle /today command."""
         if not update.message:
             return
-        logger.info(f"Today from user {update.effective_user.id if update.effective_user else 'unknown'}")
+        logger.info(
+            f"Today from user {update.effective_user.id if update.effective_user else 'unknown'}"
+        )
 
         try:
             pair = self.selector.get_daily_pair(date.today())
-            messages = format_daily_message(pair, date.today()) if pair else [format_error_message()]
+            messages = (
+                format_daily_message(pair, date.today())
+                if pair
+                else [format_error_message()]
+            )
         except Exception as e:
             logger.exception(f"Error: {e}")
             messages = [format_error_message()]
 
         for msg in messages:
-            await update.message.reply_text(msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+            await update.message.reply_text(
+                msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+            )
 
-    async def about_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def about_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
         """Handle /about command."""
         if not update.message:
             return
-        logger.info(f"About from user {update.effective_user.id if update.effective_user else 'unknown'}")
-        await update.message.reply_text(format_about_message(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        logger.info(
+            f"About from user {update.effective_user.id if update.effective_user else 'unknown'}"
+        )
+        await update.message.reply_text(
+            format_about_message(),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
 
-    async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def help_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
         """Handle /help command."""
         if not update.message:
             return
-        logger.info(f"Help from user {update.effective_user.id if update.effective_user else 'unknown'}")
-        await update.message.reply_text(format_help_message(), parse_mode=ParseMode.HTML, disable_web_page_preview=True)
+        logger.info(
+            f"Help from user {update.effective_user.id if update.effective_user else 'unknown'}"
+        )
+        await update.message.reply_text(
+            format_help_message(),
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
 
-    async def unknown_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    async def unknown_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
         """Handle unknown commands."""
         if not update.message:
             return
@@ -154,8 +187,41 @@ class LikuteiHalachotBot:
             logger.exception(f"Broadcast failed: {e}")
             return False
 
-    def run_polling(self) -> None:
-        """Run bot in polling mode."""
+    async def _scheduled_broadcast(self, context: ContextTypes.DEFAULT_TYPE) -> None:
+        """Send daily broadcast via scheduled job."""
+        logger.info("Running scheduled daily broadcast...")
+        try:
+            pair = self.selector.get_daily_pair(date.today())
+            if not pair:
+                logger.error("Failed to get daily pair for scheduled broadcast")
+                return
+
+            messages = format_daily_message(pair, date.today())
+            for msg in messages:
+                await context.bot.send_message(
+                    chat_id=self.config.telegram_chat_id,
+                    text=msg,
+                    parse_mode=ParseMode.HTML,
+                    disable_web_page_preview=True,
+                )
+            logger.info("Scheduled broadcast sent successfully")
+        except Exception as e:
+            logger.exception(f"Scheduled broadcast failed: {e}")
+
+    def run_polling(self, schedule_daily: bool = True) -> None:
+        """Run bot in polling mode with optional daily scheduling."""
         logger.info("Starting polling...")
         app = self.build_app()
+
+        if schedule_daily and self.config.telegram_chat_id and app.job_queue:
+            # Schedule daily broadcast at 6:00 AM Israel time
+            israel_tz = ZoneInfo("Asia/Jerusalem")
+            broadcast_time = time(hour=6, minute=0, second=0, tzinfo=israel_tz)
+            app.job_queue.run_daily(
+                self._scheduled_broadcast,
+                time=broadcast_time,
+                name="daily_broadcast",
+            )
+            logger.info(f"Daily broadcast scheduled for {broadcast_time} Israel time")
+
         app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)

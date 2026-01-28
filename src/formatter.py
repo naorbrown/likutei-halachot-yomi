@@ -1,6 +1,7 @@
 """Message formatting for Telegram."""
 
 from datetime import date
+
 from .models import DailyPair, Halacha
 
 MAX_MESSAGE_LENGTH = 4000
@@ -15,7 +16,7 @@ def split_text(text: str, max_len: int) -> list[str]:
         if len(text) <= max_len:
             chunks.append(text)
             break
-        split_at = text.rfind(' ', 0, max_len)
+        split_at = text.rfind(" ", 0, max_len)
         if split_at == -1:
             split_at = max_len
         chunks.append(text[:split_at])
@@ -23,11 +24,13 @@ def split_text(text: str, max_len: int) -> list[str]:
     return chunks
 
 
-def format_halacha_messages(halacha: Halacha, number: int, date_str: str = "") -> list[str]:
+def format_halacha_messages(
+    halacha: Halacha, number: int, date_str: str = ""
+) -> list[str]:
     """Format a halacha into messages."""
     label = "א" if number == 1 else "ב"
     emoji = "📜" if number == 1 else "📖"
-    title = f'{emoji} <a href="{halacha.sefaria_url}"><b>{label}. הלכות {halacha.section.section_he}</b></a>'
+    title = f'{emoji} <a href="{halacha.sefaria_url}"><b>{label}. {halacha.section.section_he}</b></a>'
     volume = f"<i>{halacha.section.volume_he}</i>"
     link = f'<a href="{halacha.sefaria_url}">המשך בספריא →</a>'
 
