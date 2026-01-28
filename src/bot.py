@@ -140,6 +140,12 @@ class LikuteiHalachotBot:
             parse_mode=ParseMode.HTML,
         )
 
+    async def _error_handler(
+        self, update: object, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
+        """Log errors caused by updates."""
+        logger.exception(f"Exception while handling an update: {context.error}")
+
     def build_app(self) -> Application:
         """Build the Telegram application."""
         app = (
@@ -150,11 +156,15 @@ class LikuteiHalachotBot:
             .build()
         )
 
+        # Add command handlers
         app.add_handler(CommandHandler("start", self.start_command))
         app.add_handler(CommandHandler("today", self.today_command))
         app.add_handler(CommandHandler("about", self.about_command))
         app.add_handler(CommandHandler("help", self.help_command))
         app.add_handler(MessageHandler(filters.COMMAND, self.unknown_command))
+
+        # Add error handler
+        app.add_error_handler(self._error_handler)
 
         self._app = app
         return app
