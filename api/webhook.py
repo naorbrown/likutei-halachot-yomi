@@ -8,11 +8,13 @@ import asyncio
 import hashlib
 import logging
 import os
+import re
 import time
 from datetime import date
 from http.server import BaseHTTPRequestHandler
 import json
 
+import requests
 from telegram import Bot, Update
 from telegram.constants import ParseMode
 
@@ -56,12 +58,10 @@ def get_bot() -> Bot:
 
 def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
     """Get two halachot for the given date."""
-    import requests
-
-    # Get index of Likutei Halachot
+    # Get index of Likutei Halakhot (note the 'k' spelling for Sefaria)
     try:
         response = requests.get(
-            "https://www.sefaria.org/api/v2/index/Likutei_Halachot",
+            "https://www.sefaria.org/api/v2/index/Likutei_Halakhot",
             timeout=10
         )
         response.raise_for_status()
@@ -71,22 +71,35 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
         return None
 
     # Build list of all section references
+    # Structure: Book > Volume (Orach Chaim, etc.) > Halacha Topic > Chapters
     all_refs: list[str] = []
 
-    def extract_refs(node: dict, prefix: str = "") -> None:
+    def build_refs(node: dict, path: list[str]) -> None:
+        """Recursively build references from the index structure."""
+        title = node.get("title", "")
+
         if "nodes" in node:
+            # This is a container node, recurse into children
+            new_path = path + [title] if title and node.get("nodeType") == "SchemaNode" else path
             for child in node["nodes"]:
-                child_prefix = f"{prefix}, {child.get('heTitle', '')}" if prefix else child.get('heTitle', '')
-                extract_refs(child, child_prefix)
-        elif "wholeRef" in node:
-            all_refs.append(node["wholeRef"])
+                build_refs(child, new_path)
+        elif node.get("nodeType") == "JaggedArrayNode":
+            # This is a leaf node with actual text
+            # Build a reference like "Likutei Halakhot, Orach Chaim, Laws of Morning Conduct 1:1"
+            if title and path:
+                # Create reference for first chapter, first section
+                ref_base = "Likutei Halakhot, " + ", ".join(path) + ", " + title
+                all_refs.append(ref_base + " 1:1")
 
     if "schema" in index_data and "nodes" in index_data["schema"]:
         for node in index_data["schema"]["nodes"]:
-            extract_refs(node)
+            build_refs(node, [])
 
     if len(all_refs) < 2:
+        logger.error(f"Not enough refs found: {len(all_refs)}")
         return None
+
+    logger.info(f"Found {len(all_refs)} refs")
 
     # Use date to deterministically select 2 sections
     date_str = target_date.isoformat()
@@ -101,11 +114,12 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
     results = []
     for ref in [all_refs[idx1], all_refs[idx2]]:
         try:
-            resp = requests.get(
-                f"https://www.sefaria.org/api/texts/{ref}",
-                params={"context": 0},
-                timeout=10
-            )
+            # URL encode the reference
+            encoded_ref = ref.replace(" ", "_").replace(",", "%2C")
+            url = f"https://www.sefaria.org/api/texts/{encoded_ref}"
+            logger.info(f"Fetching: {url}")
+
+            resp = requests.get(url, params={"context": 0}, timeout=10)
             resp.raise_for_status()
             results.append(resp.json())
         except Exception as e:
@@ -118,20 +132,24 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
 def format_halacha(data: dict) -> str:
     """Format a single halacha for display."""
     he_title = data.get("heRef", "ליקוטי הלכות")
-    en_title = data.get("ref", "Likutei Halachot")
 
     # Get Hebrew text
     he_text = data.get("he", [])
     if isinstance(he_text, list):
+        # Flatten nested lists if needed
+        while he_text and isinstance(he_text[0], list):
+            he_text = he_text[0]
         he_text = he_text[0] if he_text else ""
 
     # Get English text
     en_text = data.get("text", [])
     if isinstance(en_text, list):
+        # Flatten nested lists if needed
+        while en_text and isinstance(en_text[0], list):
+            en_text = en_text[0]
         en_text = en_text[0] if en_text else ""
 
     # Clean up HTML tags
-    import re
     he_text = re.sub(r'<[^>]+>', '', str(he_text))[:500]
     en_text = re.sub(r'<[^>]+>', '', str(en_text))[:500]
 
@@ -226,6 +244,10 @@ async def handle_command(bot: Bot, chat_id: int, command: str) -> None:
 class handler(BaseHTTPRequestHandler):
     """Vercel serverless function handler."""
 
+    def log_message(self, format, *args):
+        """Override to use our logger."""
+        logger.info("%s - %s", self.address_string(), format % args)
+
     def do_GET(self):
         """Health check."""
         self.send_response(200)
@@ -240,6 +262,8 @@ class handler(BaseHTTPRequestHandler):
             body = self.rfile.read(content_length)
             update_data = json.loads(body)
 
+            logger.info(f"Received update: {update_data}")
+
             bot = get_bot()
             update = Update.de_json(update_data, bot)
 
@@ -247,6 +271,8 @@ class handler(BaseHTTPRequestHandler):
                 user_id = update.message.from_user.id if update.message.from_user else 0
                 chat_id = update.message.chat_id
                 text = update.message.text or ""
+
+                logger.info(f"Processing message from {user_id}: {text}")
 
                 # Rate limiting
                 if is_rate_limited(user_id):
@@ -266,8 +292,8 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"status": "ok"}).encode())
 
         except Exception as e:
-            logger.exception(f"Error: {e}")
+            logger.exception(f"Error processing webhook: {e}")
             self.send_response(200)  # Return 200 to avoid Telegram retries
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            self.wfile.write(json.dumps({"status": "error"}).encode())
+            self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode())
