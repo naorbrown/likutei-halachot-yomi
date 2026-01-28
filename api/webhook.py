@@ -2,28 +2,25 @@
 Vercel Serverless Function for Telegram Bot Webhook.
 
 Handles /start, /today, /about commands with rate limiting.
+Uses synchronous HTTP requests for Vercel compatibility.
 """
 
-import asyncio
 import hashlib
+import json
 import logging
 import os
 import re
 import time
 from datetime import date
 from http.server import BaseHTTPRequestHandler
-import json
 
 import requests
-from telegram import Bot, Update
-from telegram.constants import ParseMode
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Simple in-memory rate limiter (resets on cold start, which is fine)
-# Format: {user_id: [timestamp1, timestamp2, ...]}
 request_times: dict[int, list[float]] = {}
 RATE_LIMIT = 10  # requests per minute per user
 RATE_WINDOW = 60  # seconds
@@ -48,12 +45,28 @@ def is_rate_limited(user_id: int) -> bool:
     return False
 
 
-def get_bot() -> Bot:
-    """Get Telegram bot instance."""
+def send_telegram_message(chat_id: int, text: str, parse_mode: str = "HTML", disable_preview: bool = False) -> bool:
+    """Send a message via Telegram Bot API using synchronous requests."""
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     if not token:
-        raise ValueError("TELEGRAM_BOT_TOKEN not set")
-    return Bot(token=token)
+        logger.error("TELEGRAM_BOT_TOKEN not set")
+        return False
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": parse_mode,
+        "disable_web_page_preview": disable_preview,
+    }
+
+    try:
+        resp = requests.post(url, json=payload, timeout=10)
+        resp.raise_for_status()
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send message: {e}")
+        return False
 
 
 def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
@@ -71,7 +84,6 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
         return None
 
     # Build list of all section references
-    # Structure: Book > Volume (Orach Chaim, etc.) > Halacha Topic > Chapters
     all_refs: list[str] = []
 
     def build_refs(node: dict, path: list[str]) -> None:
@@ -79,15 +91,11 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
         title = node.get("title", "")
 
         if "nodes" in node:
-            # This is a container node, recurse into children
             new_path = path + [title] if title and node.get("nodeType") == "SchemaNode" else path
             for child in node["nodes"]:
                 build_refs(child, new_path)
         elif node.get("nodeType") == "JaggedArrayNode":
-            # This is a leaf node with actual text
-            # Build a reference like "Likutei Halakhot, Orach Chaim, Laws of Morning Conduct 1:1"
             if title and path:
-                # Create reference for first chapter, first section
                 ref_base = "Likutei Halakhot, " + ", ".join(path) + ", " + title
                 all_refs.append(ref_base + " 1:1")
 
@@ -114,7 +122,6 @@ def get_daily_pair(target_date: date) -> tuple[dict, dict] | None:
     results = []
     for ref in [all_refs[idx1], all_refs[idx2]]:
         try:
-            # URL encode the reference
             encoded_ref = ref.replace(" ", "_").replace(",", "%2C")
             url = f"https://www.sefaria.org/api/texts/{encoded_ref}"
             logger.info(f"Fetching: {url}")
@@ -136,7 +143,6 @@ def format_halacha(data: dict) -> str:
     # Get Hebrew text
     he_text = data.get("he", [])
     if isinstance(he_text, list):
-        # Flatten nested lists if needed
         while he_text and isinstance(he_text[0], list):
             he_text = he_text[0]
         he_text = he_text[0] if he_text else ""
@@ -144,7 +150,6 @@ def format_halacha(data: dict) -> str:
     # Get English text
     en_text = data.get("text", [])
     if isinstance(en_text, list):
-        # Flatten nested lists if needed
         while en_text and isinstance(en_text[0], list):
             en_text = en_text[0]
         en_text = en_text[0] if en_text else ""
@@ -183,10 +188,10 @@ def format_daily_message(pair: tuple[dict, dict], target_date: date) -> str:
     return header + h1 + divider + h2
 
 
-async def handle_command(bot: Bot, chat_id: int, command: str) -> None:
+def handle_command(chat_id: int, command: str) -> None:
     """Handle bot commands."""
     if command == "/start":
-        await bot.send_message(
+        send_telegram_message(
             chat_id=chat_id,
             text=(
                 "🌟 <b>ברוכים הבאים!</b>\n\n"
@@ -197,7 +202,6 @@ async def handle_command(bot: Bot, chat_id: int, command: str) -> None:
                 "/today - קבל את ההלכות היומיות\n"
                 "/about - אודות הבוט"
             ),
-            parse_mode=ParseMode.HTML,
         )
 
     elif command == "/today":
@@ -211,15 +215,10 @@ async def handle_command(bot: Bot, chat_id: int, command: str) -> None:
                 "❌ <b>Error</b>\n\n"
                 "Failed to load halachot. Please try again later."
             )
-        await bot.send_message(
-            chat_id=chat_id,
-            text=message,
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=False,
-        )
+        send_telegram_message(chat_id=chat_id, text=message)
 
     elif command == "/about":
-        await bot.send_message(
+        send_telegram_message(
             chat_id=chat_id,
             text=(
                 "ℹ️ <b>אודות / About</b>\n\n"
@@ -230,12 +229,11 @@ async def handle_command(bot: Bot, chat_id: int, command: str) -> None:
                 "📚 טקסטים מ-Sefaria.org\n"
                 "💻 קוד פתוח: github.com/naorbrown/likutei-halachot-yomi"
             ),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
+            disable_preview=True,
         )
 
     else:
-        await bot.send_message(
+        send_telegram_message(
             chat_id=chat_id,
             text="לא הבנתי. נסה /start או /today\nI didn't understand. Try /start or /today",
         )
@@ -249,7 +247,7 @@ class handler(BaseHTTPRequestHandler):
         logger.info("%s - %s", self.address_string(), format % args)
 
     def do_GET(self):
-        """Health check."""
+        """Health check endpoint."""
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
@@ -262,29 +260,30 @@ class handler(BaseHTTPRequestHandler):
             body = self.rfile.read(content_length)
             update_data = json.loads(body)
 
-            logger.info(f"Received update: {update_data}")
+            logger.info(f"Received update: {json.dumps(update_data)[:200]}")
 
-            bot = get_bot()
-            update = Update.de_json(update_data, bot)
-
-            if update and update.message:
-                user_id = update.message.from_user.id if update.message.from_user else 0
-                chat_id = update.message.chat_id
-                text = update.message.text or ""
+            # Extract message data
+            message = update_data.get("message", {})
+            if message:
+                user = message.get("from", {})
+                user_id = user.get("id", 0)
+                chat_id = message.get("chat", {}).get("id")
+                text = message.get("text", "")
 
                 logger.info(f"Processing message from {user_id}: {text}")
 
-                # Rate limiting
-                if is_rate_limited(user_id):
-                    asyncio.run(bot.send_message(
-                        chat_id=chat_id,
-                        text="⏳ לאט לאט! נסה שוב בעוד דקה.\n⏳ Slow down! Try again in a minute.",
-                    ))
-                else:
-                    # Handle command
-                    command = text.split()[0].lower() if text else ""
-                    if command.startswith("/"):
-                        asyncio.run(handle_command(bot, chat_id, command))
+                if chat_id:
+                    # Rate limiting
+                    if is_rate_limited(user_id):
+                        send_telegram_message(
+                            chat_id=chat_id,
+                            text="⏳ לאט לאט! נסה שוב בעוד דקה.\n⏳ Slow down! Try again in a minute.",
+                        )
+                    else:
+                        # Handle command
+                        command = text.split()[0].lower() if text else ""
+                        if command.startswith("/"):
+                            handle_command(chat_id, command)
 
             self.send_response(200)
             self.send_header("Content-type", "application/json")
