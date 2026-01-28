@@ -63,11 +63,34 @@ python main.py --serve
 | `/today` | Get today's two halachot |
 | `/about` | Information about the bot and Likutei Halachot |
 
+## 🚀 Deployment
+
+### Deploy to Render (Recommended)
+
+The bot runs on [Render](https://render.com) free tier with webhook mode - it sleeps when inactive and wakes instantly on incoming messages.
+
+1. Fork this repository
+2. Create a new Web Service on Render
+3. Connect your GitHub repo
+4. Set environment variables:
+   - `TELEGRAM_BOT_TOKEN` - from @BotFather
+   - `TELEGRAM_CHAT_ID` - your chat ID
+   - `WEBHOOK_URL` - your Render URL (e.g., `https://likutei-halachot-yomi.onrender.com`)
+5. Deploy! The webhook will be configured automatically.
+
+### Set up the webhook
+
+After deployment, make a POST request to set the webhook:
+```bash
+curl -X POST https://your-app.onrender.com/set-webhook
+```
+
 ## 🏗️ Architecture
 
 ```
 likutei-halachot-yomi/
-├── main.py              # Entry point
+├── main.py              # CLI entry point (broadcast, preview)
+├── web.py               # Webhook server for Render
 ├── src/
 │   ├── bot.py           # Telegram bot implementation
 │   ├── config.py        # Configuration management
