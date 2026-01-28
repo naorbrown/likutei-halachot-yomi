@@ -16,11 +16,11 @@ from datetime import date
 
 from dotenv import load_dotenv
 
-from src.config import Config
 from src.bot import LikuteiHalachotBot
+from src.config import Config
+from src.formatter import format_daily_message
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
-from src.formatter import format_daily_message
 
 logger = logging.getLogger(__name__)
 
