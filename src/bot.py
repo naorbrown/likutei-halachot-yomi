@@ -228,7 +228,7 @@ class LikuteiHalachotBot:
             logger.exception(f"Broadcast failed: {e}")
             return False
 
-    async def _send_to_unified_channel(self, pair: tuple) -> None:
+    async def _send_to_unified_channel(self, pair) -> None:
         """Send a condensed message to the unified Torah Yomi channel."""
         if not is_unified_channel_enabled():
             logger.debug("Unified channel not configured, skipping")
@@ -236,25 +236,23 @@ class LikuteiHalachotBot:
 
         try:
             # Build a condensed message for the unified channel
-            halacha1, halacha2 = pair
-
-            unified_msg = f"<b>ליקוטי הלכות יומי</b>\n"
+            unified_msg = "<b>ליקוטי הלכות יומי</b>\n"
             unified_msg += f"📅 {date.today().strftime('%d/%m/%Y')}\n\n"
 
-            if halacha1:
-                unified_msg += f"<b>א׳</b> {halacha1.title_he}\n"
+            if pair.first:
+                unified_msg += f"<b>א׳</b> {pair.first.section.section_he}\n"
                 # Include first 200 chars of content as preview
-                if halacha1.content_he:
-                    preview = halacha1.content_he[:200]
-                    if len(halacha1.content_he) > 200:
+                if pair.first.hebrew_text:
+                    preview = pair.first.hebrew_text[:200]
+                    if len(pair.first.hebrew_text) > 200:
                         preview += "..."
                     unified_msg += f"{preview}\n\n"
 
-            if halacha2:
-                unified_msg += f"<b>ב׳</b> {halacha2.title_he}\n"
-                if halacha2.content_he:
-                    preview = halacha2.content_he[:200]
-                    if len(halacha2.content_he) > 200:
+            if pair.second:
+                unified_msg += f"<b>ב׳</b> {pair.second.section.section_he}\n"
+                if pair.second.hebrew_text:
+                    preview = pair.second.hebrew_text[:200]
+                    if len(pair.second.hebrew_text) > 200:
                         preview += "..."
                     unified_msg += f"{preview}\n"
 
