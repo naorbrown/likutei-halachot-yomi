@@ -24,6 +24,7 @@ from .formatter import (
 )
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
+from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
 
@@ -218,11 +219,53 @@ class LikuteiHalachotBot:
                     )
 
             logger.info("Broadcast sent successfully")
+
+            # Also publish to unified Torah Yomi channel
+            await self._send_to_unified_channel(pair)
             return True
 
         except Exception as e:
             logger.exception(f"Broadcast failed: {e}")
             return False
+
+    async def _send_to_unified_channel(self, pair: tuple) -> None:
+        """Send a condensed message to the unified Torah Yomi channel."""
+        if not is_unified_channel_enabled():
+            logger.debug("Unified channel not configured, skipping")
+            return
+
+        try:
+            # Build a condensed message for the unified channel
+            halacha1, halacha2 = pair
+
+            unified_msg = f"<b>ליקוטי הלכות יומי</b>\n"
+            unified_msg += f"📅 {date.today().strftime('%d/%m/%Y')}\n\n"
+
+            if halacha1:
+                unified_msg += f"<b>א׳</b> {halacha1.title_he}\n"
+                # Include first 200 chars of content as preview
+                if halacha1.content_he:
+                    preview = halacha1.content_he[:200]
+                    if len(halacha1.content_he) > 200:
+                        preview += "..."
+                    unified_msg += f"{preview}\n\n"
+
+            if halacha2:
+                unified_msg += f"<b>ב׳</b> {halacha2.title_he}\n"
+                if halacha2.content_he:
+                    preview = halacha2.content_he[:200]
+                    if len(halacha2.content_he) > 200:
+                        preview += "..."
+                    unified_msg += f"{preview}\n"
+
+            unified_msg += "\n<i>נ נח נחמ נחמן מאומן</i>"
+
+            await publish_text_to_unified_channel(unified_msg)
+            logger.info("Published to unified channel successfully")
+
+        except Exception as e:
+            # Don't fail the main broadcast if unified channel fails
+            logger.error(f"Failed to publish to unified channel: {e}")
 
     def run_polling(self) -> None:
         """Run bot in polling mode with daily scheduling."""
