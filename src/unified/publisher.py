@@ -56,13 +56,7 @@ class TorahYomiPublisher:
 
     def __init__(self) -> None:
         """Initialize publisher."""
-        self._bot: Bot | None = None
-
-    def _get_bot(self) -> Bot | None:
-        """Get or create the bot instance."""
-        if self._bot is None and UNIFIED_BOT_TOKEN:
-            self._bot = Bot(token=UNIFIED_BOT_TOKEN)
-        return self._bot
+        pass  # Stateless - Bot created fresh each call with proper lifecycle
 
     async def publish_text(
         self,
@@ -87,28 +81,30 @@ class TorahYomiPublisher:
             logger.debug("Unified channel publish disabled or not configured")
             return False
 
-        bot = self._get_bot()
-        if not bot:
+        if not UNIFIED_BOT_TOKEN:
             logger.error("No bot token configured")
             return False
 
         formatted_text = format_for_unified_channel(text)
 
-        for attempt in range(1, MAX_RETRIES + 1):
-            try:
-                await bot.send_message(
-                    chat_id=UNIFIED_CHANNEL_ID,
-                    text=formatted_text,
-                    parse_mode=parse_mode,
-                    disable_web_page_preview=disable_web_page_preview,
-                    **kwargs,
-                )
-                logger.info(f"Published text to unified channel ({SOURCE})")
-                return True
-            except TelegramError as e:
-                logger.error(f"Publish attempt {attempt} failed: {e}")
-                if attempt < MAX_RETRIES:
-                    await asyncio.sleep(RETRY_DELAY * attempt)
+        # Use async context manager for proper Bot lifecycle (required in v20+)
+        bot = Bot(token=UNIFIED_BOT_TOKEN)
+        async with bot:
+            for attempt in range(1, MAX_RETRIES + 1):
+                try:
+                    await bot.send_message(
+                        chat_id=UNIFIED_CHANNEL_ID,
+                        text=formatted_text,
+                        parse_mode=parse_mode,
+                        disable_web_page_preview=disable_web_page_preview,
+                        **kwargs,
+                    )
+                    logger.info(f"Published text to unified channel ({SOURCE})")
+                    return True
+                except TelegramError as e:
+                    logger.error(f"Publish attempt {attempt} failed: {e}")
+                    if attempt < MAX_RETRIES:
+                        await asyncio.sleep(RETRY_DELAY * attempt)
 
         logger.error("All publish attempts failed")
         return False
@@ -125,16 +121,30 @@ class TorahYomiPublisher:
         if not is_unified_channel_enabled():
             return {"success": 0, "failed": 0}
 
+        if not UNIFIED_BOT_TOKEN:
+            return {"success": 0, "failed": len(messages)}
+
         success = 0
         failed = 0
 
-        for msg in messages:
-            if await self.publish_text(msg):
-                success += 1
-            else:
-                failed += 1
-            # Rate limiting between messages
-            await asyncio.sleep(0.1)
+        # Use single Bot context for all messages (more efficient)
+        bot = Bot(token=UNIFIED_BOT_TOKEN)
+        async with bot:
+            for msg in messages:
+                formatted_text = format_for_unified_channel(msg)
+                try:
+                    await bot.send_message(
+                        chat_id=UNIFIED_CHANNEL_ID,
+                        text=formatted_text,
+                        parse_mode=ParseMode.HTML,
+                        disable_web_page_preview=True,
+                    )
+                    success += 1
+                except TelegramError as e:
+                    logger.error(f"Batch publish failed for message: {e}")
+                    failed += 1
+                # Rate limiting between messages
+                await asyncio.sleep(0.1)
 
         return {"success": success, "failed": failed}
 

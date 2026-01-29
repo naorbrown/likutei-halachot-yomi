@@ -9,20 +9,18 @@ import asyncio
 import json
 import logging
 import sys
-from datetime import date
 from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.config import Config
-from src.formatter import (
-    format_about_message,
-    format_daily_message,
-    format_error_message,
-    format_help_message,
-    format_welcome_message,
+from src.commands import (
+    get_about_message,
+    get_daily_messages,
+    get_error_message,
+    get_help_message,
 )
+from src.config import Config
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
 
@@ -57,44 +55,33 @@ def save_state(last_update_id: int) -> None:
 
 
 async def handle_command(
-    bot, chat_id: int, command: str, client: SefariaClient, selector: HalachaSelector
+    bot, chat_id: int, command: str, selector: HalachaSelector
 ) -> None:
-    """Handle a single command."""
+    """Handle a single command.
+
+    Args:
+        bot: Telegram Bot instance (must be initialized)
+        chat_id: Chat ID to send response to
+        command: Command string (e.g., "/start", "/today")
+        selector: HalachaSelector for getting daily content
+    """
     try:
         if command in ("/start", "/today"):
-            # Both /start and /today send welcome + daily content (nachyomi-bot pattern)
-            await bot.send_message(
-                chat_id=chat_id,
-                text=format_welcome_message(),
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-            )
-            logger.info(f"Sent welcome message to {chat_id}")
-
-            # Send daily halachot
-            pair = selector.get_daily_pair(date.today())
-            if pair:
-                messages = format_daily_message(pair, date.today())
-                for msg in messages:
-                    await bot.send_message(
-                        chat_id=chat_id,
-                        text=msg,
-                        parse_mode="HTML",
-                        disable_web_page_preview=True,
-                    )
-                logger.info(f"Sent today's halachot to {chat_id}")
-            else:
+            # Get all messages (welcome + daily content) from shared module
+            messages = get_daily_messages(selector)
+            for msg in messages:
                 await bot.send_message(
                     chat_id=chat_id,
-                    text=format_error_message(),
+                    text=msg,
                     parse_mode="HTML",
+                    disable_web_page_preview=True,
                 )
-                logger.warning(f"No pair available for {chat_id}")
+            logger.info(f"Sent today's halachot to {chat_id}")
 
         elif command == "/about":
             await bot.send_message(
                 chat_id=chat_id,
-                text=format_about_message(),
+                text=get_about_message(),
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
@@ -103,7 +90,7 @@ async def handle_command(
         elif command == "/help":
             await bot.send_message(
                 chat_id=chat_id,
-                text=format_help_message(),
+                text=get_help_message(),
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
@@ -118,7 +105,7 @@ async def handle_command(
         try:
             await bot.send_message(
                 chat_id=chat_id,
-                text=format_error_message(),
+                text=get_error_message(),
                 parse_mode="HTML",
             )
         except Exception:
@@ -192,7 +179,7 @@ async def poll_and_respond() -> bool:
                         text.split()[0].split("@")[0].lower()
                     )  # Handle /cmd@botname
                     logger.info(f"Processing command '{command}' from chat {chat_id}")
-                    await handle_command(bot, chat_id, command, client, selector)
+                    await handle_command(bot, chat_id, command, selector)
 
             # Save state
             if new_last_update_id > last_update_id:
