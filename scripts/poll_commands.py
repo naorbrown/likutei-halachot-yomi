@@ -155,10 +155,16 @@ async def poll_and_respond() -> bool:
     # Use Bot as async context manager (required in python-telegram-bot v20+)
     async with Bot(token=config.telegram_bot_token) as bot:
         try:
-            # Get updates
+            # Delete any existing webhook to ensure getUpdates works
+            # (Telegram won't send updates via getUpdates if a webhook is set)
+            webhook_deleted = await bot.delete_webhook(drop_pending_updates=False)
+            if webhook_deleted:
+                logger.info("Webhook cleared, ready for polling")
+
+            # Get updates (use shorter timeout to avoid workflow hanging)
             updates = await bot.get_updates(
                 offset=last_update_id + 1,
-                timeout=30,
+                timeout=10,  # Reduced from 30s to prevent workflow timeouts
                 allowed_updates=["message"],
             )
 
