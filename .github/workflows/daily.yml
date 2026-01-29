@@ -2,7 +2,11 @@ name: Daily Halachot
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # 4:00 AM UTC = 6:00 AM Israel time
+    # Run at BOTH possible 6am Israel times to handle DST
+    # Summer (IDT, UTC+3): 6am Israel = 3am UTC
+    - cron: '0 3 * * *'
+    # Winter (IST, UTC+2): 6am Israel = 4am UTC
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
