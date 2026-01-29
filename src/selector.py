@@ -94,10 +94,18 @@ class HalachaSelector:
             # Store in memory cache for subsequent requests
             _memory_cache[cache_key] = pair
 
-            # Load pre-formatted messages if available
+            # Load pre-formatted messages if available, otherwise generate them
             if "formatted_messages" in data:
                 _message_cache[cache_key] = data["formatted_messages"]
                 logger.debug(f"Loaded cached formatted messages for {for_date}")
+            else:
+                # Generate formatted messages for old cache format (backwards compat)
+                welcome = format_welcome_message()
+                content_messages = format_daily_message(pair, for_date)
+                _message_cache[cache_key] = [welcome] + content_messages
+                logger.debug(
+                    f"Generated formatted messages for {for_date} (old cache format)"
+                )
 
             logger.info(f"Loaded cached pair for {for_date}")
             return pair
