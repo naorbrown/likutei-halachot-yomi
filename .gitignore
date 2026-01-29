@@ -58,3 +58,6 @@ htmlcov/
 
 # Source PDFs (data extracted to JSON)
 *.pdf
+
+# Cache files (committed by CI, not locally)
+data/cache/*.json
