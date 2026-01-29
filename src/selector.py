@@ -4,6 +4,7 @@ import hashlib
 import json
 import logging
 import random
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 
@@ -15,6 +16,9 @@ logger = logging.getLogger(__name__)
 
 # Cache file for daily pairs
 CACHE_DIR = get_data_dir() / "cache"
+
+# In-memory cache for daily pairs (avoids repeated file I/O)
+_memory_cache: dict[str, DailyPair] = {}
 
 
 class HalachaSelector:
@@ -45,7 +49,14 @@ class HalachaSelector:
         return CACHE_DIR / f"pair_{for_date.isoformat()}.json"
 
     def _load_cached_pair(self, for_date: date) -> DailyPair | None:
-        """Load cached daily pair if available."""
+        """Load cached daily pair if available (checks memory first, then disk)."""
+        cache_key = for_date.isoformat()
+
+        # Check in-memory cache first (fastest)
+        if cache_key in _memory_cache:
+            logger.debug(f"Memory cache hit for {for_date}")
+            return _memory_cache[cache_key]
+
         cache_path = self._get_cache_path(for_date)
         if not cache_path.exists():
             return None
@@ -75,8 +86,11 @@ class HalachaSelector:
                 sefaria_url=data["second"]["sefaria_url"],
             )
 
+            pair = DailyPair(first=first, second=second, date_seed=data["date_seed"])
+            # Store in memory cache for subsequent requests
+            _memory_cache[cache_key] = pair
             logger.info(f"Loaded cached pair for {for_date}")
-            return DailyPair(first=first, second=second, date_seed=data["date_seed"])
+            return pair
         except (json.JSONDecodeError, KeyError, TypeError) as e:
             logger.warning(f"Failed to load cache for {for_date}: {e}")
             return None
@@ -161,8 +175,36 @@ class HalachaSelector:
 
         logger.info(f"Selecting halachot for {for_date}: {vol1} + {vol2}")
 
-        # Get first halacha (with fallback)
-        first = self.client.get_random_halacha_from_volume(vol1, rng)
+        # Create separate RNGs for each volume to ensure determinism with parallel execution
+        rng1 = random.Random(
+            int(
+                hashlib.sha256(f"{for_date.isoformat()}-1".encode()).hexdigest()[:16],
+                16,
+            )
+        )
+        rng2 = random.Random(
+            int(
+                hashlib.sha256(f"{for_date.isoformat()}-2".encode()).hexdigest()[:16],
+                16,
+            )
+        )
+
+        # Fetch both halachot in parallel for faster response
+        first: Halacha | None = None
+        second: Halacha | None = None
+
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            future1 = executor.submit(
+                self.client.get_random_halacha_from_volume, vol1, rng1
+            )
+            future2 = executor.submit(
+                self.client.get_random_halacha_from_volume, vol2, rng2
+            )
+
+            first = future1.result()
+            second = future2.result()
+
+        # Apply fallbacks if needed
         if not first:
             logger.warning(f"API failed for {vol1}, using fallback")
             first = self._get_fallback_halacha(vol1, rng)
@@ -170,8 +212,6 @@ class HalachaSelector:
             logger.error(f"Failed to get halacha from {vol1}")
             return None
 
-        # Get second halacha (with fallback)
-        second = self.client.get_random_halacha_from_volume(vol2, rng)
         if not second:
             logger.warning(f"API failed for {vol2}, using fallback")
             second = self._get_fallback_halacha(vol2, rng)
@@ -192,5 +232,8 @@ class HalachaSelector:
             and fallback_marker not in second.hebrew_text
         ):
             self._save_cached_pair(pair, for_date)
+
+        # Always store in memory cache for fast subsequent requests
+        _memory_cache[for_date.isoformat()] = pair
 
         return pair

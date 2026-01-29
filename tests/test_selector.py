@@ -6,11 +6,18 @@ from unittest.mock import Mock, patch
 import pytest
 
 from src.sefaria import SefariaClient
-from src.selector import HalachaSelector
+from src.selector import HalachaSelector, _memory_cache
 
 
 class TestHalachaSelector:
     """Tests for HalachaSelector."""
+
+    @pytest.fixture(autouse=True)
+    def clear_memory_cache(self):
+        """Clear the memory cache before each test."""
+        _memory_cache.clear()
+        yield
+        _memory_cache.clear()
 
     @pytest.fixture
     def mock_client(self):
