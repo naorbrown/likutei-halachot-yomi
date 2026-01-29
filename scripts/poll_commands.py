@@ -155,10 +155,11 @@ async def poll_and_respond() -> bool:
     # Use Bot as async context manager (required in python-telegram-bot v20+)
     async with Bot(token=config.telegram_bot_token) as bot:
         try:
-            # Get updates
+            # Get updates (timeout=0 for immediate return in CI environment)
             updates = await bot.get_updates(
                 offset=last_update_id + 1,
-                timeout=30,
+                limit=100,
+                timeout=0,
                 allowed_updates=["message"],
             )
 
