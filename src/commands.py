@@ -24,7 +24,9 @@ from .selector import HalachaSelector
 logger = logging.getLogger(__name__)
 
 
-def get_daily_messages(selector: HalachaSelector, for_date: date | None = None) -> list[str]:
+def get_daily_messages(
+    selector: HalachaSelector, for_date: date | None = None
+) -> list[str]:
     """Get messages for /start and /today commands.
 
     Returns a list of formatted messages including welcome message

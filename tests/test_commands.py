@@ -2,8 +2,6 @@
 
 from unittest.mock import MagicMock
 
-import pytest
-
 from src.commands import (
     get_about_message,
     get_daily_messages,
