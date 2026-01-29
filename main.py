@@ -62,11 +62,12 @@ def preview_message(date_override: str = None) -> None:
 
     if date_override:
         from datetime import datetime
+
         target_date = datetime.strptime(date_override, "%Y-%m-%d").date()
     else:
         target_date = date.today()
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"Preview for: {target_date}")
     print("=" * 60)
 
@@ -75,9 +76,10 @@ def preview_message(date_override: str = None) -> None:
         message = format_daily_message(pair, target_date)
         # Convert HTML to readable text for terminal
         import re
+
         readable = re.sub(r"<[^>]+>", "", message)
         print(readable)
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"Message length: {len(message)} characters")
         print(f"First halacha: {pair.first.reference}")
         print(f"Second halacha: {pair.second.reference}")

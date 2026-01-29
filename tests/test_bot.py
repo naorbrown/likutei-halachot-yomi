@@ -1,11 +1,12 @@
-"""Tests for the Telegram bot."""
+"""Tests for the Telegram bot.
+
+These tests require the telegram module to be properly installed.
+They will be skipped automatically via conftest.py if telegram has import issues.
+"""
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-
-# Skip all tests in this module if telegram is not available
-pytest.importorskip("telegram")
 
 from src.bot import LikuteiHalachotBot
 from src.config import Config
