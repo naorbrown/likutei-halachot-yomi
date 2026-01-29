@@ -56,8 +56,8 @@ class TestHandleCommand:
     """Tests for command handling."""
 
     @pytest.mark.asyncio
-    async def test_handle_start_command(self):
-        """Should send welcome message for /start."""
+    async def test_handle_start_command(self, sample_daily_pair):
+        """Should send welcome message and daily content for /start."""
         # Skip if telegram not available
         try:
             from scripts.poll_commands import handle_command
@@ -67,13 +67,16 @@ class TestHandleCommand:
         mock_bot = AsyncMock()
         mock_client = MagicMock()
         mock_selector = MagicMock()
+        mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         await handle_command(mock_bot, 12345, "/start", mock_client, mock_selector)
 
-        mock_bot.send_message.assert_called_once()
-        call_kwargs = mock_bot.send_message.call_args[1]
-        assert call_kwargs["chat_id"] == 12345
-        assert "ליקוטי הלכות יומי" in call_kwargs["text"]
+        # Should send welcome message + daily content (at least 2 messages)
+        assert mock_bot.send_message.call_count >= 2
+        # First call should be welcome message
+        first_call_kwargs = mock_bot.send_message.call_args_list[0][1]
+        assert first_call_kwargs["chat_id"] == 12345
+        assert "ליקוטי הלכות יומי" in first_call_kwargs["text"]
 
     @pytest.mark.asyncio
     async def test_handle_about_command(self):
@@ -114,7 +117,7 @@ class TestHandleCommand:
 
     @pytest.mark.asyncio
     async def test_handle_unknown_command(self):
-        """Should send error for unknown commands."""
+        """Should silently ignore unknown commands (nachyomi-bot pattern)."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
@@ -126,13 +129,12 @@ class TestHandleCommand:
 
         await handle_command(mock_bot, 12345, "/unknown", mock_client, mock_selector)
 
-        mock_bot.send_message.assert_called_once()
-        call_kwargs = mock_bot.send_message.call_args[1]
-        assert "/help" in call_kwargs["text"]
+        # Unknown commands are silently ignored - no message sent
+        mock_bot.send_message.assert_not_called()
 
     @pytest.mark.asyncio
     async def test_handle_today_command_success(self, sample_daily_pair):
-        """Should send halachot for /today."""
+        """Should send welcome + halachot for /today."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
@@ -145,12 +147,12 @@ class TestHandleCommand:
 
         await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
 
-        # Should have sent at least one message
-        assert mock_bot.send_message.call_count >= 1
+        # Should have sent welcome message + daily content (at least 2 messages)
+        assert mock_bot.send_message.call_count >= 2
 
     @pytest.mark.asyncio
     async def test_handle_today_command_no_pair(self):
-        """Should send error when no pair available."""
+        """Should send welcome + error when no pair available."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
@@ -163,6 +165,8 @@ class TestHandleCommand:
 
         await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
 
-        mock_bot.send_message.assert_called_once()
-        call_kwargs = mock_bot.send_message.call_args[1]
-        assert "נסה שוב" in call_kwargs["text"]
+        # Should send welcome message + error message (2 messages)
+        assert mock_bot.send_message.call_count == 2
+        # Second call should be error message
+        second_call_kwargs = mock_bot.send_message.call_args_list[1][1]
+        assert "נסה שוב" in second_call_kwargs["text"]

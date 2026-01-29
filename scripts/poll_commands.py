@@ -61,7 +61,8 @@ async def handle_command(
 ) -> None:
     """Handle a single command."""
     try:
-        if command == "/start":
+        if command in ("/start", "/today"):
+            # Both /start and /today send welcome + daily content (nachyomi-bot pattern)
             await bot.send_message(
                 chat_id=chat_id,
                 text=format_welcome_message(),
@@ -70,7 +71,7 @@ async def handle_command(
             )
             logger.info(f"Sent welcome message to {chat_id}")
 
-        elif command == "/today":
+            # Send daily halachot
             pair = selector.get_daily_pair(date.today())
             if pair:
                 messages = format_daily_message(pair, date.today())
@@ -109,13 +110,8 @@ async def handle_command(
             logger.info(f"Sent help message to {chat_id}")
 
         else:
-            # Unknown command
-            await bot.send_message(
-                chat_id=chat_id,
-                text="פקודה לא מוכרת. נסה /today או /help",
-                parse_mode="HTML",
-            )
-            logger.info(f"Unknown command '{command}' from {chat_id}")
+            # Unknown command - ignore silently (nachyomi-bot pattern)
+            logger.info(f"Unknown command '{command}' from {chat_id} - ignoring")
 
     except Exception as e:
         logger.error(f"Error handling command {command} for {chat_id}: {e}")

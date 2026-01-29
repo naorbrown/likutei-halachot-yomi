@@ -68,29 +68,24 @@ class LikuteiHalachotBot:
             except Exception as e:
                 logger.warning(f"Could not send startup notification: {e}")
 
-    async def start_command(
+    async def _send_daily_content(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
-        """Handle /start command."""
+        """Send welcome message and daily halachot (shared by /start and /today)."""
         if not update.message:
             return
         user_id = update.effective_user.id if update.effective_user else "unknown"
-        logger.info(f"/start from user {user_id}")
+        command = update.message.text.split()[0] if update.message.text else "unknown"
+        logger.info(f"{command} from user {user_id}")
+
+        # Send welcome message first
         await update.message.reply_text(
             format_welcome_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
 
-    async def today_command(
-        self, update: Update, context: ContextTypes.DEFAULT_TYPE
-    ) -> None:
-        """Handle /today command."""
-        if not update.message:
-            return
-        user_id = update.effective_user.id if update.effective_user else "unknown"
-        logger.info(f"/today from user {user_id}")
-
+        # Then send daily content
         try:
             pair = self.selector.get_daily_pair(date.today())
             messages = (
@@ -106,6 +101,18 @@ class LikuteiHalachotBot:
             await update.message.reply_text(
                 msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
             )
+
+    async def start_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
+        """Handle /start command - sends welcome + daily content."""
+        await self._send_daily_content(update, context)
+
+    async def today_command(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ) -> None:
+        """Handle /today command - sends welcome + daily content."""
+        await self._send_daily_content(update, context)
 
     async def about_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
@@ -138,13 +145,12 @@ class LikuteiHalachotBot:
     async def unknown_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
-        """Handle unknown commands."""
+        """Handle unknown commands - silently ignore (nachyomi-bot pattern)."""
         if not update.message:
             return
-        await update.message.reply_text(
-            "פקודה לא מוכרת. נסה /today או /help",
-            parse_mode=ParseMode.HTML,
-        )
+        user_id = update.effective_user.id if update.effective_user else "unknown"
+        command = update.message.text.split()[0] if update.message.text else "unknown"
+        logger.info(f"Unknown command {command} from user {user_id} - ignoring")
 
     async def _error_handler(
         self, update: object, context: ContextTypes.DEFAULT_TYPE
