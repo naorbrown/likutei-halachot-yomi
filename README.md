@@ -27,19 +27,27 @@ Save the token you receive.
 ### 2. Get Your Chat ID
 Add [@userinfobot](https://t.me/userinfobot) to your group or message it directly to get your chat ID.
 
-### 3. Add GitHub Secrets
+### 3. Deploy to Railway
 
-1. Fork this repo
-2. Go to your fork's **Settings** → **Secrets and variables** → **Actions**
-3. Add two secrets:
-   - `TELEGRAM_BOT_TOKEN` — Your bot token from @BotFather
-   - `TELEGRAM_CHAT_ID` — Your chat ID from @userinfobot
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template)
 
-### 4. Daily Broadcasts
+1. Go to [railway.app](https://railway.app) and sign in with GitHub
+2. Click **New Project** → **Deploy from GitHub repo**
+3. Select your forked `likutei-halachot-yomi` repo
+4. Add environment variables:
+   - `TELEGRAM_BOT_TOKEN` — Your bot token
+   - `TELEGRAM_CHAT_ID` — Your chat ID
+5. Deploy!
 
-Daily broadcasts run automatically via **GitHub Actions** at ~6:00 AM Israel time (4:00 AM UTC).
+The bot will run 24/7 and respond to commands instantly.
 
-To test immediately: **Actions** → **Daily Halachot** → **Run workflow**
+### 4. Add GitHub Secrets (for backup broadcasts)
+
+Go to repo **Settings** → **Secrets and variables** → **Actions** and add:
+- `TELEGRAM_BOT_TOKEN`
+- `TELEGRAM_CHAT_ID`
+
+This enables the GitHub Actions cron job as a backup for daily broadcasts.
 
 ## 📱 Bot Commands
 
@@ -49,23 +57,6 @@ To test immediately: **Actions** → **Daily Halachot** → **Run workflow**
 | `/today` | Get today's two halachot |
 | `/about` | About the bot and sources |
 | `/help` | Help and usage information |
-
-### Troubleshooting
-
-**Not receiving daily messages?**
-
-1. **Check GitHub Actions** — Go to Actions tab, verify "Daily Halachot" workflow runs successfully
-2. **Check secrets** — Ensure `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are set correctly
-3. **Test manually** — Actions → Daily Halachot → Run workflow
-
-**Want real-time commands?** (/start, /today, etc.)
-
-Run locally:
-```bash
-export TELEGRAM_BOT_TOKEN="your_token"
-export TELEGRAM_CHAT_ID="your_chat_id"
-python scripts/run_polling.py
-```
 
 ## 🏗️ Architecture
 
@@ -77,10 +68,12 @@ likutei-halachot-yomi/
 │   ├── selector.py      # Deterministic halacha selection
 │   └── formatter.py     # Message formatting (HTML)
 ├── scripts/
-│   └── run_polling.py   # Bot runner script (local dev)
+│   └── run_polling.py   # Bot entry point
 ├── main.py              # Daily broadcast CLI
+├── Dockerfile           # Container build
+├── railway.toml         # Railway deployment config
 └── .github/workflows/
-    ├── daily.yml        # Daily 6 AM broadcast (cron)
+    ├── daily.yml        # Backup daily broadcast (cron)
     └── ci.yml           # Tests & linting
 ```
 
