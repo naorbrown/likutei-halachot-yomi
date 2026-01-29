@@ -27,27 +27,27 @@ Save the token you receive.
 ### 2. Get Your Chat ID
 Add [@userinfobot](https://t.me/userinfobot) to your group or message it directly to get your chat ID.
 
-### 3. Deploy to Railway
+### 3. Add GitHub Secrets
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template)
+Go to repo **Settings** → **Secrets and variables** → **Actions** and add:
+- `TELEGRAM_BOT_TOKEN` — Your bot token from BotFather
+- `TELEGRAM_CHAT_ID` — Your chat ID
+
+This enables the daily broadcast at 6 AM Israel time via GitHub Actions.
+
+### 4. (Optional) Deploy to Railway for 24/7 Commands
+
+For instant command responses (`/start`, `/today`, etc.), deploy to Railway:
 
 1. Go to [railway.app](https://railway.app) and sign in with GitHub
 2. Click **New Project** → **Deploy from GitHub repo**
-3. Select your forked `likutei-halachot-yomi` repo
+3. Select your `likutei-halachot-yomi` repo
 4. Add environment variables:
    - `TELEGRAM_BOT_TOKEN` — Your bot token
    - `TELEGRAM_CHAT_ID` — Your chat ID
 5. Deploy!
 
 The bot will run 24/7 and respond to commands instantly.
-
-### 4. Add GitHub Secrets (for backup broadcasts)
-
-Go to repo **Settings** → **Secrets and variables** → **Actions** and add:
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
-
-This enables the GitHub Actions cron job as a backup for daily broadcasts.
 
 ## 📱 Bot Commands
 
@@ -63,19 +63,30 @@ This enables the GitHub Actions cron job as a backup for daily broadcasts.
 ```
 likutei-halachot-yomi/
 ├── src/
-│   ├── bot.py           # Telegram bot with polling
+│   ├── bot.py           # Telegram bot with polling & scheduled broadcasts
 │   ├── sefaria.py       # Sefaria API client
 │   ├── selector.py      # Deterministic halacha selection
 │   └── formatter.py     # Message formatting (HTML)
 ├── scripts/
-│   └── run_polling.py   # Bot entry point
-├── main.py              # Daily broadcast CLI
-├── Dockerfile           # Container build
+│   └── run_polling.py   # Bot entry point (Railway)
+├── main.py              # Daily broadcast CLI (GitHub Actions)
+├── tests/
+│   ├── test_bot.py      # Bot unit tests
+│   ├── test_formatter.py
+│   └── conftest.py      # Test fixtures
+├── Dockerfile           # Container build (Railway)
 ├── railway.toml         # Railway deployment config
 └── .github/workflows/
-    ├── daily.yml        # Backup daily broadcast (cron)
+    ├── daily.yml        # Daily broadcast (6 AM Israel time)
     └── ci.yml           # Tests & linting
 ```
+
+### Deployment Options
+
+| Method | Commands | Daily Broadcast | Cost |
+|--------|----------|-----------------|------|
+| GitHub Actions only | ❌ | ✅ 6 AM cron | Free |
+| Railway | ✅ Instant | ✅ Job queue | ~$5/month |
 
 ## 📖 About Likutei Halachot
 
