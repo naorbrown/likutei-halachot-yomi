@@ -27,41 +27,19 @@ Save the token you receive.
 ### 2. Get Your Chat ID
 Add [@userinfobot](https://t.me/userinfobot) to your group or message it directly to get your chat ID.
 
-### 3. Deploy (Choose One)
-
-#### Option A: Render (Recommended)
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+### 3. Add GitHub Secrets
 
 1. Fork this repo
-2. Go to [render.com](https://render.com) → New → Blueprint
-3. Connect your forked repo
-4. Add environment variables:
-   - `TELEGRAM_BOT_TOKEN` — Your bot token
-   - `TELEGRAM_CHAT_ID` — Your chat ID
-5. Deploy!
-
-#### Option B: Self-Host
-
-```bash
-git clone https://github.com/naorbrown/likutei-halachot-yomi.git
-cd likutei-halachot-yomi
-pip install -r requirements.txt
-
-# Set environment variables
-export TELEGRAM_BOT_TOKEN="your_token"
-export TELEGRAM_CHAT_ID="your_chat_id"
-
-# Run the bot
-python scripts/run_polling.py
-```
+2. Go to your fork's **Settings** → **Secrets and variables** → **Actions**
+3. Add two secrets:
+   - `TELEGRAM_BOT_TOKEN` — Your bot token from @BotFather
+   - `TELEGRAM_CHAT_ID` — Your chat ID from @userinfobot
 
 ### 4. Daily Broadcasts
 
-Daily broadcasts are handled automatically by the Render worker at **6:00 AM Israel time**. The bot uses python-telegram-bot's built-in job scheduler for precise timing.
+Daily broadcasts run automatically via **GitHub Actions** at ~6:00 AM Israel time (4:00 AM UTC).
 
-For manual testing/recovery, you can trigger broadcasts via GitHub Actions:
-- Go to Actions → Daily Halachot → Run workflow
+To test immediately: **Actions** → **Daily Halachot** → **Run workflow**
 
 ## 📱 Bot Commands
 
@@ -74,16 +52,20 @@ For manual testing/recovery, you can trigger broadcasts via GitHub Actions:
 
 ### Troubleshooting
 
-**Bot not responding to commands?**
+**Not receiving daily messages?**
 
-1. **Check startup message** — After deployment, you should receive:
-   > 🤖 Bot started and listening for commands.
+1. **Check GitHub Actions** — Go to Actions tab, verify "Daily Halachot" workflow runs successfully
+2. **Check secrets** — Ensure `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` are set correctly
+3. **Test manually** — Actions → Daily Halachot → Run workflow
 
-   If you don't see this, check Render logs for errors.
+**Want real-time commands?** (/start, /today, etc.)
 
-2. **Only one instance allowed** — Telegram polling only works with ONE bot instance. Stop any local development servers or other deployments using the same token.
-
-3. **Group chat privacy** — In groups, disable privacy mode via @BotFather → Bot Settings → Group Privacy → Turn off.
+Run locally:
+```bash
+export TELEGRAM_BOT_TOKEN="your_token"
+export TELEGRAM_CHAT_ID="your_chat_id"
+python scripts/run_polling.py
+```
 
 ## 🏗️ Architecture
 
@@ -95,11 +77,10 @@ likutei-halachot-yomi/
 │   ├── selector.py      # Deterministic halacha selection
 │   └── formatter.py     # Message formatting (HTML)
 ├── scripts/
-│   └── run_polling.py   # Bot runner script
+│   └── run_polling.py   # Bot runner script (local dev)
 ├── main.py              # Daily broadcast CLI
-├── render.yaml          # Render deployment config
 └── .github/workflows/
-    ├── daily.yml        # Manual broadcast trigger
+    ├── daily.yml        # Daily 6 AM broadcast (cron)
     └── ci.yml           # Tests & linting
 ```
 

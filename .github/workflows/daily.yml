@@ -1,8 +1,10 @@
 name: Daily Halachot
 
 on:
-  # Daily scheduling is now handled by the Render worker with precise 6:00 AM Israel time
-  # Keep workflow_dispatch for manual testing/recovery
+  schedule:
+    # 4:00 AM UTC = 6:00 AM Israel time (winter)
+    # GitHub Actions cron can be delayed 5-30 minutes
+    - cron: "0 4 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
