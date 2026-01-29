@@ -55,8 +55,10 @@ Examples:
     return parser.parse_args()
 
 
-def preview_message(date_override: str = None) -> None:
+def preview_message(date_override: str | None = None) -> None:
     """Preview today's message without sending."""
+    import re
+
     client = SefariaClient()
     selector = HalachaSelector(client)
 
@@ -73,14 +75,17 @@ def preview_message(date_override: str = None) -> None:
 
     pair = selector.get_daily_pair(target_date)
     if pair:
-        message = format_daily_message(pair, target_date)
+        messages = format_daily_message(pair, target_date)
         # Convert HTML to readable text for terminal
-        import re
+        for i, msg in enumerate(messages, 1):
+            readable = re.sub(r"<[^>]+>", "", msg)
+            print(f"\n--- Message {i} ---")
+            print(readable)
 
-        readable = re.sub(r"<[^>]+>", "", message)
-        print(readable)
         print(f"\n{'=' * 60}")
-        print(f"Message length: {len(message)} characters")
+        total_chars = sum(len(m) for m in messages)
+        print(f"Total messages: {len(messages)}")
+        print(f"Total characters: {total_chars}")
         print(f"First halacha: {pair.first.reference}")
         print(f"Second halacha: {pair.second.reference}")
     else:

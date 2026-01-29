@@ -35,10 +35,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run linter (ruff)
-        run: ruff check src/ tests/
+        run: ruff check src/ tests/ scripts/ main.py
 
       - name: Run type checker (mypy)
-        run: mypy src/ --ignore-missing-imports
+        run: mypy src/ scripts/ main.py --ignore-missing-imports
 
       - name: Run tests with coverage
         run: |
@@ -61,12 +61,12 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install linters
+      - name: Install dependencies
         run: |
-          pip install ruff black mypy
+          pip install -r requirements.txt
 
       - name: Check formatting (black)
-        run: black --check src/ tests/
+        run: black --check src/ tests/ scripts/ main.py
 
       - name: Check imports and style (ruff)
-        run: ruff check src/ tests/
+        run: ruff check src/ tests/ scripts/ main.py
