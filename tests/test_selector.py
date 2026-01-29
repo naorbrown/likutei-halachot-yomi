@@ -1,7 +1,7 @@
 """Tests for halacha selection logic."""
 
 from datetime import date
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -58,7 +58,7 @@ class TestHalachaSelector:
             assert vol1 != vol2, f"Same volume selected on {test_date}"
 
     def test_get_daily_pair_calls_client(
-        self, selector, mock_client, sample_halacha_oc, sample_halacha_yd
+        self, selector, mock_client, sample_halacha_oc, sample_halacha_yd, tmp_path
     ):
         """get_daily_pair should call client for both volumes."""
         mock_client.get_random_halacha_from_volume.side_effect = [
@@ -66,17 +66,21 @@ class TestHalachaSelector:
             sample_halacha_yd,
         ]
 
-        # Use far-future date to avoid any cached entries
-        result = selector.get_daily_pair(date(2098, 1, 1))
+        # Use temp cache dir to avoid polluting real cache
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            result = selector.get_daily_pair(date(2098, 1, 1))
 
         assert result is not None
         assert mock_client.get_random_halacha_from_volume.call_count == 2
 
-    def test_get_daily_pair_returns_none_on_failure(self, selector, mock_client):
+    def test_get_daily_pair_returns_none_on_failure(
+        self, selector, mock_client, tmp_path
+    ):
         """get_daily_pair should return None if client fails (no cache)."""
         mock_client.get_random_halacha_from_volume.return_value = None
 
-        # Use a date that won't have a cached entry
-        result = selector.get_daily_pair(date(2099, 12, 31))
+        # Use temp cache dir to avoid polluting real cache
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            result = selector.get_daily_pair(date(2099, 12, 31))
 
         assert result is None
