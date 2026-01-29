@@ -29,7 +29,8 @@ jobs:
         run: python main.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          # Unified Torah Yomi Channel
           TORAH_YOMI_CHANNEL_ID: ${{ secrets.TORAH_YOMI_CHANNEL_ID }}
           TORAH_YOMI_CHANNEL_BOT_TOKEN: ${{ secrets.TORAH_YOMI_CHANNEL_BOT_TOKEN }}
           TORAH_YOMI_PUBLISH_ENABLED: ${{ secrets.TORAH_YOMI_PUBLISH_ENABLED }}
