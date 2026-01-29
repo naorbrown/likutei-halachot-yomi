@@ -73,11 +73,32 @@ class TestHalachaSelector:
         assert result is not None
         assert mock_client.get_random_halacha_from_volume.call_count == 2
 
-    def test_get_daily_pair_returns_none_on_failure(
+    def test_get_daily_pair_returns_fallback_on_api_failure(
+        self, selector, mock_client, sample_section_oc, sample_section_yd, tmp_path
+    ):
+        """get_daily_pair should return fallback when API fails but catalog exists."""
+        mock_client.get_random_halacha_from_volume.return_value = None
+        # Return sections for fallback to work
+        mock_client.get_sections_by_volume.side_effect = [
+            [sample_section_yd],  # First volume
+            [sample_section_oc],  # Second volume
+        ]
+
+        # Use temp cache dir to avoid polluting real cache
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            result = selector.get_daily_pair(date(2099, 12, 31))
+
+        # Should return fallback, not None
+        assert result is not None
+        assert "לא ניתן לטעון" in result.first.hebrew_text
+        assert "לא ניתן לטעון" in result.second.hebrew_text
+
+    def test_get_daily_pair_returns_none_when_no_sections(
         self, selector, mock_client, tmp_path
     ):
-        """get_daily_pair should return None if client fails (no cache)."""
+        """get_daily_pair should return None when no sections available."""
         mock_client.get_random_halacha_from_volume.return_value = None
+        mock_client.get_sections_by_volume.return_value = []  # No sections
 
         # Use temp cache dir to avoid polluting real cache
         with patch("src.selector.CACHE_DIR", tmp_path):

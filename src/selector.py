@@ -122,12 +122,30 @@ class HalachaSelector:
             json.dump(data, f, ensure_ascii=False, indent=2)
         logger.info(f"Cached pair for {for_date}")
 
+    def _get_fallback_halacha(self, volume: str, rng: random.Random) -> Halacha | None:
+        """Create a fallback halacha with just section info when API fails."""
+        sections = self.client.get_sections_by_volume(volume)
+        if not sections:
+            return None
+
+        section = rng.choice(sections)
+        # Create a minimal halacha with section info and a link
+        return Halacha(
+            section=section,
+            chapter=1,
+            siman=1,
+            hebrew_text="לא ניתן לטעון את הטקסט כרגע. לחץ על הקישור לקריאה בספריא.",
+            english_text=None,
+            sefaria_url=f"https://www.sefaria.org/{section.ref_base.replace(' ', '_')}",
+        )
+
     def get_daily_pair(self, for_date: date | None = None) -> DailyPair | None:
         """
         Get the pair of halachot for a given date.
 
         Selection is deterministic - same date always returns same pair.
         Uses caching to avoid repeated API calls.
+        Always returns something (even fallback) unless catalog is missing.
         """
         if for_date is None:
             for_date = date.today()
@@ -143,14 +161,20 @@ class HalachaSelector:
 
         logger.info(f"Selecting halachot for {for_date}: {vol1} + {vol2}")
 
-        # Get first halacha
+        # Get first halacha (with fallback)
         first = self.client.get_random_halacha_from_volume(vol1, rng)
+        if not first:
+            logger.warning(f"API failed for {vol1}, using fallback")
+            first = self._get_fallback_halacha(vol1, rng)
         if not first:
             logger.error(f"Failed to get halacha from {vol1}")
             return None
 
-        # Get second halacha
+        # Get second halacha (with fallback)
         second = self.client.get_random_halacha_from_volume(vol2, rng)
+        if not second:
+            logger.warning(f"API failed for {vol2}, using fallback")
+            second = self._get_fallback_halacha(vol2, rng)
         if not second:
             logger.error(f"Failed to get halacha from {vol2}")
             return None
@@ -161,7 +185,12 @@ class HalachaSelector:
             date_seed=self._get_daily_seed(for_date),
         )
 
-        # Save to cache for future requests
-        self._save_cached_pair(pair, for_date)
+        # Only cache if we got real content (not fallback)
+        fallback_marker = "לא ניתן לטעון"
+        if (
+            fallback_marker not in first.hebrew_text
+            and fallback_marker not in second.hebrew_text
+        ):
+            self._save_cached_pair(pair, for_date)
 
         return pair
