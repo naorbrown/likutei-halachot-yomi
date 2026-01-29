@@ -8,9 +8,15 @@ on:
 permissions:
   contents: write
 
+# Cancel in-progress runs to prevent buildup
+concurrency:
+  group: poll-commands
+  cancel-in-progress: true
+
 jobs:
   poll:
     runs-on: ubuntu-latest
+    timeout-minutes: 3  # Prevent hanging workflows
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
