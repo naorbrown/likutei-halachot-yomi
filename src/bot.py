@@ -171,6 +171,8 @@ class LikuteiHalachotBot:
 
     async def send_daily_broadcast(self) -> bool:
         """Send daily halachot to configured chat."""
+        from telegram import Bot
+
         logger.info(f"Broadcasting to {self.config.telegram_chat_id}")
 
         try:
@@ -180,17 +182,19 @@ class LikuteiHalachotBot:
                 return False
 
             messages = format_daily_message(pair, date.today())
-            app = self.build_app()
-            async with app:
+
+            # Use simple Bot class directly (like nachyomi-bot)
+            bot = Bot(token=self.config.telegram_bot_token)
+            async with bot:
                 for msg in messages:
-                    await app.bot.send_message(
+                    await bot.send_message(
                         chat_id=self.config.telegram_chat_id,
                         text=msg,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True,
                     )
 
-            logger.info("Broadcast sent")
+            logger.info("Broadcast sent successfully")
             return True
 
         except Exception as e:

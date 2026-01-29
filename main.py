@@ -119,6 +119,8 @@ def main() -> int:
 
     config.setup_logging()
     logger.info("Likutei Halachot Yomi starting...")
+    logger.info(f"Chat ID: {config.telegram_chat_id}")
+    logger.info(f"Token: {config.telegram_bot_token[:10]}...")
 
     if args.serve:
         # Interactive mode
@@ -126,7 +128,12 @@ def main() -> int:
         return 0
     else:
         # One-shot broadcast mode
+        logger.info("Sending daily broadcast...")
         success = asyncio.run(send_broadcast(config))
+        if success:
+            logger.info("Broadcast completed successfully!")
+        else:
+            logger.error("Broadcast failed!")
         return 0 if success else 1
 
 
