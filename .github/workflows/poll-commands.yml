@@ -6,12 +6,22 @@ on:
     - cron: "*/5 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   poll:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
+      - name: Verify secrets are set
+        run: |
+          if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
+            echo "::error::TELEGRAM_BOT_TOKEN secret is not set"
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
 

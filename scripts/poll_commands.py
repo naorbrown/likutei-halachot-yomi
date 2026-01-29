@@ -137,8 +137,8 @@ async def poll_and_respond() -> bool:
     # Import telegram here to allow graceful failure
     try:
         from telegram import Bot
-    except ImportError:
-        logger.error("telegram module not available")
+    except ImportError as e:
+        logger.error(f"telegram module not available: {e}")
         return False
 
     # Load config
@@ -149,7 +149,6 @@ async def poll_and_respond() -> bool:
         return False
 
     # Initialize components
-    bot = Bot(token=config.telegram_bot_token)
     client = SefariaClient()
     selector = HalachaSelector(client)
 
@@ -157,47 +156,54 @@ async def poll_and_respond() -> bool:
     last_update_id = load_state()
     logger.info(f"Starting poll with offset {last_update_id + 1}")
 
-    try:
-        # Get updates
-        updates = await bot.get_updates(
-            offset=last_update_id + 1,
-            timeout=30,
-            allowed_updates=["message"],
-        )
+    # Use Bot as async context manager (required in python-telegram-bot v20+)
+    async with Bot(token=config.telegram_bot_token) as bot:
+        try:
+            # Get updates
+            updates = await bot.get_updates(
+                offset=last_update_id + 1,
+                timeout=30,
+                allowed_updates=["message"],
+            )
 
-        if not updates:
-            logger.info("No new updates")
+            if not updates:
+                logger.info("No new updates")
+                return True
+
+            logger.info(f"Processing {len(updates)} update(s)")
+
+            # Process each update
+            new_last_update_id = last_update_id
+            for update in updates:
+                new_last_update_id = max(new_last_update_id, update.update_id)
+
+                # Only process messages with text
+                if not update.message or not update.message.text:
+                    continue
+
+                text = update.message.text.strip()
+                chat_id = update.message.chat_id
+
+                # Only process commands (starting with /)
+                if text.startswith("/"):
+                    command = (
+                        text.split()[0].split("@")[0].lower()
+                    )  # Handle /cmd@botname
+                    logger.info(f"Processing command '{command}' from chat {chat_id}")
+                    await handle_command(bot, chat_id, command, client, selector)
+
+            # Save state
+            if new_last_update_id > last_update_id:
+                save_state(new_last_update_id)
+
             return True
 
-        logger.info(f"Processing {len(updates)} update(s)")
+        except Exception as e:
+            logger.error(f"Error polling updates: {e}")
+            import traceback
 
-        # Process each update
-        new_last_update_id = last_update_id
-        for update in updates:
-            new_last_update_id = max(new_last_update_id, update.update_id)
-
-            # Only process messages with text
-            if not update.message or not update.message.text:
-                continue
-
-            text = update.message.text.strip()
-            chat_id = update.message.chat_id
-
-            # Only process commands (starting with /)
-            if text.startswith("/"):
-                command = text.split()[0].split("@")[0].lower()  # Handle /cmd@botname
-                logger.info(f"Processing command '{command}' from chat {chat_id}")
-                await handle_command(bot, chat_id, command, client, selector)
-
-        # Save state
-        if new_last_update_id > last_update_id:
-            save_state(new_last_update_id)
-
-        return True
-
-    except Exception as e:
-        logger.error(f"Error polling updates: {e}")
-        return False
+            traceback.print_exc()
+            return False
 
 
 def main() -> None:
