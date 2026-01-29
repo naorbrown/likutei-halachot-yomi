@@ -65,11 +65,10 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
-        await handle_command(mock_bot, 12345, "/start", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/start", mock_selector)
 
         # Should send welcome message + daily content (at least 2 messages)
         assert mock_bot.send_message.call_count >= 2
@@ -87,10 +86,9 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/about", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/about", mock_selector)
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
@@ -105,10 +103,9 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/help", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/help", mock_selector)
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
@@ -124,10 +121,9 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/unknown", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/unknown", mock_selector)
 
         # Unknown commands are silently ignored - no message sent
         mock_bot.send_message.assert_not_called()
@@ -141,11 +137,10 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
-        await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/today", mock_selector)
 
         # Should have sent welcome message + daily content (at least 2 messages)
         assert mock_bot.send_message.call_count >= 2
@@ -159,11 +154,10 @@ class TestHandleCommand:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
         mock_selector.get_daily_pair.return_value = None
 
-        await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/today", mock_selector)
 
         # Should send welcome message + error message (2 messages)
         assert mock_bot.send_message.call_count == 2

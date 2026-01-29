@@ -14,14 +14,9 @@ from telegram.ext import (
     filters,
 )
 
+from .commands import get_about_message, get_daily_messages, get_help_message
 from .config import Config
-from .formatter import (
-    format_about_message,
-    format_daily_message,
-    format_error_message,
-    format_help_message,
-    format_welcome_message,
-)
+from .formatter import format_daily_message
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
@@ -78,24 +73,8 @@ class LikuteiHalachotBot:
         command = update.message.text.split()[0] if update.message.text else "unknown"
         logger.info(f"{command} from user {user_id}")
 
-        # Send welcome message first
-        await update.message.reply_text(
-            format_welcome_message(),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
-        )
-
-        # Then send daily content
-        try:
-            pair = self.selector.get_daily_pair(date.today())
-            messages = (
-                format_daily_message(pair, date.today())
-                if pair
-                else [format_error_message()]
-            )
-        except Exception as e:
-            logger.exception(f"Error getting daily pair: {e}")
-            messages = [format_error_message()]
+        # Get all messages (welcome + daily content) from shared module
+        messages = get_daily_messages(self.selector)
 
         for msg in messages:
             await update.message.reply_text(
@@ -123,7 +102,7 @@ class LikuteiHalachotBot:
         user_id = update.effective_user.id if update.effective_user else "unknown"
         logger.info(f"/about from user {user_id}")
         await update.message.reply_text(
-            format_about_message(),
+            get_about_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
@@ -137,7 +116,7 @@ class LikuteiHalachotBot:
         user_id = update.effective_user.id if update.effective_user else "unknown"
         logger.info(f"/help from user {user_id}")
         await update.message.reply_text(
-            format_help_message(),
+            get_help_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
