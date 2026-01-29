@@ -2,70 +2,41 @@ name: Daily Halachot
 
 on:
   schedule:
-    # 4:00 AM UTC = 6:00 AM Israel time (winter)
-    # GitHub Actions cron can be delayed 5-30 minutes
-    - cron: "0 4 * * *"
-  workflow_dispatch: # Allow manual trigger
+    - cron: '0 4 * * *'  # 4:00 AM UTC = 6:00 AM Israel time
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  send-daily:
+  broadcast:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
-
-      - name: Cache pip dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          python-version: '3.11'
+          cache: 'pip'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Verify secrets are set
-        run: |
-          if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
-            echo "::error::TELEGRAM_BOT_TOKEN secret is not set"
-            exit 1
-          fi
-          if [ -z "${{ secrets.TELEGRAM_CHAT_ID }}" ]; then
-            echo "::error::TELEGRAM_CHAT_ID secret is not set"
-            exit 1
-          fi
-          echo "Secrets verified"
-
       - name: Send daily halachot
+        run: python main.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          # Unified Torah Yomi Channel
           TORAH_YOMI_CHANNEL_ID: ${{ secrets.TORAH_YOMI_CHANNEL_ID }}
           TORAH_YOMI_CHANNEL_BOT_TOKEN: ${{ secrets.TORAH_YOMI_CHANNEL_BOT_TOKEN }}
           TORAH_YOMI_PUBLISH_ENABLED: ${{ secrets.TORAH_YOMI_PUBLISH_ENABLED }}
-        run: python main.py
 
       - name: Commit cache
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add data/cache/
           git diff --staged --quiet || git commit -m "chore: cache daily pair [skip ci]"
           git push
-
-      - name: Report success
-        if: success()
-        run: echo "::notice::Daily halachot sent successfully"
-
-      - name: Report failure
-        if: failure()
-        run: echo "::error::Failed to send daily halachot"
