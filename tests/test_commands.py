@@ -16,6 +16,7 @@ class TestGetDailyMessages:
     def test_returns_welcome_and_content(self, sample_daily_pair):
         """Should return welcome message followed by daily content."""
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache, use fallback
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         messages = get_daily_messages(mock_selector)
@@ -28,6 +29,7 @@ class TestGetDailyMessages:
     def test_returns_error_when_no_pair(self):
         """Should return welcome + error when no pair available."""
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache, use fallback
         mock_selector.get_daily_pair.return_value = None
 
         messages = get_daily_messages(mock_selector)
@@ -40,6 +42,7 @@ class TestGetDailyMessages:
     def test_returns_error_on_exception(self):
         """Should return welcome + error when selector raises exception."""
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache
         mock_selector.get_daily_pair.side_effect = Exception("API error")
 
         messages = get_daily_messages(mock_selector)

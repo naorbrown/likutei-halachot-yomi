@@ -32,6 +32,8 @@ def get_daily_messages(
     Returns a list of formatted messages including welcome message
     followed by daily content (or error message if unavailable).
 
+    Uses pre-cached formatted messages when available for instant response.
+
     Args:
         selector: HalachaSelector instance for fetching daily pair
         for_date: Optional date override, defaults to today
@@ -42,20 +44,25 @@ def get_daily_messages(
     if for_date is None:
         for_date = date.today()
 
-    messages = [format_welcome_message()]
-
     try:
+        # Try cached messages first for instant response
+        cached_messages = selector.get_cached_messages(for_date)
+        if cached_messages:
+            logger.debug(f"Using cached messages for {for_date}")
+            return cached_messages
+
+        # Fall back to fetching and formatting
+        messages = [format_welcome_message()]
         pair = selector.get_daily_pair(for_date)
         if pair:
             messages.extend(format_daily_message(pair, for_date))
         else:
             logger.warning(f"No daily pair available for {for_date}")
             messages.append(format_error_message())
+        return messages
     except Exception as e:
         logger.exception(f"Error getting daily pair: {e}")
-        messages.append(format_error_message())
-
-    return messages
+        return [format_welcome_message(), format_error_message()]
 
 
 def get_about_message() -> str:

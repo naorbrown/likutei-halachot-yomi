@@ -135,6 +135,16 @@ async def poll_and_respond() -> bool:
     client = SefariaClient()
     selector = HalachaSelector(client)
 
+    # Pre-warm cache for instant responses
+    # This loads today's cached messages into memory before processing any commands
+    cached = selector.get_cached_messages()
+    if cached:
+        logger.info(
+            f"Cache pre-warmed: {len(cached)} messages ready for instant response"
+        )
+    else:
+        logger.warning("No cached messages available - responses may be slower")
+
     # Load state
     last_update_id = load_state()
     logger.info(f"Starting poll with offset {last_update_id + 1}")

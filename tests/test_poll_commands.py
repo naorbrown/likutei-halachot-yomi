@@ -66,6 +66,7 @@ class TestHandleCommand:
 
         mock_bot = AsyncMock()
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         await handle_command(mock_bot, 12345, "/start", mock_selector)
@@ -138,6 +139,7 @@ class TestHandleCommand:
 
         mock_bot = AsyncMock()
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         await handle_command(mock_bot, 12345, "/today", mock_selector)
@@ -155,6 +157,7 @@ class TestHandleCommand:
 
         mock_bot = AsyncMock()
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None  # No cache
         mock_selector.get_daily_pair.return_value = None
 
         await handle_command(mock_bot, 12345, "/today", mock_selector)

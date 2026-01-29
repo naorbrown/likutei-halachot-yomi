@@ -23,10 +23,22 @@ class SefariaClient:
     BASE_URL = "https://www.sefaria.org/api"
     WEB_URL = "https://www.sefaria.org"
 
-    def __init__(self, timeout: int = 30):
+    def __init__(self, timeout: int = 10):
         self.timeout = timeout
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "LikuteiHalachotYomiBot/2.0"})
+        self.session.headers.update(
+            {
+                "User-Agent": "LikuteiHalachotYomiBot/2.0",
+                "Connection": "keep-alive",
+            }
+        )
+        # Configure connection pooling for faster parallel requests
+        adapter = requests.adapters.HTTPAdapter(
+            pool_connections=10,
+            pool_maxsize=10,
+            max_retries=1,
+        )
+        self.session.mount("https://", adapter)
         self._catalog: list[HalachaSection] | None = None
 
     @property
