@@ -7,10 +7,13 @@ import pytest
 from src.models import DailyPair, Halacha, HalachaSection
 
 
-# Skip test_bot.py if telegram module has import issues (cryptography/cffi)
+# Skip telegram-dependent tests if module has import issues (cryptography/cffi)
 def pytest_ignore_collect(collection_path, config):
-    """Skip test_bot.py if telegram module is not available."""
-    if collection_path.name == "test_bot.py":
+    """Skip test files that require telegram if it's not available."""
+    # Files that require telegram
+    telegram_tests = {"test_bot.py", "test_e2e.py"}
+
+    if collection_path.name in telegram_tests:
         # Check for cffi backend first (prevents Rust panics in cryptography)
         try:
             import _cffi_backend  # noqa: F401
