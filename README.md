@@ -7,13 +7,16 @@
 
 A Telegram bot delivering two daily halachot from **Likutei Halachot** by Rebbe Natan of Breslov — spreading the light of Rebbe Nachman's teachings.
 
+**The bot runs entirely on GitHub Actions — no server required!**
+
 ## ✨ Features
 
 - **Daily Inspiration** — Two halachot delivered at 6 AM Israel time
 - **Fresh Content** — Different selections each day, never recycling year over year
-- **Interactive Commands** — `/start`, `/today`, `/about`
+- **Interactive Commands** — `/start`, `/today`, `/about`, `/help`
 - **Bilingual** — Hebrew text with English translation
 - **Deep Links** — Direct Sefaria links to continue learning
+- **Free Hosting** — Runs on GitHub Actions, no paid services needed
 
 ## 🚀 Quick Start
 
@@ -27,40 +30,15 @@ Save the token you receive.
 ### 2. Get Your Chat ID
 Add [@userinfobot](https://t.me/userinfobot) to your group or message it directly to get your chat ID.
 
-### 3. Deploy (Choose One)
+### 3. Add GitHub Secrets
 
-#### Option A: Render (Recommended)
+Go to repo **Settings** → **Secrets and variables** → **Actions** and add:
+- `TELEGRAM_BOT_TOKEN` — Your bot token from BotFather
+- `TELEGRAM_CHAT_ID` — Your chat ID
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
-
-1. Fork this repo
-2. Go to [render.com](https://render.com) → New → Blueprint
-3. Connect your forked repo
-4. Add environment variables:
-   - `TELEGRAM_BOT_TOKEN` — Your bot token
-   - `TELEGRAM_CHAT_ID` — Your chat ID
-5. Deploy!
-
-#### Option B: Self-Host
-
-```bash
-git clone https://github.com/naorbrown/likutei-halachot-yomi.git
-cd likutei-halachot-yomi
-pip install -r requirements.txt
-
-# Set environment variables
-export TELEGRAM_BOT_TOKEN="your_token"
-export TELEGRAM_CHAT_ID="your_chat_id"
-
-# Run the bot
-python scripts/run_polling.py
-```
-
-### 4. Enable Daily Broadcasts
-
-The GitHub Actions workflow sends daily broadcasts. Add these secrets to your forked repo:
-- Go to Settings → Secrets → Actions
-- Add `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+That's it! The bot will:
+- Send daily broadcasts at 6 AM Israel time
+- Respond to commands every 5 minutes
 
 ## 📱 Bot Commands
 
@@ -69,24 +47,43 @@ The GitHub Actions workflow sends daily broadcasts. Add these secrets to your fo
 | `/start` | Welcome message with instructions |
 | `/today` | Get today's two halachot |
 | `/about` | About the bot and sources |
+| `/help` | Help and usage information |
+
+> **Note**: Commands have up to 5-minute response latency due to the GitHub Actions polling interval.
 
 ## 🏗️ Architecture
 
 ```
 likutei-halachot-yomi/
 ├── src/
-│   ├── bot.py           # Telegram bot with polling
+│   ├── bot.py           # Bot logic and command handlers
 │   ├── sefaria.py       # Sefaria API client
 │   ├── selector.py      # Deterministic halacha selection
 │   └── formatter.py     # Message formatting (HTML)
 ├── scripts/
-│   └── run_polling.py   # Bot runner script
+│   ├── poll_commands.py # Command polling (GitHub Actions)
+│   └── run_polling.py   # Local development
 ├── main.py              # Daily broadcast CLI
-├── render.yaml          # Render deployment config
-└── .github/workflows/
-    ├── daily.yml        # 6 AM broadcast (cron)
-    └── ci.yml           # Tests & linting
+├── tests/
+│   ├── test_bot.py      # Bot unit tests
+│   ├── test_formatter.py
+│   └── conftest.py      # Test fixtures
+└── .github/
+    ├── workflows/
+    │   ├── daily.yml        # Daily broadcast (6 AM Israel time)
+    │   ├── poll-commands.yml # Command polling (every 5 min)
+    │   └── ci.yml           # Tests & linting
+    └── state/
+        └── last_update_id.json  # Tracks processed messages
 ```
+
+### How It Works
+
+| Workflow | Schedule | Purpose |
+|----------|----------|---------|
+| `daily.yml` | 6 AM Israel time | Send daily halachot broadcast |
+| `poll-commands.yml` | Every 5 minutes | Respond to user commands |
+| `ci.yml` | On push/PR | Run tests and linting |
 
 ## 📖 About Likutei Halachot
 
@@ -112,8 +109,8 @@ pytest
 # Preview today's message
 python main.py --preview
 
-# Run bot locally
-python scripts/run_polling.py
+# Test command polling locally
+python scripts/poll_commands.py
 ```
 
 ## 📄 License

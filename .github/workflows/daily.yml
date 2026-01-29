@@ -1,8 +1,10 @@
 name: Daily Halachot
 
 on:
-  # Daily scheduling is now handled by the Render worker with precise 6:00 AM Israel time
-  # Keep workflow_dispatch for manual testing/recovery
+  schedule:
+    # 4:00 AM UTC = 6:00 AM Israel time (winter)
+    # GitHub Actions cron can be delayed 5-30 minutes
+    - cron: "0 4 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -27,12 +29,28 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Verify secrets are set
+        run: |
+          if [ -z "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then
+            echo "::error::TELEGRAM_BOT_TOKEN secret is not set"
+            exit 1
+          fi
+          if [ -z "${{ secrets.TELEGRAM_CHAT_ID }}" ]; then
+            echo "::error::TELEGRAM_CHAT_ID secret is not set"
+            exit 1
+          fi
+          echo "Secrets verified"
+
       - name: Send daily halachot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py
 
-      - name: Report status
+      - name: Report success
+        if: success()
+        run: echo "::notice::Daily halachot sent successfully"
+
+      - name: Report failure
         if: failure()
         run: echo "::error::Failed to send daily halachot"

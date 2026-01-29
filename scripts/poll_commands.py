@@ -1,0 +1,218 @@
+#!/usr/bin/env python3
+"""Poll Telegram for commands and respond.
+
+This script is designed to run via GitHub Actions every 5 minutes.
+It polls for new updates, handles commands, and persists state.
+"""
+
+import asyncio
+import json
+import logging
+import sys
+from datetime import date
+from pathlib import Path
+
+# Add src to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from src.config import Config
+from src.formatter import (
+    format_about_message,
+    format_daily_message,
+    format_error_message,
+    format_help_message,
+    format_welcome_message,
+)
+from src.sefaria import SefariaClient
+from src.selector import HalachaSelector
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+# State file path
+STATE_DIR = Path(__file__).parent.parent / ".github" / "state"
+STATE_FILE = STATE_DIR / "last_update_id.json"
+
+
+def load_state() -> int:
+    """Load last processed update ID from state file."""
+    if STATE_FILE.exists():
+        try:
+            data = json.loads(STATE_FILE.read_text())
+            return data.get("last_update_id", 0)
+        except (json.JSONDecodeError, KeyError):
+            return 0
+    return 0
+
+
+def save_state(last_update_id: int) -> None:
+    """Save last processed update ID to state file."""
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps({"last_update_id": last_update_id}, indent=2))
+    logger.info(f"Saved state: last_update_id={last_update_id}")
+
+
+async def handle_command(
+    bot, chat_id: int, command: str, client: SefariaClient, selector: HalachaSelector
+) -> None:
+    """Handle a single command."""
+    try:
+        if command == "/start":
+            await bot.send_message(
+                chat_id=chat_id,
+                text=format_welcome_message(),
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+            )
+            logger.info(f"Sent welcome message to {chat_id}")
+
+        elif command == "/today":
+            pair = selector.get_daily_pair(date.today())
+            if pair:
+                messages = format_daily_message(pair, date.today())
+                for msg in messages:
+                    await bot.send_message(
+                        chat_id=chat_id,
+                        text=msg,
+                        parse_mode="HTML",
+                        disable_web_page_preview=True,
+                    )
+                logger.info(f"Sent today's halachot to {chat_id}")
+            else:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=format_error_message(),
+                    parse_mode="HTML",
+                )
+                logger.warning(f"No pair available for {chat_id}")
+
+        elif command == "/about":
+            await bot.send_message(
+                chat_id=chat_id,
+                text=format_about_message(),
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+            )
+            logger.info(f"Sent about message to {chat_id}")
+
+        elif command == "/help":
+            await bot.send_message(
+                chat_id=chat_id,
+                text=format_help_message(),
+                parse_mode="HTML",
+                disable_web_page_preview=True,
+            )
+            logger.info(f"Sent help message to {chat_id}")
+
+        else:
+            # Unknown command
+            await bot.send_message(
+                chat_id=chat_id,
+                text="פקודה לא מוכרת. נסה /help לרשימת פקודות.",
+                parse_mode="HTML",
+            )
+            logger.info(f"Unknown command '{command}' from {chat_id}")
+
+    except Exception as e:
+        logger.error(f"Error handling command {command} for {chat_id}: {e}")
+        try:
+            await bot.send_message(
+                chat_id=chat_id,
+                text=format_error_message(),
+                parse_mode="HTML",
+            )
+        except Exception:
+            pass
+
+
+async def poll_and_respond() -> bool:
+    """Poll for updates and respond to commands.
+
+    Returns True if successful, False otherwise.
+    """
+    # Import telegram here to allow graceful failure
+    try:
+        from telegram import Bot
+    except ImportError:
+        logger.error("telegram module not available")
+        return False
+
+    # Load config
+    try:
+        config = Config.from_env()
+    except ValueError as e:
+        logger.error(f"Configuration error: {e}")
+        return False
+
+    # Initialize components
+    bot = Bot(token=config.telegram_bot_token)
+    client = SefariaClient()
+    selector = HalachaSelector(client)
+
+    # Load state
+    last_update_id = load_state()
+    logger.info(f"Starting poll with offset {last_update_id + 1}")
+
+    try:
+        # Get updates
+        updates = await bot.get_updates(
+            offset=last_update_id + 1,
+            timeout=30,
+            allowed_updates=["message"],
+        )
+
+        if not updates:
+            logger.info("No new updates")
+            return True
+
+        logger.info(f"Processing {len(updates)} update(s)")
+
+        # Process each update
+        new_last_update_id = last_update_id
+        for update in updates:
+            new_last_update_id = max(new_last_update_id, update.update_id)
+
+            # Only process messages with text
+            if not update.message or not update.message.text:
+                continue
+
+            text = update.message.text.strip()
+            chat_id = update.message.chat_id
+
+            # Only process commands (starting with /)
+            if text.startswith("/"):
+                command = text.split()[0].split("@")[0].lower()  # Handle /cmd@botname
+                logger.info(f"Processing command '{command}' from chat {chat_id}")
+                await handle_command(bot, chat_id, command, client, selector)
+
+        # Save state
+        if new_last_update_id > last_update_id:
+            save_state(new_last_update_id)
+
+        return True
+
+    except Exception as e:
+        logger.error(f"Error polling updates: {e}")
+        return False
+
+
+def main() -> None:
+    """Main entry point."""
+    logger.info("=== Poll Commands Script Started ===")
+
+    success = asyncio.run(poll_and_respond())
+
+    if success:
+        logger.info("=== Poll completed successfully ===")
+        sys.exit(0)
+    else:
+        logger.error("=== Poll failed ===")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
