@@ -37,18 +37,6 @@ class LikuteiHalachotBot:
         self.selector = HalachaSelector(self.client)
         self._app: Application | None = None
 
-    async def _send_startup_notification(self, app: Application) -> None:
-        """Send a notification when the bot starts (helps verify deployment)."""
-        if self.config.telegram_chat_id:
-            try:
-                await app.bot.send_message(
-                    chat_id=self.config.telegram_chat_id,
-                    text="🤖 Bot started successfully and is now listening for commands.",
-                )
-                logger.info("Startup notification sent")
-            except Exception as e:
-                logger.warning(f"Could not send startup notification: {e}")
-
     async def _setup_commands(self, app: Application) -> None:
         """Set up bot commands menu."""
         commands = [
@@ -165,7 +153,6 @@ class LikuteiHalachotBot:
             .token(self.config.telegram_bot_token)
             .post_init(self._setup_commands)
             .post_init(self._set_bot_description)
-            .post_init(self._send_startup_notification)
             .build()
         )
 
@@ -231,9 +218,32 @@ class LikuteiHalachotBot:
         except Exception as e:
             logger.exception(f"Scheduled broadcast failed: {e}")
 
+    async def _notify_startup(self) -> None:
+        """Send startup notification directly (not via post_init)."""
+        if not self.config.telegram_chat_id:
+            return
+        try:
+            app = Application.builder().token(self.config.telegram_bot_token).build()
+            async with app:
+                await app.bot.send_message(
+                    chat_id=self.config.telegram_chat_id,
+                    text="🤖 Bot started and listening for commands.\n\n"
+                    "If you don't get responses to /start or /today, "
+                    "check that no other bot instance is running.",
+                )
+            logger.info("Startup notification sent successfully")
+        except Exception as e:
+            logger.error(f"Failed to send startup notification: {e}")
+
     def run_polling(self, schedule_daily: bool = True) -> None:
         """Run bot in polling mode with optional daily scheduling."""
+        import asyncio
+
         logger.info("Starting polling...")
+
+        # Send startup notification before starting polling
+        asyncio.get_event_loop().run_until_complete(self._notify_startup())
+
         app = self.build_app()
 
         if schedule_daily and self.config.telegram_chat_id and app.job_queue:

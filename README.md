@@ -72,16 +72,18 @@ For manual testing/recovery, you can trigger broadcasts via GitHub Actions:
 | `/about` | About the bot and sources |
 | `/help` | Help and usage information |
 
-### Group Chat Setup
+### Troubleshooting
 
-If using the bot in a **group chat**, you must disable privacy mode:
+**Bot not responding to commands?**
 
-1. Open [@BotFather](https://t.me/botfather)
-2. Send `/mybots` → Select your bot
-3. Go to **Bot Settings** → **Group Privacy**
-4. Click **Turn off**
+1. **Check startup message** — After deployment, you should receive:
+   > 🤖 Bot started and listening for commands.
 
-Without this, the bot only receives commands that mention it directly (e.g., `/today@YourBotName`).
+   If you don't see this, check Render logs for errors.
+
+2. **Only one instance allowed** — Telegram polling only works with ONE bot instance. Stop any local development servers or other deployments using the same token.
+
+3. **Group chat privacy** — In groups, disable privacy mode via @BotFather → Bot Settings → Group Privacy → Turn off.
 
 ## 🏗️ Architecture
 
