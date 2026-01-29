@@ -65,54 +65,42 @@ def format_daily_message(pair: DailyPair, for_date: date | None = None) -> list[
 
 
 def format_welcome_message() -> str:
-    return """<b>📚 ברוכים הבאים לליקוטי הלכות יומי!</b>
+    return """<b>📚 ליקוטי הלכות יומי</b>
 
-שתי הלכות יומיות מספר ליקוטי הלכות של רבי נתן מברסלב.
+כל יום שתי הלכות חדשות מתורת רבי נחמן מברסלב.
 
-<b>פקודות:</b>
-/today - 📖 הלכות היום
-/about - ℹ️ אודות
-/help - ❓ עזרה
+לחץ /today לקבלת ההלכות של היום.
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_about_message() -> str:
-    return """<b>ℹ️ אודות ליקוטי הלכות יומי</b>
+    return """<b>אודות</b>
 
-<b>ליקוטי הלכות</b> - ספר יסוד בחסידות ברסלב מאת רבי נתן מברסלב, תלמידו הגדול של רבי נחמן מאומן.
+<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחיבר רבי נתן - תלמידו הגדול של רבי נחמן מאומן.
 
-הספר מכיל ביאורים עמוקים על השולחן ערוך לפי תורת רבי נחמן.
+הספר מבאר את ההלכות לפי עומק תורת רבי נחמן.
 
-<b>קישורים:</b>
-📚 <a href="https://www.sefaria.org/Likutei_Halakhot">ספריא</a>
+📚 <a href="https://www.sefaria.org/Likutei_Halakhot">קרא בספריא</a>
 💻 <a href="https://github.com/naorbrown/likutei-halachot-yomi">קוד פתוח</a>
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_help_message() -> str:
-    return """<b>❓ עזרה</b>
+    return """<b>עזרה</b>
 
-<b>פקודות זמינות:</b>
+/today - הלכות היום
+/about - אודות הבוט
 
-/start - התחלה והרשמה
-/today - קבלת הלכות היום
-/about - מידע על הבוט
-/help - הודעה זו
+כל יום מתפרסמות שתי הלכות חדשות מליקוטי הלכות.
 
-<b>איך זה עובד?</b>
-כל יום מתפרסמות שתי הלכות חדשות משני חלקים שונים של ליקוטי הלכות.
-
-<b>שאלות?</b>
-פנו אלינו ב-<a href="https://github.com/naorbrown/likutei-halachot-yomi/issues">GitHub</a>
+שאלות? <a href="https://github.com/naorbrown/likutei-halachot-yomi/issues">פתח issue ב-GitHub</a>
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
 
 def format_error_message() -> str:
-    return """<b>😔 שגיאה</b>
-
-אירעה שגיאה. אנא נסו שוב מאוחר יותר.
+    return """לא הצלחתי לטעון את ההלכות. נסה שוב בעוד כמה דקות.
 
 <i>נ נח נחמ נחמן מאומן</i>"""
