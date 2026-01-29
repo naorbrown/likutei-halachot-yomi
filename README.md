@@ -7,6 +7,8 @@
 
 A Telegram bot delivering two daily halachot from **Likutei Halachot** by Rebbe Natan of Breslov — spreading the light of Rebbe Nachman's teachings.
 
+**The bot runs entirely on GitHub Actions — no server required!**
+
 ## ✨ Features
 
 - **Daily Inspiration** — Two halachot delivered at 6 AM Israel time
@@ -14,6 +16,7 @@ A Telegram bot delivering two daily halachot from **Likutei Halachot** by Rebbe 
 - **Interactive Commands** — `/start`, `/today`, `/about`, `/help`
 - **Bilingual** — Hebrew text with English translation
 - **Deep Links** — Direct Sefaria links to continue learning
+- **Free Hosting** — Runs on GitHub Actions, no paid services needed
 
 ## 🚀 Quick Start
 
@@ -33,21 +36,9 @@ Go to repo **Settings** → **Secrets and variables** → **Actions** and add:
 - `TELEGRAM_BOT_TOKEN` — Your bot token from BotFather
 - `TELEGRAM_CHAT_ID` — Your chat ID
 
-This enables the daily broadcast at 6 AM Israel time via GitHub Actions.
-
-### 4. (Optional) Deploy to Railway for 24/7 Commands
-
-For instant command responses (`/start`, `/today`, etc.), deploy to Railway:
-
-1. Go to [railway.app](https://railway.app) and sign in with GitHub
-2. Click **New Project** → **Deploy from GitHub repo**
-3. Select your `likutei-halachot-yomi` repo
-4. Add environment variables:
-   - `TELEGRAM_BOT_TOKEN` — Your bot token
-   - `TELEGRAM_CHAT_ID` — Your chat ID
-5. Deploy!
-
-The bot will run 24/7 and respond to commands instantly.
+That's it! The bot will:
+- Send daily broadcasts at 6 AM Israel time
+- Respond to commands every 5 minutes
 
 ## 📱 Bot Commands
 
@@ -58,35 +49,41 @@ The bot will run 24/7 and respond to commands instantly.
 | `/about` | About the bot and sources |
 | `/help` | Help and usage information |
 
+> **Note**: Commands have up to 5-minute response latency due to the GitHub Actions polling interval.
+
 ## 🏗️ Architecture
 
 ```
 likutei-halachot-yomi/
 ├── src/
-│   ├── bot.py           # Telegram bot with polling & scheduled broadcasts
+│   ├── bot.py           # Bot logic and command handlers
 │   ├── sefaria.py       # Sefaria API client
 │   ├── selector.py      # Deterministic halacha selection
 │   └── formatter.py     # Message formatting (HTML)
 ├── scripts/
-│   └── run_polling.py   # Bot entry point (Railway)
-├── main.py              # Daily broadcast CLI (GitHub Actions)
+│   ├── poll_commands.py # Command polling (GitHub Actions)
+│   └── run_polling.py   # Local development
+├── main.py              # Daily broadcast CLI
 ├── tests/
 │   ├── test_bot.py      # Bot unit tests
 │   ├── test_formatter.py
 │   └── conftest.py      # Test fixtures
-├── Dockerfile           # Container build (Railway)
-├── railway.toml         # Railway deployment config
-└── .github/workflows/
-    ├── daily.yml        # Daily broadcast (6 AM Israel time)
-    └── ci.yml           # Tests & linting
+└── .github/
+    ├── workflows/
+    │   ├── daily.yml        # Daily broadcast (6 AM Israel time)
+    │   ├── poll-commands.yml # Command polling (every 5 min)
+    │   └── ci.yml           # Tests & linting
+    └── state/
+        └── last_update_id.json  # Tracks processed messages
 ```
 
-### Deployment Options
+### How It Works
 
-| Method | Commands | Daily Broadcast | Cost |
-|--------|----------|-----------------|------|
-| GitHub Actions only | ❌ | ✅ 6 AM cron | Free |
-| Railway | ✅ Instant | ✅ Job queue | ~$5/month |
+| Workflow | Schedule | Purpose |
+|----------|----------|---------|
+| `daily.yml` | 6 AM Israel time | Send daily halachot broadcast |
+| `poll-commands.yml` | Every 5 minutes | Respond to user commands |
+| `ci.yml` | On push/PR | Run tests and linting |
 
 ## 📖 About Likutei Halachot
 
@@ -112,8 +109,8 @@ pytest
 # Preview today's message
 python main.py --preview
 
-# Run bot locally
-python scripts/run_polling.py
+# Test command polling locally
+python scripts/poll_commands.py
 ```
 
 ## 📄 License
