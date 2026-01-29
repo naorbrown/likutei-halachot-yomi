@@ -66,15 +66,17 @@ class TestHalachaSelector:
             sample_halacha_yd,
         ]
 
-        result = selector.get_daily_pair(date(2024, 1, 27))
+        # Use far-future date to avoid any cached entries
+        result = selector.get_daily_pair(date(2098, 1, 1))
 
         assert result is not None
         assert mock_client.get_random_halacha_from_volume.call_count == 2
 
     def test_get_daily_pair_returns_none_on_failure(self, selector, mock_client):
-        """get_daily_pair should return None if client fails."""
+        """get_daily_pair should return None if client fails (no cache)."""
         mock_client.get_random_halacha_from_volume.return_value = None
 
-        result = selector.get_daily_pair(date(2024, 1, 27))
+        # Use a date that won't have a cached entry
+        result = selector.get_daily_pair(date(2099, 12, 31))
 
         assert result is None

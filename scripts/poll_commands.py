@@ -43,8 +43,8 @@ def load_state() -> int:
     if STATE_FILE.exists():
         try:
             data = json.loads(STATE_FILE.read_text())
-            return data.get("last_update_id", 0)
-        except (json.JSONDecodeError, KeyError):
+            return int(data.get("last_update_id", 0))
+        except (json.JSONDecodeError, KeyError, ValueError):
             return 0
     return 0
 
