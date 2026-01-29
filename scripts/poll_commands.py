@@ -3,6 +3,11 @@
 
 This script is designed to run via GitHub Actions every 5 minutes.
 It polls for new updates, handles commands, and persists state.
+
+Simplified commands:
+- /start: Welcome + today's content (entry point)
+- /today: Just today's content (no welcome)
+- /info: Combined about + help
 """
 
 import asyncio
@@ -15,10 +20,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.commands import (
-    get_about_message,
-    get_daily_messages,
     get_error_message,
-    get_help_message,
+    get_info_message,
+    get_start_messages,
+    get_today_messages,
 )
 from src.config import Config
 from src.sefaria import SefariaClient
@@ -66,9 +71,21 @@ async def handle_command(
         selector: HalachaSelector for getting daily content
     """
     try:
-        if command in ("/start", "/today"):
-            # Get all messages (welcome + daily content) from shared module
-            messages = get_daily_messages(selector)
+        if command == "/start":
+            # Welcome + today's content for new users
+            messages = get_start_messages(selector)
+            for msg in messages:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=msg,
+                    parse_mode="HTML",
+                    disable_web_page_preview=True,
+                )
+            logger.info(f"Sent start messages to {chat_id}")
+
+        elif command == "/today":
+            # Just today's content for returning users
+            messages = get_today_messages(selector)
             for msg in messages:
                 await bot.send_message(
                     chat_id=chat_id,
@@ -78,27 +95,19 @@ async def handle_command(
                 )
             logger.info(f"Sent today's halachot to {chat_id}")
 
-        elif command == "/about":
+        elif command in ("/info", "/about", "/help"):
+            # Combined info message
             await bot.send_message(
                 chat_id=chat_id,
-                text=get_about_message(),
+                text=get_info_message(),
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
-            logger.info(f"Sent about message to {chat_id}")
-
-        elif command == "/help":
-            await bot.send_message(
-                chat_id=chat_id,
-                text=get_help_message(),
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-            )
-            logger.info(f"Sent help message to {chat_id}")
+            logger.info(f"Sent info message to {chat_id}")
 
         else:
-            # Unknown command - ignore silently (nachyomi-bot pattern)
-            logger.info(f"Unknown command '{command}' from {chat_id} - ignoring")
+            # Unknown command - ignore silently
+            logger.debug(f"Unknown command '{command}' from {chat_id} - ignoring")
 
     except Exception as e:
         logger.error(f"Error handling command {command} for {chat_id}: {e}")
