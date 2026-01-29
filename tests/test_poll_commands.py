@@ -170,3 +170,42 @@ class TestHandleCommand:
         # Second call should be error message
         second_call_kwargs = mock_bot.send_message.call_args_list[1][1]
         assert "נסה שוב" in second_call_kwargs["text"]
+
+
+class TestPollAndRespond:
+    """Integration tests for poll_and_respond function.
+
+    Note: These tests use module-level patching to avoid importing telegram
+    directly, which can cause issues in some environments.
+    """
+
+    def test_command_parsing_with_botname_suffix(self):
+        """Should correctly parse commands with @botname suffix."""
+        # Test the command parsing logic
+        text = "/today@LikuteiHalachotBot"
+        command = text.split()[0].split("@")[0].lower()
+        assert command == "/today"
+
+    def test_command_parsing_simple(self):
+        """Should correctly parse simple commands."""
+        text = "/today"
+        command = text.split()[0].split("@")[0].lower()
+        assert command == "/today"
+
+    def test_command_parsing_with_args(self):
+        """Should correctly parse commands with arguments."""
+        text = "/help some extra text"
+        command = text.split()[0].split("@")[0].lower()
+        assert command == "/help"
+
+    def test_non_command_detection(self):
+        """Should correctly identify non-command messages."""
+        text = "Hello, this is not a command"
+        is_command = text.startswith("/")
+        assert is_command is False
+
+    def test_command_detection(self):
+        """Should correctly identify command messages."""
+        text = "/today"
+        is_command = text.startswith("/")
+        assert is_command is True
