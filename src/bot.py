@@ -238,7 +238,7 @@ class LikuteiHalachotBot:
             # Build a condensed message for the unified channel
             halacha1, halacha2 = pair
 
-            unified_msg = f"<b>ליקוטי הלכות יומי</b>\n"
+            unified_msg = "<b>ליקוטי הלכות יומי</b>\n"
             unified_msg += f"📅 {date.today().strftime('%d/%m/%Y')}\n\n"
 
             if halacha1:
