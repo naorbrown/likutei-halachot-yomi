@@ -73,7 +73,7 @@ class TestHandleCommand:
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
         assert call_kwargs["chat_id"] == 12345
-        assert "ברוכים הבאים" in call_kwargs["text"]
+        assert "ליקוטי הלכות יומי" in call_kwargs["text"]
 
     @pytest.mark.asyncio
     async def test_handle_about_command(self):
@@ -109,8 +109,8 @@ class TestHandleCommand:
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
-        assert "/start" in call_kwargs["text"]
         assert "/today" in call_kwargs["text"]
+        assert "/about" in call_kwargs["text"]
 
     @pytest.mark.asyncio
     async def test_handle_unknown_command(self):
@@ -165,4 +165,4 @@ class TestHandleCommand:
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
-        assert "שגיאה" in call_kwargs["text"]
+        assert "נסה שוב" in call_kwargs["text"]

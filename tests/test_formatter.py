@@ -53,7 +53,7 @@ class TestStaticMessages:
 
     def test_welcome_message(self):
         result = format_welcome_message()
-        assert "ברוכים הבאים" in result
+        assert "ליקוטי הלכות יומי" in result
         assert "/today" in result
 
     def test_about_message(self):
@@ -63,10 +63,9 @@ class TestStaticMessages:
 
     def test_help_message(self):
         result = format_help_message()
-        assert "/start" in result
         assert "/today" in result
-        assert "/help" in result
+        assert "/about" in result
 
     def test_error_message(self):
         result = format_error_message()
-        assert "שגיאה" in result
+        assert "נסה שוב" in result

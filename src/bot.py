@@ -41,19 +41,18 @@ class LikuteiHalachotBot:
         """Post-initialization: set up commands and send startup notification."""
         # Set up bot commands menu
         commands = [
-            BotCommand("start", "התחל לקבל ליקוטי הלכות יומי"),
-            BotCommand("today", "קבל את ההלכה של היום"),
-            BotCommand("about", "אודות הבוט"),
+            BotCommand("today", "הלכות היום"),
+            BotCommand("about", "אודות"),
             BotCommand("help", "עזרה"),
         ]
         await app.bot.set_my_commands(commands)
         logger.info("Bot commands configured")
 
         # Set bot description
-        await app.bot.set_my_short_description("📚 שתי הלכות יומיות מליקוטי הלכות")
+        await app.bot.set_my_short_description("שתי הלכות יומיות מליקוטי הלכות")
         await app.bot.set_my_description(
-            "📚 ליקוטי הלכות יומי\n\n"
-            "שתי הלכות יומיות מספר ליקוטי הלכות של רבי נתן מברסלב.\n\n"
+            "ליקוטי הלכות יומי\n\n"
+            "שתי הלכות חדשות כל יום מתורת רבי נחמן מברסלב.\n\n"
             "נ נח נחמ נחמן מאומן"
         )
         logger.info("Bot description configured")
@@ -143,7 +142,7 @@ class LikuteiHalachotBot:
         if not update.message:
             return
         await update.message.reply_text(
-            "לא הבנתי. נסה /help לרשימת הפקודות.",
+            "פקודה לא מוכרת. נסה /today או /help",
             parse_mode=ParseMode.HTML,
         )
 

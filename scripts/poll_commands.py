@@ -112,7 +112,7 @@ async def handle_command(
             # Unknown command
             await bot.send_message(
                 chat_id=chat_id,
-                text="פקודה לא מוכרת. נסה /help לרשימת פקודות.",
+                text="פקודה לא מוכרת. נסה /today או /help",
                 parse_mode="HTML",
             )
             logger.info(f"Unknown command '{command}' from {chat_id}")
