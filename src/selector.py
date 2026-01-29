@@ -9,6 +9,7 @@ from datetime import date
 from pathlib import Path
 
 from .config import get_data_dir
+from .formatter import format_daily_message, format_welcome_message
 from .models import DailyPair, Halacha, HalachaSection
 from .sefaria import VOLUMES, SefariaClient
 
@@ -19,6 +20,9 @@ CACHE_DIR = get_data_dir() / "cache"
 
 # In-memory cache for daily pairs (avoids repeated file I/O)
 _memory_cache: dict[str, DailyPair] = {}
+
+# In-memory cache for pre-formatted messages (instant responses)
+_message_cache: dict[str, list[str]] = {}
 
 
 class HalachaSelector:
@@ -89,6 +93,12 @@ class HalachaSelector:
             pair = DailyPair(first=first, second=second, date_seed=data["date_seed"])
             # Store in memory cache for subsequent requests
             _memory_cache[cache_key] = pair
+
+            # Load pre-formatted messages if available
+            if "formatted_messages" in data:
+                _message_cache[cache_key] = data["formatted_messages"]
+                logger.debug(f"Loaded cached formatted messages for {for_date}")
+
             logger.info(f"Loaded cached pair for {for_date}")
             return pair
         except (json.JSONDecodeError, KeyError, TypeError) as e:
@@ -96,12 +106,22 @@ class HalachaSelector:
             return None
 
     def _save_cached_pair(self, pair: DailyPair, for_date: date) -> None:
-        """Save daily pair to cache."""
+        """Save daily pair and pre-formatted messages to cache."""
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         cache_path = self._get_cache_path(for_date)
 
+        # Pre-format messages for instant responses
+        welcome = format_welcome_message()
+        content_messages = format_daily_message(pair, for_date)
+        formatted_messages = [welcome] + content_messages
+
+        # Store in memory cache
+        cache_key = for_date.isoformat()
+        _message_cache[cache_key] = formatted_messages
+
         data = {
             "date_seed": pair.date_seed,
+            "formatted_messages": formatted_messages,
             "first": {
                 "section": {
                     "volume": pair.first.section.volume,
@@ -134,7 +154,7 @@ class HalachaSelector:
 
         with open(cache_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        logger.info(f"Cached pair for {for_date}")
+        logger.info(f"Cached pair and formatted messages for {for_date}")
 
     def _get_fallback_halacha(self, volume: str, rng: random.Random) -> Halacha | None:
         """Create a fallback halacha with just section info when API fails."""
@@ -237,3 +257,29 @@ class HalachaSelector:
         _memory_cache[for_date.isoformat()] = pair
 
         return pair
+
+    def get_cached_messages(self, for_date: date | None = None) -> list[str] | None:
+        """
+        Get pre-formatted messages for a date if cached.
+
+        Returns instantly from cache without any API calls or formatting.
+        Returns None if not cached (caller should fall back to get_daily_pair).
+        """
+        if for_date is None:
+            for_date = date.today()
+
+        cache_key = for_date.isoformat()
+
+        # Check memory cache first (instant)
+        if cache_key in _message_cache:
+            logger.debug(f"Message cache hit for {for_date}")
+            return _message_cache[cache_key]
+
+        # Try to load from disk (triggers pair loading which populates message cache)
+        self._load_cached_pair(for_date)
+
+        # Check if messages were loaded
+        if cache_key in _message_cache:
+            return _message_cache[cache_key]
+
+        return None
