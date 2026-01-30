@@ -181,7 +181,7 @@ class LikuteiHalachotBot:
 
     async def send_daily_broadcast(self) -> bool:
         """Send daily halachot to configured chat (for GitHub Actions)."""
-        logger.info(f"Broadcasting to {self.config.telegram_chat_id}")
+        logger.info(f"Broadcasting to chat_id={self.config.telegram_chat_id}")
 
         try:
             pair = self.selector.get_daily_pair(date.today())
@@ -190,19 +190,29 @@ class LikuteiHalachotBot:
                 return False
 
             messages = format_daily_message(pair, date.today())
+            logger.info(f"Prepared {len(messages)} messages to send")
 
             # Use simple Bot class directly
             bot = Bot(token=self.config.telegram_bot_token)
             async with bot:
-                for msg in messages:
-                    await bot.send_message(
+                for i, msg in enumerate(messages, 1):
+                    result = await bot.send_message(
                         chat_id=self.config.telegram_chat_id,
                         text=msg,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True,
                     )
+                    # Verify the message was sent by checking message_id
+                    if result and result.message_id:
+                        logger.info(
+                            f"Message {i}/{len(messages)} sent successfully "
+                            f"(message_id={result.message_id}, chat_id={result.chat.id})"
+                        )
+                    else:
+                        logger.error(f"Message {i}/{len(messages)} failed - no message_id returned")
+                        return False
 
-            logger.info("Broadcast sent successfully")
+            logger.info("Broadcast completed successfully")
 
             # Also publish to unified Torah Yomi channel
             await self._send_to_unified_channel(pair)
