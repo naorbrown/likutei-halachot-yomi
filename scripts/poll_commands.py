@@ -28,6 +28,7 @@ from src.commands import (
 from src.config import Config
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
+from src.subscribers import add_subscriber, is_subscribed, remove_subscriber
 
 # Configure logging
 logging.basicConfig(
@@ -72,6 +73,11 @@ async def handle_command(
     """
     try:
         if command == "/start":
+            # Auto-subscribe user for daily broadcasts
+            was_new = add_subscriber(chat_id)
+            if was_new:
+                logger.info(f"Auto-subscribed new user {chat_id}")
+
             # Welcome + today's content for new users
             messages = get_start_messages(selector)
             for msg in messages:
@@ -104,6 +110,39 @@ async def handle_command(
                 disable_web_page_preview=True,
             )
             logger.info(f"Sent info message to {chat_id}")
+
+        elif command == "/subscribe":
+            # Explicit subscribe to daily broadcasts
+            if is_subscribed(chat_id):
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ אתה כבר רשום לקבלת הלכות יומיות.",
+                    parse_mode="HTML",
+                )
+            else:
+                add_subscriber(chat_id)
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ נרשמת בהצלחה! תקבל הלכות יומיות בשעה 6 בבוקר.",
+                    parse_mode="HTML",
+                )
+            logger.info(f"Subscribe command from {chat_id}")
+
+        elif command == "/unsubscribe":
+            # Unsubscribe from daily broadcasts
+            if remove_subscriber(chat_id):
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ הסרת את הרישום. לא תקבל עוד הלכות יומיות.\nאפשר להירשם מחדש עם /subscribe",
+                    parse_mode="HTML",
+                )
+            else:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="אתה לא רשום כרגע. להרשמה שלח /subscribe",
+                    parse_mode="HTML",
+                )
+            logger.info(f"Unsubscribe command from {chat_id}")
 
         else:
             # Unknown command - ignore silently
