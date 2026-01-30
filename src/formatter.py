@@ -98,6 +98,8 @@ def format_info_message() -> str:
 
 <b>פקודות:</b>
 /today - הלכות היום
+/subscribe - הרשמה להלכות יומיות (6 בבוקר)
+/unsubscribe - ביטול הרשמה
 /info - מידע ועזרה
 
 📚 <a href="https://www.sefaria.org/Likutei_Halakhot">קרא בספריא</a>

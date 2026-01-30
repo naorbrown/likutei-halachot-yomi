@@ -39,10 +39,10 @@ jobs:
           TORAH_YOMI_CHANNEL_BOT_TOKEN: ${{ secrets.TORAH_YOMI_CHANNEL_BOT_TOKEN }}
           TORAH_YOMI_PUBLISH_ENABLED: ${{ secrets.TORAH_YOMI_PUBLISH_ENABLED }}
 
-      - name: Commit cache
+      - name: Commit cache and state
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add data/cache/
-          git diff --staged --quiet || git commit -m "chore: cache daily pair [skip ci]"
+          git add data/cache/ .github/state/
+          git diff --staged --quiet || git commit -m "chore: update cache and state [skip ci]"
           git push

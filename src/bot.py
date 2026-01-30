@@ -19,6 +19,7 @@ from .config import Config
 from .formatter import format_daily_message
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
+from .subscribers import load_subscribers
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
@@ -180,8 +181,9 @@ class LikuteiHalachotBot:
         return app
 
     async def send_daily_broadcast(self) -> bool:
-        """Send daily halachot to configured chat (for GitHub Actions)."""
-        logger.info(f"Broadcasting to {self.config.telegram_chat_id}")
+        """Send daily halachot to channel and individual subscribers."""
+        channel_id = self.config.telegram_chat_id
+        logger.info(f"Broadcasting to channel={channel_id}")
 
         try:
             pair = self.selector.get_daily_pair(date.today())
@@ -190,19 +192,54 @@ class LikuteiHalachotBot:
                 return False
 
             messages = format_daily_message(pair, date.today())
+            logger.info(f"Prepared {len(messages)} messages to send")
+
+            # Load subscribers (individual users who want direct messages)
+            subscribers = load_subscribers()
+            # Remove channel from subscribers to avoid duplicate
+            subscribers.discard(int(channel_id) if channel_id else 0)
+            logger.info(f"Will broadcast to channel + {len(subscribers)} individual subscribers")
 
             # Use simple Bot class directly
             bot = Bot(token=self.config.telegram_bot_token)
             async with bot:
-                for msg in messages:
-                    await bot.send_message(
-                        chat_id=self.config.telegram_chat_id,
+                # Send to channel first
+                for i, msg in enumerate(messages, 1):
+                    result = await bot.send_message(
+                        chat_id=channel_id,
                         text=msg,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True,
                     )
+                    if result and result.message_id:
+                        logger.info(
+                            f"Channel message {i}/{len(messages)} sent "
+                            f"(message_id={result.message_id})"
+                        )
+                    else:
+                        logger.error(f"Channel message {i}/{len(messages)} failed")
+                        return False
 
-            logger.info("Broadcast sent successfully")
+                # Send to individual subscribers
+                failed_subscribers = []
+                for subscriber_id in subscribers:
+                    try:
+                        for msg in messages:
+                            await bot.send_message(
+                                chat_id=subscriber_id,
+                                text=msg,
+                                parse_mode=ParseMode.HTML,
+                                disable_web_page_preview=True,
+                            )
+                        logger.info(f"Sent to subscriber {subscriber_id}")
+                    except Exception as e:
+                        logger.warning(f"Failed to send to subscriber {subscriber_id}: {e}")
+                        failed_subscribers.append(subscriber_id)
+
+                if failed_subscribers:
+                    logger.warning(f"Failed to reach {len(failed_subscribers)} subscribers")
+
+            logger.info("Broadcast completed successfully")
 
             # Also publish to unified Torah Yomi channel
             await self._send_to_unified_channel(pair)
