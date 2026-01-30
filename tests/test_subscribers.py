@@ -1,12 +1,10 @@
 """Tests for subscriber management."""
 
 import json
-from pathlib import Path
 
 import pytest
 
 from src.subscribers import (
-    SUBSCRIBERS_FILE,
     add_subscriber,
     get_subscriber_count,
     is_subscribed,

@@ -1,7 +1,8 @@
 """End-to-end tests for the bot command flow.
 
 These tests verify the complete flow from command to response,
-including caching behavior and performance characteristics.
+including caching behavior, performance characteristics, and
+subscriber system functionality.
 """
 
 import json
@@ -16,6 +17,13 @@ from src.formatter import format_daily_message, format_welcome_message
 from src.models import DailyPair, Halacha, HalachaSection
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector, _memory_cache, _message_cache
+from src.subscribers import (
+    add_subscriber,
+    is_subscribed,
+    load_subscribers,
+    remove_subscriber,
+    save_subscribers,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -193,6 +201,8 @@ class TestCommandBehavior:
 
         assert "/today" in message
         assert "/info" in message
+        assert "/subscribe" in message
+        assert "/unsubscribe" in message
         assert "sefaria" in message.lower()
         assert "github" in message.lower()
 
@@ -293,6 +303,159 @@ class TestErrorHandling:
             pair = selector._load_cached_pair(date(2099, 5, 2))
 
         assert pair is None
+
+
+class TestSubscriberSystem:
+    """Tests for subscriber management integration."""
+
+    def test_auto_subscribe_on_start(self, tmp_path, monkeypatch):
+        """Users should be auto-subscribed when they /start the bot."""
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        # Simulate /start command adding subscriber
+        chat_id = 123456
+        was_new = add_subscriber(chat_id)
+
+        assert was_new is True
+        assert is_subscribed(chat_id)
+
+    def test_subscribe_unsubscribe_flow(self, tmp_path, monkeypatch):
+        """Users should be able to subscribe and unsubscribe."""
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        chat_id = 789012
+
+        # Initially not subscribed
+        assert not is_subscribed(chat_id)
+
+        # Subscribe
+        add_subscriber(chat_id)
+        assert is_subscribed(chat_id)
+
+        # Unsubscribe
+        removed = remove_subscriber(chat_id)
+        assert removed is True
+        assert not is_subscribed(chat_id)
+
+        # Can't unsubscribe twice
+        removed_again = remove_subscriber(chat_id)
+        assert removed_again is False
+
+    def test_subscribers_persisted_to_disk(self, tmp_path, monkeypatch):
+        """Subscribers should be saved to disk and survive reload."""
+        subs_file = tmp_path / "subs.json"
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", subs_file)
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        # Add some subscribers
+        add_subscriber(111)
+        add_subscriber(222)
+        add_subscriber(333)
+
+        # Verify file exists
+        assert subs_file.exists()
+
+        # Load fresh and verify
+        subscribers = load_subscribers()
+        assert 111 in subscribers
+        assert 222 in subscribers
+        assert 333 in subscribers
+
+    def test_duplicate_subscribe_rejected(self, tmp_path, monkeypatch):
+        """Duplicate subscriptions should be rejected."""
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        chat_id = 456789
+
+        # First subscribe succeeds
+        first = add_subscriber(chat_id)
+        assert first is True
+
+        # Second subscribe fails (already subscribed)
+        second = add_subscriber(chat_id)
+        assert second is False
+
+    def test_broadcast_excludes_channel_from_subscribers(self, tmp_path, monkeypatch):
+        """Broadcast should not send duplicates to channel if it's in subscriber list."""
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        channel_id = -1001234567890
+        user_id = 111222333
+
+        # Both channel and user are "subscribed"
+        save_subscribers({channel_id, user_id})
+
+        # Load and remove channel
+        subscribers = load_subscribers()
+        subscribers.discard(channel_id)
+
+        # Only user should remain
+        assert user_id in subscribers
+        assert channel_id not in subscribers
+
+
+class TestBroadcastFlow:
+    """Tests for the complete broadcast flow."""
+
+    def test_broadcast_sends_to_channel_and_subscribers(self, tmp_path, monkeypatch):
+        """Broadcast should send to both channel and individual subscribers."""
+        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
+        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+
+        # Set up subscribers
+        save_subscribers({111, 222, 333})
+
+        # Load subscribers
+        subscribers = load_subscribers()
+
+        # Verify all subscribers loaded
+        assert len(subscribers) == 3
+        assert 111 in subscribers
+        assert 222 in subscribers
+        assert 333 in subscribers
+
+
+class TestUserOnboarding:
+    """Tests for user onboarding experience."""
+
+    def test_new_user_gets_welcome_and_content(self, tmp_path, sample_daily_pair):
+        """New users should get welcome message + daily content."""
+        cache_file = tmp_path / "pair_2099-06-01.json"
+        cache_data = _create_cache_data(sample_daily_pair, date(2099, 6, 1))
+        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
+
+        client = SefariaClient()
+        selector = HalachaSelector(client)
+
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            messages = get_start_messages(selector, date(2099, 6, 1))
+
+        # Should have welcome + content
+        assert len(messages) >= 2
+        assert "ליקוטי הלכות יומי" in messages[0]
+        # Content should have halacha markers
+        assert any("📜" in msg or "📖" in msg for msg in messages[1:])
+
+    def test_returning_user_gets_only_content(self, tmp_path, sample_daily_pair):
+        """Returning users using /today should only get content, no welcome."""
+        cache_file = tmp_path / "pair_2099-06-02.json"
+        cache_data = _create_cache_data(sample_daily_pair, date(2099, 6, 2))
+        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
+
+        client = SefariaClient()
+        selector = HalachaSelector(client)
+
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            messages = get_today_messages(selector, date(2099, 6, 2))
+
+        # Should NOT have welcome message
+        assert "שתי הלכות חדשות" not in messages[0]
+        # Should have content
+        assert any("📜" in msg or "📖" in msg for msg in messages)
 
 
 def _create_cache_data(pair: DailyPair, for_date: date) -> dict:
