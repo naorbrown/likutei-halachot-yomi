@@ -17,6 +17,7 @@ from datetime import date
 from dotenv import load_dotenv
 
 from src.bot import LikuteiHalachotBot
+from src.broadcast_state import has_broadcast_today, mark_broadcast_complete
 from src.config import Config
 from src.formatter import format_daily_message
 from src.sefaria import SefariaClient
@@ -135,9 +136,15 @@ def main() -> int:
         return 0
     else:
         # One-shot broadcast mode
+        # Check if we've already broadcast today (prevents duplicates from dual DST crons)
+        if has_broadcast_today():
+            logger.info("Already broadcast today, skipping to prevent duplicate")
+            return 0
+
         logger.info("Sending daily broadcast...")
         success = asyncio.run(send_broadcast(config))
         if success:
+            mark_broadcast_complete()
             logger.info("Broadcast completed successfully!")
         else:
             logger.error("Broadcast failed!")
