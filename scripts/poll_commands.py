@@ -3,28 +3,32 @@
 
 This script is designed to run via GitHub Actions every 5 minutes.
 It polls for new updates, handles commands, and persists state.
+
+Simplified commands:
+- /start: Welcome + today's content (entry point)
+- /today: Just today's content (no welcome)
+- /info: Combined about + help
 """
 
 import asyncio
 import json
 import logging
 import sys
-from datetime import date
 from pathlib import Path
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.config import Config
-from src.formatter import (
-    format_about_message,
-    format_daily_message,
-    format_error_message,
-    format_help_message,
-    format_welcome_message,
+from src.commands import (
+    get_error_message,
+    get_info_message,
+    get_start_messages,
+    get_today_messages,
 )
+from src.config import Config
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
+from src.subscribers import add_subscriber, is_subscribed, remove_subscriber
 
 # Configure logging
 logging.basicConfig(
@@ -57,68 +61,99 @@ def save_state(last_update_id: int) -> None:
 
 
 async def handle_command(
-    bot, chat_id: int, command: str, client: SefariaClient, selector: HalachaSelector
+    bot, chat_id: int, command: str, selector: HalachaSelector
 ) -> None:
-    """Handle a single command."""
+    """Handle a single command.
+
+    Args:
+        bot: Telegram Bot instance (must be initialized)
+        chat_id: Chat ID to send response to
+        command: Command string (e.g., "/start", "/today")
+        selector: HalachaSelector for getting daily content
+    """
     try:
-        if command in ("/start", "/today"):
-            # Both /start and /today send welcome + daily content (nachyomi-bot pattern)
+        if command == "/start":
+            # Auto-subscribe user for daily broadcasts
+            was_new = add_subscriber(chat_id)
+            if was_new:
+                logger.info(f"Auto-subscribed new user {chat_id}")
+
+            # Welcome + today's content for new users
+            messages = get_start_messages(selector)
+            for msg in messages:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=msg,
+                    parse_mode="HTML",
+                    disable_web_page_preview=True,
+                )
+            logger.info(f"Sent start messages to {chat_id}")
+
+        elif command == "/today":
+            # Just today's content for returning users
+            messages = get_today_messages(selector)
+            for msg in messages:
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text=msg,
+                    parse_mode="HTML",
+                    disable_web_page_preview=True,
+                )
+            logger.info(f"Sent today's halachot to {chat_id}")
+
+        elif command in ("/info", "/about", "/help"):
+            # Combined info message
             await bot.send_message(
                 chat_id=chat_id,
-                text=format_welcome_message(),
+                text=get_info_message(),
                 parse_mode="HTML",
                 disable_web_page_preview=True,
             )
-            logger.info(f"Sent welcome message to {chat_id}")
+            logger.info(f"Sent info message to {chat_id}")
 
-            # Send daily halachot
-            pair = selector.get_daily_pair(date.today())
-            if pair:
-                messages = format_daily_message(pair, date.today())
-                for msg in messages:
-                    await bot.send_message(
-                        chat_id=chat_id,
-                        text=msg,
-                        parse_mode="HTML",
-                        disable_web_page_preview=True,
-                    )
-                logger.info(f"Sent today's halachot to {chat_id}")
+        elif command == "/subscribe":
+            # Explicit subscribe to daily broadcasts
+            if is_subscribed(chat_id):
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ אתה כבר רשום לקבלת הלכות יומיות.",
+                    parse_mode="HTML",
+                )
+            else:
+                add_subscriber(chat_id)
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ נרשמת בהצלחה! תקבל הלכות יומיות בשעה 6 בבוקר.",
+                    parse_mode="HTML",
+                )
+            logger.info(f"Subscribe command from {chat_id}")
+
+        elif command == "/unsubscribe":
+            # Unsubscribe from daily broadcasts
+            if remove_subscriber(chat_id):
+                await bot.send_message(
+                    chat_id=chat_id,
+                    text="✅ הסרת את הרישום. לא תקבל עוד הלכות יומיות.\nאפשר להירשם מחדש עם /subscribe",
+                    parse_mode="HTML",
+                )
             else:
                 await bot.send_message(
                     chat_id=chat_id,
-                    text=format_error_message(),
+                    text="אתה לא רשום כרגע. להרשמה שלח /subscribe",
                     parse_mode="HTML",
                 )
-                logger.warning(f"No pair available for {chat_id}")
-
-        elif command == "/about":
-            await bot.send_message(
-                chat_id=chat_id,
-                text=format_about_message(),
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-            )
-            logger.info(f"Sent about message to {chat_id}")
-
-        elif command == "/help":
-            await bot.send_message(
-                chat_id=chat_id,
-                text=format_help_message(),
-                parse_mode="HTML",
-                disable_web_page_preview=True,
-            )
-            logger.info(f"Sent help message to {chat_id}")
+            logger.info(f"Unsubscribe command from {chat_id}")
 
         else:
-            # Unknown command - ignore silently (nachyomi-bot pattern)
-            logger.info(f"Unknown command '{command}' from {chat_id} - ignoring")
+            # Unknown command - ignore silently
+            logger.debug(f"Unknown command '{command}' from {chat_id} - ignoring")
 
     except Exception as e:
         logger.error(f"Error handling command {command} for {chat_id}: {e}")
         try:
             await bot.send_message(
                 chat_id=chat_id,
-                text=format_error_message(),
+                text=get_error_message(),
                 parse_mode="HTML",
             )
         except Exception:
@@ -147,6 +182,16 @@ async def poll_and_respond() -> bool:
     # Initialize components
     client = SefariaClient()
     selector = HalachaSelector(client)
+
+    # Pre-warm cache for instant responses
+    # This loads today's cached messages into memory before processing any commands
+    cached = selector.get_cached_messages()
+    if cached:
+        logger.info(
+            f"Cache pre-warmed: {len(cached)} messages ready for instant response"
+        )
+    else:
+        logger.warning("No cached messages available - responses may be slower")
 
     # Load state
     last_update_id = load_state()
@@ -192,7 +237,7 @@ async def poll_and_respond() -> bool:
                         text.split()[0].split("@")[0].lower()
                     )  # Handle /cmd@botname
                     logger.info(f"Processing command '{command}' from chat {chat_id}")
-                    await handle_command(bot, chat_id, command, client, selector)
+                    await handle_command(bot, chat_id, command, selector)
 
             # Save state
             if new_last_update_id > last_update_id:

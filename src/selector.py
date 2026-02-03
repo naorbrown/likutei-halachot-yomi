@@ -4,10 +4,12 @@ import hashlib
 import json
 import logging
 import random
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 
 from .config import get_data_dir
+from .formatter import format_daily_message, format_welcome_message
 from .models import DailyPair, Halacha, HalachaSection
 from .sefaria import VOLUMES, SefariaClient
 
@@ -15,6 +17,12 @@ logger = logging.getLogger(__name__)
 
 # Cache file for daily pairs
 CACHE_DIR = get_data_dir() / "cache"
+
+# In-memory cache for daily pairs (avoids repeated file I/O)
+_memory_cache: dict[str, DailyPair] = {}
+
+# In-memory cache for pre-formatted messages (instant responses)
+_message_cache: dict[str, list[str]] = {}
 
 
 class HalachaSelector:
@@ -45,7 +53,14 @@ class HalachaSelector:
         return CACHE_DIR / f"pair_{for_date.isoformat()}.json"
 
     def _load_cached_pair(self, for_date: date) -> DailyPair | None:
-        """Load cached daily pair if available."""
+        """Load cached daily pair if available (checks memory first, then disk)."""
+        cache_key = for_date.isoformat()
+
+        # Check in-memory cache first (fastest)
+        if cache_key in _memory_cache:
+            logger.debug(f"Memory cache hit for {for_date}")
+            return _memory_cache[cache_key]
+
         cache_path = self._get_cache_path(for_date)
         if not cache_path.exists():
             return None
@@ -75,19 +90,46 @@ class HalachaSelector:
                 sefaria_url=data["second"]["sefaria_url"],
             )
 
+            pair = DailyPair(first=first, second=second, date_seed=data["date_seed"])
+            # Store in memory cache for subsequent requests
+            _memory_cache[cache_key] = pair
+
+            # Load pre-formatted messages if available, otherwise generate them
+            if "formatted_messages" in data:
+                _message_cache[cache_key] = data["formatted_messages"]
+                logger.debug(f"Loaded cached formatted messages for {for_date}")
+            else:
+                # Generate formatted messages for old cache format (backwards compat)
+                welcome = format_welcome_message()
+                content_messages = format_daily_message(pair, for_date)
+                _message_cache[cache_key] = [welcome] + content_messages
+                logger.debug(
+                    f"Generated formatted messages for {for_date} (old cache format)"
+                )
+
             logger.info(f"Loaded cached pair for {for_date}")
-            return DailyPair(first=first, second=second, date_seed=data["date_seed"])
+            return pair
         except (json.JSONDecodeError, KeyError, TypeError) as e:
             logger.warning(f"Failed to load cache for {for_date}: {e}")
             return None
 
     def _save_cached_pair(self, pair: DailyPair, for_date: date) -> None:
-        """Save daily pair to cache."""
+        """Save daily pair and pre-formatted messages to cache."""
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         cache_path = self._get_cache_path(for_date)
 
+        # Pre-format messages for instant responses
+        welcome = format_welcome_message()
+        content_messages = format_daily_message(pair, for_date)
+        formatted_messages = [welcome] + content_messages
+
+        # Store in memory cache
+        cache_key = for_date.isoformat()
+        _message_cache[cache_key] = formatted_messages
+
         data = {
             "date_seed": pair.date_seed,
+            "formatted_messages": formatted_messages,
             "first": {
                 "section": {
                     "volume": pair.first.section.volume,
@@ -120,7 +162,7 @@ class HalachaSelector:
 
         with open(cache_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        logger.info(f"Cached pair for {for_date}")
+        logger.info(f"Cached pair and formatted messages for {for_date}")
 
     def _get_fallback_halacha(self, volume: str, rng: random.Random) -> Halacha | None:
         """Create a fallback halacha with just section info when API fails."""
@@ -161,8 +203,36 @@ class HalachaSelector:
 
         logger.info(f"Selecting halachot for {for_date}: {vol1} + {vol2}")
 
-        # Get first halacha (with fallback)
-        first = self.client.get_random_halacha_from_volume(vol1, rng)
+        # Create separate RNGs for each volume to ensure determinism with parallel execution
+        rng1 = random.Random(
+            int(
+                hashlib.sha256(f"{for_date.isoformat()}-1".encode()).hexdigest()[:16],
+                16,
+            )
+        )
+        rng2 = random.Random(
+            int(
+                hashlib.sha256(f"{for_date.isoformat()}-2".encode()).hexdigest()[:16],
+                16,
+            )
+        )
+
+        # Fetch both halachot in parallel for faster response
+        first: Halacha | None = None
+        second: Halacha | None = None
+
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            future1 = executor.submit(
+                self.client.get_random_halacha_from_volume, vol1, rng1
+            )
+            future2 = executor.submit(
+                self.client.get_random_halacha_from_volume, vol2, rng2
+            )
+
+            first = future1.result()
+            second = future2.result()
+
+        # Apply fallbacks if needed
         if not first:
             logger.warning(f"API failed for {vol1}, using fallback")
             first = self._get_fallback_halacha(vol1, rng)
@@ -170,8 +240,6 @@ class HalachaSelector:
             logger.error(f"Failed to get halacha from {vol1}")
             return None
 
-        # Get second halacha (with fallback)
-        second = self.client.get_random_halacha_from_volume(vol2, rng)
         if not second:
             logger.warning(f"API failed for {vol2}, using fallback")
             second = self._get_fallback_halacha(vol2, rng)
@@ -193,4 +261,33 @@ class HalachaSelector:
         ):
             self._save_cached_pair(pair, for_date)
 
+        # Always store in memory cache for fast subsequent requests
+        _memory_cache[for_date.isoformat()] = pair
+
         return pair
+
+    def get_cached_messages(self, for_date: date | None = None) -> list[str] | None:
+        """
+        Get pre-formatted messages for a date if cached.
+
+        Returns instantly from cache without any API calls or formatting.
+        Returns None if not cached (caller should fall back to get_daily_pair).
+        """
+        if for_date is None:
+            for_date = date.today()
+
+        cache_key = for_date.isoformat()
+
+        # Check memory cache first (instant)
+        if cache_key in _message_cache:
+            logger.debug(f"Message cache hit for {for_date}")
+            return _message_cache[cache_key]
+
+        # Try to load from disk (triggers pair loading which populates message cache)
+        self._load_cached_pair(for_date)
+
+        # Check if messages were loaded
+        if cache_key in _message_cache:
+            return _message_cache[cache_key]
+
+        return None

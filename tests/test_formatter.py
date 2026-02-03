@@ -2,10 +2,12 @@
 
 from src.formatter import (
     MAX_MESSAGE_LENGTH,
+    # Backwards compatibility
     format_about_message,
     format_daily_message,
     format_error_message,
     format_help_message,
+    format_info_message,
     format_welcome_message,
     split_text,
 )
@@ -54,18 +56,29 @@ class TestStaticMessages:
     def test_welcome_message(self):
         result = format_welcome_message()
         assert "ליקוטי הלכות יומי" in result
-        assert "/today" in result
+        assert "שתי הלכות חדשות" in result
 
-    def test_about_message(self):
-        result = format_about_message()
+    def test_info_message(self):
+        """Info message should contain about and help content."""
+        result = format_info_message()
         assert "ליקוטי הלכות" in result
-        assert "ספריא" in result
-
-    def test_help_message(self):
-        result = format_help_message()
         assert "/today" in result
-        assert "/about" in result
+        assert "/info" in result
 
     def test_error_message(self):
         result = format_error_message()
         assert "נסה שוב" in result
+
+
+class TestBackwardsCompatibility:
+    """Tests for backwards compatibility aliases."""
+
+    def test_about_message_alias(self):
+        """format_about_message should return info message."""
+        result = format_about_message()
+        assert "ליקוטי הלכות" in result
+
+    def test_help_message_alias(self):
+        """format_help_message should return info message."""
+        result = format_help_message()
+        assert "/today" in result

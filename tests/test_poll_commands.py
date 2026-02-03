@@ -57,116 +57,150 @@ class TestHandleCommand:
 
     @pytest.mark.asyncio
     async def test_handle_start_command(self, sample_daily_pair):
-        """Should send welcome message and daily content for /start."""
-        # Skip if telegram not available
+        """Should send welcome + daily content for /start."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None
         mock_selector.get_daily_pair.return_value = sample_daily_pair
 
-        await handle_command(mock_bot, 12345, "/start", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/start", mock_selector)
 
-        # Should send welcome message + daily content (at least 2 messages)
+        # Should send welcome + content (at least 2 messages)
         assert mock_bot.send_message.call_count >= 2
-        # First call should be welcome message
         first_call_kwargs = mock_bot.send_message.call_args_list[0][1]
         assert first_call_kwargs["chat_id"] == 12345
         assert "ליקוטי הלכות יומי" in first_call_kwargs["text"]
 
     @pytest.mark.asyncio
-    async def test_handle_about_command(self):
-        """Should send about message for /about."""
+    async def test_handle_today_command(self, sample_daily_pair):
+        """Should send just content (no welcome) for /today."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
+        mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None
+        mock_selector.get_daily_pair.return_value = sample_daily_pair
+
+        await handle_command(mock_bot, 12345, "/today", mock_selector)
+
+        # Should send content (at least 1 message)
+        assert mock_bot.send_message.call_count >= 1
+
+    @pytest.mark.asyncio
+    async def test_handle_info_command(self):
+        """Should send info message for /info."""
+        try:
+            from scripts.poll_commands import handle_command
+        except ImportError:
+            pytest.skip("telegram not available")
+
+        mock_bot = AsyncMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/about", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/info", mock_selector)
+
+        mock_bot.send_message.assert_called_once()
+        call_kwargs = mock_bot.send_message.call_args[1]
+        assert "ליקוטי הלכות" in call_kwargs["text"]
+        assert "/today" in call_kwargs["text"]
+
+    @pytest.mark.asyncio
+    async def test_handle_about_command_backwards_compat(self):
+        """Should send info message for /about (backwards compat)."""
+        try:
+            from scripts.poll_commands import handle_command
+        except ImportError:
+            pytest.skip("telegram not available")
+
+        mock_bot = AsyncMock()
+        mock_selector = MagicMock()
+
+        await handle_command(mock_bot, 12345, "/about", mock_selector)
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
         assert "ליקוטי הלכות" in call_kwargs["text"]
 
     @pytest.mark.asyncio
-    async def test_handle_help_command(self):
-        """Should send help message for /help."""
+    async def test_handle_help_command_backwards_compat(self):
+        """Should send info message for /help (backwards compat)."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/help", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/help", mock_selector)
 
         mock_bot.send_message.assert_called_once()
         call_kwargs = mock_bot.send_message.call_args[1]
         assert "/today" in call_kwargs["text"]
-        assert "/about" in call_kwargs["text"]
 
     @pytest.mark.asyncio
     async def test_handle_unknown_command(self):
-        """Should silently ignore unknown commands (nachyomi-bot pattern)."""
+        """Should silently ignore unknown commands."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
 
-        await handle_command(mock_bot, 12345, "/unknown", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/unknown", mock_selector)
 
-        # Unknown commands are silently ignored - no message sent
+        # Unknown commands are silently ignored
         mock_bot.send_message.assert_not_called()
 
     @pytest.mark.asyncio
-    async def test_handle_today_command_success(self, sample_daily_pair):
-        """Should send welcome + halachot for /today."""
-        try:
-            from scripts.poll_commands import handle_command
-        except ImportError:
-            pytest.skip("telegram not available")
-
-        mock_bot = AsyncMock()
-        mock_client = MagicMock()
-        mock_selector = MagicMock()
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
-
-        await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
-
-        # Should have sent welcome message + daily content (at least 2 messages)
-        assert mock_bot.send_message.call_count >= 2
-
-    @pytest.mark.asyncio
     async def test_handle_today_command_no_pair(self):
-        """Should send welcome + error when no pair available."""
+        """Should send error when no pair available."""
         try:
             from scripts.poll_commands import handle_command
         except ImportError:
             pytest.skip("telegram not available")
 
         mock_bot = AsyncMock()
-        mock_client = MagicMock()
         mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = None
         mock_selector.get_daily_pair.return_value = None
 
-        await handle_command(mock_bot, 12345, "/today", mock_client, mock_selector)
+        await handle_command(mock_bot, 12345, "/today", mock_selector)
 
-        # Should send welcome message + error message (2 messages)
-        assert mock_bot.send_message.call_count == 2
-        # Second call should be error message
-        second_call_kwargs = mock_bot.send_message.call_args_list[1][1]
-        assert "נסה שוב" in second_call_kwargs["text"]
+        # Should send error message
+        assert mock_bot.send_message.call_count == 1
+        call_kwargs = mock_bot.send_message.call_args[1]
+        assert "נסה שוב" in call_kwargs["text"]
+
+    @pytest.mark.asyncio
+    async def test_handle_command_with_cached_messages(self, sample_daily_pair):
+        """Should use cached messages for instant response."""
+        try:
+            from scripts.poll_commands import handle_command
+        except ImportError:
+            pytest.skip("telegram not available")
+
+        mock_bot = AsyncMock()
+        mock_selector = MagicMock()
+        mock_selector.get_cached_messages.return_value = [
+            "cached1",
+            "cached2",
+            "cached3",
+        ]
+
+        await handle_command(mock_bot, 12345, "/start", mock_selector)
+
+        # Should send cached messages
+        assert mock_bot.send_message.call_count == 3
+        # Should NOT call get_daily_pair (used cache)
+        mock_selector.get_daily_pair.assert_not_called()

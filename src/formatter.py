@@ -1,10 +1,21 @@
 """Message formatting for Telegram."""
 
+from collections.abc import Callable
 from datetime import date
 
 from .models import DailyPair, Halacha
 
 MAX_MESSAGE_LENGTH = 4000
+
+# Pre-computed static messages (these never change)
+_STATIC_MESSAGES: dict[str, str] = {}
+
+
+def _get_static_message(key: str, generator: Callable[[], str]) -> str:
+    """Get a static message from cache or generate it."""
+    if key not in _STATIC_MESSAGES:
+        _STATIC_MESSAGES[key] = generator()
+    return _STATIC_MESSAGES[key]
 
 
 def split_text(text: str, max_len: int) -> list[str]:
@@ -65,42 +76,60 @@ def format_daily_message(pair: DailyPair, for_date: date | None = None) -> list[
 
 
 def format_welcome_message() -> str:
-    return """<b>📚 ליקוטי הלכות יומי</b>
+    """Get welcome message (cached for instant response)."""
 
-כל יום שתי הלכות חדשות מתורת רבי נחמן מברסלב.
+    def _generate():
+        return """<b>📚 ליקוטי הלכות יומי</b>
 
-לחץ /today לקבלת ההלכות של היום.
+ברוכים הבאים! כל יום שתי הלכות חדשות מתורת רבי נחמן מברסלב.
+
+✅ נרשמת אוטומטית לקבלת הלכות יומיות בשעה 6 בבוקר.
+לביטול הרשמה: /unsubscribe
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
+    return _get_static_message("welcome", _generate)
 
-def format_about_message() -> str:
-    return """<b>אודות</b>
 
-<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחיבר רבי נתן - תלמידו הגדול של רבי נחמן מאומן.
+def format_info_message() -> str:
+    """Get combined info message (cached for instant response)."""
 
-הספר מבאר את ההלכות לפי עומק תורת רבי נחמן.
+    def _generate():
+        return """<b>📚 ליקוטי הלכות יומי</b>
+
+<b>ליקוטי הלכות</b> הוא ספר יסוד בחסידות ברסלב, שחיבר רבי נתן - תלמידו הגדול של רבי נחמן מאומן. הספר מבאר את ההלכות לפי עומק תורת רבי נחמן.
+
+<b>פקודות:</b>
+/today - הלכות היום
+/subscribe - הרשמה להלכות יומיות (6 בבוקר)
+/unsubscribe - ביטול הרשמה
+/info - מידע ועזרה
 
 📚 <a href="https://www.sefaria.org/Likutei_Halakhot">קרא בספריא</a>
 💻 <a href="https://github.com/naorbrown/likutei-halachot-yomi">קוד פתוח</a>
 
 <i>נ נח נחמ נחמן מאומן</i>"""
 
-
-def format_help_message() -> str:
-    return """<b>עזרה</b>
-
-/today - הלכות היום
-/about - אודות הבוט
-
-כל יום מתפרסמות שתי הלכות חדשות מליקוטי הלכות.
-
-שאלות? <a href="https://github.com/naorbrown/likutei-halachot-yomi/issues">פתח issue ב-GitHub</a>
-
-<i>נ נח נחמ נחמן מאומן</i>"""
+    return _get_static_message("info", _generate)
 
 
 def format_error_message() -> str:
-    return """לא הצלחתי לטעון את ההלכות. נסה שוב בעוד כמה דקות.
+    """Get error message (cached for instant response)."""
+
+    def _generate():
+        return """לא הצלחתי לטעון את ההלכות. נסה שוב בעוד כמה דקות.
 
 <i>נ נח נחמ נחמן מאומן</i>"""
+
+    return _get_static_message("error", _generate)
+
+
+# Backwards compatibility aliases
+def format_about_message() -> str:
+    """Deprecated: Use format_info_message instead."""
+    return format_info_message()
+
+
+def format_help_message() -> str:
+    """Deprecated: Use format_info_message instead."""
+    return format_info_message()

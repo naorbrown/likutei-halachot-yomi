@@ -14,16 +14,12 @@ from telegram.ext import (
     filters,
 )
 
+from .commands import get_about_message, get_daily_messages, get_help_message
 from .config import Config
-from .formatter import (
-    format_about_message,
-    format_daily_message,
-    format_error_message,
-    format_help_message,
-    format_welcome_message,
-)
+from .formatter import format_daily_message
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
+from .subscribers import load_subscribers
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
@@ -41,9 +37,10 @@ class LikuteiHalachotBot:
         """Post-initialization: set up commands and send startup notification."""
         # Set up bot commands menu
         commands = [
-            BotCommand("today", "הלכות היום"),
-            BotCommand("about", "אודות"),
-            BotCommand("help", "עזרה"),
+            BotCommand("today", "📚 הלכות היום"),
+            BotCommand("subscribe", "✅ הרשמה להלכות יומיות"),
+            BotCommand("unsubscribe", "❌ ביטול הרשמה"),
+            BotCommand("info", "ℹ️ מידע ועזרה"),
         ]
         await app.bot.set_my_commands(commands)
         logger.info("Bot commands configured")
@@ -53,6 +50,8 @@ class LikuteiHalachotBot:
         await app.bot.set_my_description(
             "ליקוטי הלכות יומי\n\n"
             "שתי הלכות חדשות כל יום מתורת רבי נחמן מברסלב.\n\n"
+            "✅ התחל עם /start להרשמה אוטומטית\n"
+            "📚 קבל הלכות יומיות בשעה 6 בבוקר\n\n"
             "נ נח נחמ נחמן מאומן"
         )
         logger.info("Bot description configured")
@@ -78,24 +77,8 @@ class LikuteiHalachotBot:
         command = update.message.text.split()[0] if update.message.text else "unknown"
         logger.info(f"{command} from user {user_id}")
 
-        # Send welcome message first
-        await update.message.reply_text(
-            format_welcome_message(),
-            parse_mode=ParseMode.HTML,
-            disable_web_page_preview=True,
-        )
-
-        # Then send daily content
-        try:
-            pair = self.selector.get_daily_pair(date.today())
-            messages = (
-                format_daily_message(pair, date.today())
-                if pair
-                else [format_error_message()]
-            )
-        except Exception as e:
-            logger.exception(f"Error getting daily pair: {e}")
-            messages = [format_error_message()]
+        # Get all messages (welcome + daily content) from shared module
+        messages = get_daily_messages(self.selector)
 
         for msg in messages:
             await update.message.reply_text(
@@ -123,7 +106,7 @@ class LikuteiHalachotBot:
         user_id = update.effective_user.id if update.effective_user else "unknown"
         logger.info(f"/about from user {user_id}")
         await update.message.reply_text(
-            format_about_message(),
+            get_about_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
@@ -137,7 +120,7 @@ class LikuteiHalachotBot:
         user_id = update.effective_user.id if update.effective_user else "unknown"
         logger.info(f"/help from user {user_id}")
         await update.message.reply_text(
-            format_help_message(),
+            get_help_message(),
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
         )
@@ -201,8 +184,9 @@ class LikuteiHalachotBot:
         return app
 
     async def send_daily_broadcast(self) -> bool:
-        """Send daily halachot to configured chat (for GitHub Actions)."""
-        logger.info(f"Broadcasting to {self.config.telegram_chat_id}")
+        """Send daily halachot to channel and individual subscribers."""
+        channel_id = self.config.telegram_chat_id
+        logger.info(f"Broadcasting to channel={channel_id}")
 
         try:
             pair = self.selector.get_daily_pair(date.today())
@@ -211,19 +195,54 @@ class LikuteiHalachotBot:
                 return False
 
             messages = format_daily_message(pair, date.today())
+            logger.info(f"Prepared {len(messages)} messages to send")
+
+            # Load subscribers (individual users who want direct messages)
+            subscribers = load_subscribers()
+            # Remove channel from subscribers to avoid duplicate
+            subscribers.discard(int(channel_id) if channel_id else 0)
+            logger.info(f"Will broadcast to channel + {len(subscribers)} individual subscribers")
 
             # Use simple Bot class directly
             bot = Bot(token=self.config.telegram_bot_token)
             async with bot:
-                for msg in messages:
-                    await bot.send_message(
-                        chat_id=self.config.telegram_chat_id,
+                # Send to channel first
+                for i, msg in enumerate(messages, 1):
+                    result = await bot.send_message(
+                        chat_id=channel_id,
                         text=msg,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True,
                     )
+                    if result and result.message_id:
+                        logger.info(
+                            f"Channel message {i}/{len(messages)} sent "
+                            f"(message_id={result.message_id})"
+                        )
+                    else:
+                        logger.error(f"Channel message {i}/{len(messages)} failed")
+                        return False
 
-            logger.info("Broadcast sent successfully")
+                # Send to individual subscribers
+                failed_subscribers = []
+                for subscriber_id in subscribers:
+                    try:
+                        for msg in messages:
+                            await bot.send_message(
+                                chat_id=subscriber_id,
+                                text=msg,
+                                parse_mode=ParseMode.HTML,
+                                disable_web_page_preview=True,
+                            )
+                        logger.info(f"Sent to subscriber {subscriber_id}")
+                    except Exception as e:
+                        logger.warning(f"Failed to send to subscriber {subscriber_id}: {e}")
+                        failed_subscribers.append(subscriber_id)
+
+                if failed_subscribers:
+                    logger.warning(f"Failed to reach {len(failed_subscribers)} subscribers")
+
+            logger.info("Broadcast completed successfully")
 
             # Also publish to unified Torah Yomi channel
             await self._send_to_unified_channel(pair)
