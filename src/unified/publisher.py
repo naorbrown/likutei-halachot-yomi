@@ -79,19 +79,20 @@ class TorahYomiPublisher:
             logger.debug("Unified channel publish disabled or not configured")
             return False
 
-        if not UNIFIED_BOT_TOKEN:
-            logger.error("No bot token configured")
+        if not UNIFIED_BOT_TOKEN or not UNIFIED_CHANNEL_ID:
+            logger.error("No bot token or channel ID configured")
             return False
 
         formatted_text = format_for_unified_channel(text)
 
         # Use async context manager for proper Bot lifecycle (required in v20+)
         bot = Bot(token=UNIFIED_BOT_TOKEN)
+        channel_id = UNIFIED_CHANNEL_ID  # Narrow type for mypy
         async with bot:
             for attempt in range(1, MAX_RETRIES + 1):
                 try:
                     await bot.send_message(
-                        chat_id=UNIFIED_CHANNEL_ID,
+                        chat_id=channel_id,
                         text=formatted_text,
                         parse_mode=parse_mode,
                         disable_web_page_preview=disable_web_page_preview,
@@ -119,7 +120,7 @@ class TorahYomiPublisher:
         if not is_unified_channel_enabled():
             return {"success": 0, "failed": 0}
 
-        if not UNIFIED_BOT_TOKEN:
+        if not UNIFIED_BOT_TOKEN or not UNIFIED_CHANNEL_ID:
             return {"success": 0, "failed": len(messages)}
 
         success = 0
@@ -127,12 +128,13 @@ class TorahYomiPublisher:
 
         # Use single Bot context for all messages (more efficient)
         bot = Bot(token=UNIFIED_BOT_TOKEN)
+        channel_id = UNIFIED_CHANNEL_ID  # Narrow type for mypy
         async with bot:
             for msg in messages:
                 formatted_text = format_for_unified_channel(msg)
                 try:
                     await bot.send_message(
-                        chat_id=UNIFIED_CHANNEL_ID,
+                        chat_id=channel_id,
                         text=formatted_text,
                         parse_mode=ParseMode.HTML,
                         disable_web_page_preview=True,
