@@ -201,7 +201,9 @@ class LikuteiHalachotBot:
             subscribers = load_subscribers()
             # Remove channel from subscribers to avoid duplicate
             subscribers.discard(int(channel_id) if channel_id else 0)
-            logger.info(f"Will broadcast to channel + {len(subscribers)} individual subscribers")
+            logger.info(
+                f"Will broadcast to channel + {len(subscribers)} individual subscribers"
+            )
 
             # Use simple Bot class directly
             bot = Bot(token=self.config.telegram_bot_token)
@@ -236,11 +238,15 @@ class LikuteiHalachotBot:
                             )
                         logger.info(f"Sent to subscriber {subscriber_id}")
                     except Exception as e:
-                        logger.warning(f"Failed to send to subscriber {subscriber_id}: {e}")
+                        logger.warning(
+                            f"Failed to send to subscriber {subscriber_id}: {e}"
+                        )
                         failed_subscribers.append(subscriber_id)
 
                 if failed_subscribers:
-                    logger.warning(f"Failed to reach {len(failed_subscribers)} subscribers")
+                    logger.warning(
+                        f"Failed to reach {len(failed_subscribers)} subscribers"
+                    )
 
             logger.info("Broadcast completed successfully")
 
