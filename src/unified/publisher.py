@@ -25,7 +25,6 @@ PUBLISH_ENABLED = os.getenv("TORAH_YOMI_PUBLISH_ENABLED", "true").lower() == "tr
 # Source configuration
 SOURCE = "likutei_halachot"
 BADGE = "📜 Likutei Halachot | ליקוטי הלכות"
-BOT_USERNAME = "LikuteiHalachotBot"
 
 # Rate limiting
 MAX_RETRIES = 3
@@ -33,17 +32,16 @@ RETRY_DELAY = 1.0  # seconds
 
 
 def format_for_unified_channel(content: str) -> str:
-    """Format message with unified channel header/footer.
+    """Format message with unified channel header.
 
     Args:
         content: Original message content
 
     Returns:
-        Formatted message with header and footer
+        Formatted message with header
     """
     header = f"{BADGE}\n{'─' * 30}\n\n"
-    footer = f"\n\n{'━' * 30}\n🔗 @{BOT_USERNAME}"
-    return f"{header}{content}{footer}"
+    return f"{header}{content}"
 
 
 def is_unified_channel_enabled() -> bool:
