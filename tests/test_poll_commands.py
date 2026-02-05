@@ -221,9 +221,7 @@ class TestPollAndRespondResilience:
 
         mock_bot = AsyncMock()
         # First call times out, second succeeds with no updates
-        mock_bot.get_updates = AsyncMock(
-            side_effect=[TimedOut(), []]
-        )
+        mock_bot.get_updates = AsyncMock(side_effect=[TimedOut(), []])
         mock_bot.delete_webhook = AsyncMock(return_value=True)
 
         with (

@@ -257,9 +257,7 @@ async def poll_and_respond() -> bool:
 
             # Only process commands (starting with /)
             if text.startswith("/"):
-                command = (
-                    text.split()[0].split("@")[0].lower()
-                )  # Handle /cmd@botname
+                command = text.split()[0].split("@")[0].lower()  # Handle /cmd@botname
                 logger.info(f"Processing command '{command}' from chat {chat_id}")
                 await handle_command(bot, chat_id, command, selector)
 
