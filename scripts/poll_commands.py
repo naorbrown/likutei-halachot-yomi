@@ -269,17 +269,26 @@ async def poll_and_respond() -> bool:
 
 
 def main() -> None:
-    """Main entry point."""
+    """Main entry point.
+
+    Always exits 0 — transient network errors are non-fatal since the
+    next scheduled run (in 5 min) will pick up any pending updates.
+    Exiting non-zero would trigger unnecessary failure notifications.
+    """
     logger.info("=== Poll Commands Script Started ===")
 
-    success = asyncio.run(poll_and_respond())
+    try:
+        success = asyncio.run(poll_and_respond())
+    except Exception as e:
+        logger.warning(f"Poll encountered error (non-fatal): {e}")
+        success = True  # Treat as non-fatal
 
     if success:
         logger.info("=== Poll completed successfully ===")
-        sys.exit(0)
     else:
-        logger.error("=== Poll failed ===")
-        sys.exit(1)
+        logger.warning("=== Poll completed with issues (non-fatal) ===")
+
+    sys.exit(0)
 
 
 if __name__ == "__main__":

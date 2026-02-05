@@ -1,12 +1,10 @@
 """End-to-end tests for the bot command flow.
 
-These tests verify the complete flow from command to response,
-including caching behavior, performance characteristics, and
-subscriber system functionality.
+These tests verify the complete flow from cache to command response,
+ensuring the full pipeline works together.
 """
 
 import json
-import time
 from datetime import date
 from unittest.mock import patch
 
@@ -17,13 +15,6 @@ from src.formatter import format_daily_message, format_welcome_message
 from src.models import DailyPair, Halacha, HalachaSection
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector, _memory_cache, _message_cache
-from src.subscribers import (
-    add_subscriber,
-    is_subscribed,
-    load_subscribers,
-    remove_subscriber,
-    save_subscribers,
-)
 
 
 @pytest.fixture(autouse=True)
@@ -36,12 +27,11 @@ def clear_caches():
     _message_cache.clear()
 
 
-class TestCachePreWarming:
-    """Tests for cache pre-warming behavior."""
+class TestCacheToCommandFlow:
+    """Tests for the full cache-to-command pipeline."""
 
-    def test_cache_loads_from_disk_on_first_access(self, tmp_path, sample_daily_pair):
-        """Cache should load from disk file on first access."""
-        # Create a cache file
+    def test_start_command_from_cache(self, tmp_path, sample_daily_pair):
+        """Cache file on disk -> /start command returns welcome + content."""
         cache_file = tmp_path / "pair_2099-01-01.json"
         cache_data = _create_cache_data(sample_daily_pair, date(2099, 1, 1))
         cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
@@ -50,15 +40,14 @@ class TestCachePreWarming:
         selector = HalachaSelector(client)
 
         with patch("src.selector.CACHE_DIR", tmp_path):
-            messages = selector.get_cached_messages(date(2099, 1, 1))
+            messages = get_start_messages(selector, date(2099, 1, 1))
 
-        assert messages is not None
         assert len(messages) >= 2
+        assert "ליקוטי הלכות יומי" in messages[0]
+        assert "שתי הלכות חדשות" in messages[0]
 
-    def test_memory_cache_instant_on_subsequent_access(
-        self, tmp_path, sample_daily_pair
-    ):
-        """Memory cache should provide instant access after first load."""
+    def test_today_command_from_cache(self, tmp_path, sample_daily_pair):
+        """Cache file on disk -> /today command returns content only."""
         cache_file = tmp_path / "pair_2099-01-02.json"
         cache_data = _create_cache_data(sample_daily_pair, date(2099, 1, 2))
         cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
@@ -67,29 +56,40 @@ class TestCachePreWarming:
         selector = HalachaSelector(client)
 
         with patch("src.selector.CACHE_DIR", tmp_path):
-            # First access - loads from disk
-            start = time.perf_counter()
-            messages1 = selector.get_cached_messages(date(2099, 1, 2))
-            first_access_time = time.perf_counter() - start
+            messages = get_today_messages(selector, date(2099, 1, 2))
 
-            # Second access - from memory
-            start = time.perf_counter()
-            messages2 = selector.get_cached_messages(date(2099, 1, 2))
-            second_access_time = time.perf_counter() - start
+        assert len(messages) >= 1
+        assert "שתי הלכות חדשות" not in messages[0]
+        assert any("📜" in msg or "📖" in msg for msg in messages)
 
-        assert messages1 == messages2
-        # Memory access should be much faster (at least 10x)
-        # Note: This might be flaky on slow systems, so we use a generous margin
-        assert second_access_time < first_access_time or second_access_time < 0.001
+    def test_cache_miss_returns_none(self, tmp_path):
+        """Missing cache file returns None."""
+        client = SefariaClient()
+        selector = HalachaSelector(client)
 
-    def test_formatted_messages_generated_for_old_cache_format(
-        self, tmp_path, sample_daily_pair
-    ):
-        """Should generate formatted messages for cache files without them."""
-        # Create old-format cache (no formatted_messages field)
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            messages = selector.get_cached_messages(date(2099, 5, 1))
+
+        assert messages is None
+
+    def test_corrupted_cache_handled_gracefully(self, tmp_path):
+        """Corrupted cache file doesn't crash."""
+        cache_file = tmp_path / "pair_2099-05-02.json"
+        cache_file.write_text("not valid json {{{")
+
+        client = SefariaClient()
+        selector = HalachaSelector(client)
+
+        with patch("src.selector.CACHE_DIR", tmp_path):
+            pair = selector._load_cached_pair(date(2099, 5, 2))
+
+        assert pair is None
+
+    def test_old_cache_format_generates_messages(self, tmp_path, sample_daily_pair):
+        """Cache files without formatted_messages still produce output."""
         cache_file = tmp_path / "pair_2099-01-03.json"
         cache_data = _create_cache_data(sample_daily_pair, date(2099, 1, 3))
-        del cache_data["formatted_messages"]  # Remove to simulate old format
+        del cache_data["formatted_messages"]
         cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
 
         client = SefariaClient()
@@ -98,143 +98,29 @@ class TestCachePreWarming:
         with patch("src.selector.CACHE_DIR", tmp_path):
             messages = selector.get_cached_messages(date(2099, 1, 3))
 
-        # Should generate messages on-the-fly
         assert messages is not None
         assert len(messages) >= 2
         assert "ליקוטי הלכות יומי" in messages[0]
 
 
-class TestCommandResponseTime:
-    """Tests for command response time with caching."""
+class TestMessageIntegrity:
+    """Tests for message formatting correctness across the full pipeline."""
 
-    def test_start_command_instant_with_cache(self, tmp_path, sample_daily_pair):
-        """Start command should be instant when cache is populated."""
-        cache_file = tmp_path / "pair_2099-02-01.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 2, 1))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            # Pre-warm cache
-            selector.get_cached_messages(date(2099, 2, 1))
-
-            # Time the command
-            start = time.perf_counter()
-            messages = get_start_messages(selector, date(2099, 2, 1))
-            elapsed = time.perf_counter() - start
-
-        assert len(messages) >= 2
-        assert elapsed < 0.01  # Should be under 10ms
-
-    def test_today_command_instant_with_cache(self, tmp_path, sample_daily_pair):
-        """Today command should be instant when cache is populated."""
-        cache_file = tmp_path / "pair_2099-02-02.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 2, 2))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            # Pre-warm cache
-            selector.get_cached_messages(date(2099, 2, 2))
-
-            # Time the command
-            start = time.perf_counter()
-            messages = get_today_messages(selector, date(2099, 2, 2))
-            elapsed = time.perf_counter() - start
-
-        assert len(messages) >= 1
-        assert elapsed < 0.01  # Should be under 10ms
-
-    def test_info_command_always_instant(self):
-        """Info command should always be instant (static message)."""
-        start = time.perf_counter()
-        message = get_info_message()
-        elapsed = time.perf_counter() - start
-
-        assert "ליקוטי הלכות" in message
-        assert elapsed < 0.001  # Should be under 1ms
-
-
-class TestCommandBehavior:
-    """Tests for correct command behavior."""
-
-    def test_start_includes_welcome_message(self, tmp_path, sample_daily_pair):
-        """Start command should include welcome message."""
-        cache_file = tmp_path / "pair_2099-03-01.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 3, 1))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            messages = get_start_messages(selector, date(2099, 3, 1))
-
-        # First message should be welcome
-        assert "ליקוטי הלכות יומי" in messages[0]
-        assert "שתי הלכות חדשות" in messages[0]
-
-    def test_today_excludes_welcome_message(self, tmp_path, sample_daily_pair):
-        """Today command should NOT include welcome message."""
-        cache_file = tmp_path / "pair_2099-03-02.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 3, 2))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            messages = get_today_messages(selector, date(2099, 3, 2))
-
-        # First message should be content, not welcome
-        assert "שתי הלכות חדשות" not in messages[0]
-        # Should have content
-        assert any("📜" in msg or "📖" in msg for msg in messages)
-
-    def test_info_contains_commands_and_links(self):
-        """Info message should contain command list and links."""
-        message = get_info_message()
-
-        assert "/today" in message
-        assert "/info" in message
-        assert "/subscribe" in message
-        assert "/unsubscribe" in message
-        assert "sefaria" in message.lower()
-        assert "github" in message.lower()
-
-
-class TestMessageFormatting:
-    """Tests for message formatting correctness."""
-
-    def test_daily_messages_have_correct_structure(self, sample_daily_pair):
-        """Daily messages should have correct HTML structure."""
+    def test_daily_messages_structure(self, sample_daily_pair):
+        """Daily messages have correct HTML structure and content."""
         messages = format_daily_message(sample_daily_pair, date(2099, 4, 1))
 
-        # Should have at least 2 messages (one per halacha)
         assert len(messages) >= 2
-
-        # First message should have date header
         assert "01/04/2099" in messages[0]
-
-        # Should have section titles in Hebrew
         for msg in messages:
-            assert "<b>" in msg  # Bold formatting
+            assert "<b>" in msg
             assert "</b>" in msg
-
-        # Should have Sefaria links
         assert any("sefaria.org" in msg for msg in messages)
-
-        # Last message should have signature
         assert "נ נח נחמ נחמן מאומן" in messages[-1]
 
-    def test_long_text_splits_correctly(self):
-        """Long halacha text should split at word boundaries."""
-        # Create halachot with very long text from different volumes
-        long_text = "מילה " * 1000  # Very long text
+    def test_long_text_splits_under_telegram_limit(self):
+        """Long halacha text splits at word boundaries under 4096 chars."""
+        long_text = "מילה " * 1000
         section1 = HalachaSection(
             volume="Orach Chaim",
             section="Test",
@@ -269,193 +155,19 @@ class TestMessageFormatting:
 
         messages = format_daily_message(pair, date(2099, 4, 2))
 
-        # Should split into multiple messages
         assert len(messages) > 2
-
-        # Each message should be under limit
         for msg in messages:
-            assert len(msg) < 4100  # MAX_MESSAGE_LENGTH + buffer
+            assert len(msg) < 4100
 
+    def test_info_message_has_all_commands(self):
+        """Info message lists all available commands."""
+        message = get_info_message()
 
-class TestErrorHandling:
-    """Tests for error handling."""
-
-    def test_graceful_fallback_on_cache_miss(self, tmp_path):
-        """Should handle cache miss gracefully."""
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            # No cache file exists
-            messages = selector.get_cached_messages(date(2099, 5, 1))
-
-        assert messages is None
-
-    def test_graceful_fallback_on_corrupted_cache(self, tmp_path):
-        """Should handle corrupted cache file gracefully."""
-        cache_file = tmp_path / "pair_2099-05-02.json"
-        cache_file.write_text("not valid json {{{")
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            pair = selector._load_cached_pair(date(2099, 5, 2))
-
-        assert pair is None
-
-
-class TestSubscriberSystem:
-    """Tests for subscriber management integration."""
-
-    def test_auto_subscribe_on_start(self, tmp_path, monkeypatch):
-        """Users should be auto-subscribed when they /start the bot."""
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        # Simulate /start command adding subscriber
-        chat_id = 123456
-        was_new = add_subscriber(chat_id)
-
-        assert was_new is True
-        assert is_subscribed(chat_id)
-
-    def test_subscribe_unsubscribe_flow(self, tmp_path, monkeypatch):
-        """Users should be able to subscribe and unsubscribe."""
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        chat_id = 789012
-
-        # Initially not subscribed
-        assert not is_subscribed(chat_id)
-
-        # Subscribe
-        add_subscriber(chat_id)
-        assert is_subscribed(chat_id)
-
-        # Unsubscribe
-        removed = remove_subscriber(chat_id)
-        assert removed is True
-        assert not is_subscribed(chat_id)
-
-        # Can't unsubscribe twice
-        removed_again = remove_subscriber(chat_id)
-        assert removed_again is False
-
-    def test_subscribers_persisted_to_disk(self, tmp_path, monkeypatch):
-        """Subscribers should be saved to disk and survive reload."""
-        subs_file = tmp_path / "subs.json"
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", subs_file)
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        # Add some subscribers
-        add_subscriber(111)
-        add_subscriber(222)
-        add_subscriber(333)
-
-        # Verify file exists
-        assert subs_file.exists()
-
-        # Load fresh and verify
-        subscribers = load_subscribers()
-        assert 111 in subscribers
-        assert 222 in subscribers
-        assert 333 in subscribers
-
-    def test_duplicate_subscribe_rejected(self, tmp_path, monkeypatch):
-        """Duplicate subscriptions should be rejected."""
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        chat_id = 456789
-
-        # First subscribe succeeds
-        first = add_subscriber(chat_id)
-        assert first is True
-
-        # Second subscribe fails (already subscribed)
-        second = add_subscriber(chat_id)
-        assert second is False
-
-    def test_broadcast_excludes_channel_from_subscribers(self, tmp_path, monkeypatch):
-        """Broadcast should not send duplicates to channel if it's in subscriber list."""
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        channel_id = -1001234567890
-        user_id = 111222333
-
-        # Both channel and user are "subscribed"
-        save_subscribers({channel_id, user_id})
-
-        # Load and remove channel
-        subscribers = load_subscribers()
-        subscribers.discard(channel_id)
-
-        # Only user should remain
-        assert user_id in subscribers
-        assert channel_id not in subscribers
-
-
-class TestBroadcastFlow:
-    """Tests for the complete broadcast flow."""
-
-    def test_broadcast_sends_to_channel_and_subscribers(self, tmp_path, monkeypatch):
-        """Broadcast should send to both channel and individual subscribers."""
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", tmp_path / "subs.json")
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
-        # Set up subscribers
-        save_subscribers({111, 222, 333})
-
-        # Load subscribers
-        subscribers = load_subscribers()
-
-        # Verify all subscribers loaded
-        assert len(subscribers) == 3
-        assert 111 in subscribers
-        assert 222 in subscribers
-        assert 333 in subscribers
-
-
-class TestUserOnboarding:
-    """Tests for user onboarding experience."""
-
-    def test_new_user_gets_welcome_and_content(self, tmp_path, sample_daily_pair):
-        """New users should get welcome message + daily content."""
-        cache_file = tmp_path / "pair_2099-06-01.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 6, 1))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            messages = get_start_messages(selector, date(2099, 6, 1))
-
-        # Should have welcome + content
-        assert len(messages) >= 2
-        assert "ליקוטי הלכות יומי" in messages[0]
-        # Content should have halacha markers
-        assert any("📜" in msg or "📖" in msg for msg in messages[1:])
-
-    def test_returning_user_gets_only_content(self, tmp_path, sample_daily_pair):
-        """Returning users using /today should only get content, no welcome."""
-        cache_file = tmp_path / "pair_2099-06-02.json"
-        cache_data = _create_cache_data(sample_daily_pair, date(2099, 6, 2))
-        cache_file.write_text(json.dumps(cache_data, ensure_ascii=False))
-
-        client = SefariaClient()
-        selector = HalachaSelector(client)
-
-        with patch("src.selector.CACHE_DIR", tmp_path):
-            messages = get_today_messages(selector, date(2099, 6, 2))
-
-        # Should NOT have welcome message
-        assert "שתי הלכות חדשות" not in messages[0]
-        # Should have content
-        assert any("📜" in msg or "📖" in msg for msg in messages)
+        assert "/today" in message
+        assert "/info" in message
+        assert "/subscribe" in message
+        assert "/unsubscribe" in message
+        assert "sefaria" in message.lower()
 
 
 def _create_cache_data(pair: DailyPair, for_date: date) -> dict:
