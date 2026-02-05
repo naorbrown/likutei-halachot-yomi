@@ -204,3 +204,80 @@ class TestHandleCommand:
         assert mock_bot.send_message.call_count == 3
         # Should NOT call get_daily_pair (used cache)
         mock_selector.get_daily_pair.assert_not_called()
+
+
+class TestPollAndRespondResilience:
+    """Tests for network resilience in poll_and_respond."""
+
+    @pytest.mark.asyncio
+    async def test_timeout_retries_then_succeeds(self):
+        """Should retry on timeout and succeed."""
+        try:
+            from telegram.error import TimedOut
+        except ImportError:
+            pytest.skip("telegram not available")
+
+        from scripts.poll_commands import poll_and_respond
+
+        mock_bot = AsyncMock()
+        # First call times out, second succeeds with no updates
+        mock_bot.get_updates = AsyncMock(side_effect=[TimedOut(), []])
+        mock_bot.delete_webhook = AsyncMock(return_value=True)
+
+        with (
+            patch("scripts.poll_commands.Config") as mock_config_cls,
+            patch("scripts.poll_commands.SefariaClient"),
+            patch("scripts.poll_commands.HalachaSelector") as mock_sel_cls,
+            patch("scripts.poll_commands.load_state", return_value=0),
+            patch("scripts.poll_commands.asyncio.sleep", new_callable=AsyncMock),
+        ):
+            mock_config_cls.from_env.return_value = MagicMock(
+                telegram_bot_token="fake-token"
+            )
+            mock_sel_cls.return_value.get_cached_messages.return_value = None
+
+            with patch("telegram.Bot", return_value=mock_bot):
+                # Make the bot work as async context manager
+                mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
+                mock_bot.__aexit__ = AsyncMock(return_value=False)
+
+                result = await poll_and_respond()
+
+        assert result is True
+        assert mock_bot.get_updates.call_count == 2
+
+    @pytest.mark.asyncio
+    async def test_all_retries_exhausted_returns_true(self):
+        """Should return True (non-fatal) when all retries exhausted."""
+        try:
+            from telegram.error import TimedOut
+        except ImportError:
+            pytest.skip("telegram not available")
+
+        from scripts.poll_commands import poll_and_respond
+
+        mock_bot = AsyncMock()
+        mock_bot.get_updates = AsyncMock(side_effect=TimedOut())
+        mock_bot.delete_webhook = AsyncMock(return_value=True)
+
+        with (
+            patch("scripts.poll_commands.Config") as mock_config_cls,
+            patch("scripts.poll_commands.SefariaClient"),
+            patch("scripts.poll_commands.HalachaSelector") as mock_sel_cls,
+            patch("scripts.poll_commands.load_state", return_value=0),
+            patch("scripts.poll_commands.asyncio.sleep", new_callable=AsyncMock),
+        ):
+            mock_config_cls.from_env.return_value = MagicMock(
+                telegram_bot_token="fake-token"
+            )
+            mock_sel_cls.return_value.get_cached_messages.return_value = None
+
+            with patch("telegram.Bot", return_value=mock_bot):
+                mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
+                mock_bot.__aexit__ = AsyncMock(return_value=False)
+
+                result = await poll_and_respond()
+
+        # Should succeed (non-fatal) even when all retries fail
+        assert result is True
+        assert mock_bot.get_updates.call_count == 3

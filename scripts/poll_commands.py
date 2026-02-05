@@ -168,6 +168,7 @@ async def poll_and_respond() -> bool:
     # Import telegram here to allow graceful failure
     try:
         from telegram import Bot
+        from telegram.error import NetworkError, TimedOut
     except ImportError as e:
         logger.error(f"telegram module not available: {e}")
         return False
@@ -198,6 +199,7 @@ async def poll_and_respond() -> bool:
     logger.info(f"Starting poll with offset {last_update_id + 1}")
 
     # Use Bot as async context manager (required in python-telegram-bot v20+)
+    max_retries = 3
     async with Bot(token=config.telegram_bot_token) as bot:
         try:
             # Delete any existing webhook to ensure getUpdates works
@@ -205,52 +207,65 @@ async def poll_and_respond() -> bool:
             webhook_deleted = await bot.delete_webhook(drop_pending_updates=False)
             if webhook_deleted:
                 logger.info("Webhook cleared, ready for polling")
+        except (TimedOut, NetworkError) as e:
+            logger.warning(f"Could not clear webhook (will retry on next run): {e}")
 
-            # Get updates (use shorter timeout to avoid workflow hanging)
-            updates = await bot.get_updates(
-                offset=last_update_id + 1,
-                timeout=10,  # Reduced from 30s to prevent workflow timeouts
-                allowed_updates=["message"],
-            )
+        # Retry get_updates on transient network errors
+        updates = None
+        for attempt in range(1, max_retries + 1):
+            try:
+                updates = await bot.get_updates(
+                    offset=last_update_id + 1,
+                    timeout=10,
+                    allowed_updates=["message"],
+                )
+                break  # Success
+            except (TimedOut, NetworkError) as e:
+                if attempt < max_retries:
+                    wait = attempt * 2
+                    logger.warning(
+                        f"get_updates attempt {attempt}/{max_retries} failed: {e}. "
+                        f"Retrying in {wait}s..."
+                    )
+                    await asyncio.sleep(wait)
+                else:
+                    # All retries exhausted - treat as non-fatal since next
+                    # scheduled run (in 5 min) will pick up any pending updates
+                    logger.warning(
+                        f"get_updates failed after {max_retries} attempts: {e}. "
+                        "Will retry on next scheduled run."
+                    )
+                    return True
 
-            if not updates:
-                logger.info("No new updates")
-                return True
-
-            logger.info(f"Processing {len(updates)} update(s)")
-
-            # Process each update
-            new_last_update_id = last_update_id
-            for update in updates:
-                new_last_update_id = max(new_last_update_id, update.update_id)
-
-                # Only process messages with text
-                if not update.message or not update.message.text:
-                    continue
-
-                text = update.message.text.strip()
-                chat_id = update.message.chat_id
-
-                # Only process commands (starting with /)
-                if text.startswith("/"):
-                    command = (
-                        text.split()[0].split("@")[0].lower()
-                    )  # Handle /cmd@botname
-                    logger.info(f"Processing command '{command}' from chat {chat_id}")
-                    await handle_command(bot, chat_id, command, selector)
-
-            # Save state
-            if new_last_update_id > last_update_id:
-                save_state(new_last_update_id)
-
+        if not updates:
+            logger.info("No new updates")
             return True
 
-        except Exception as e:
-            logger.error(f"Error polling updates: {e}")
-            import traceback
+        logger.info(f"Processing {len(updates)} update(s)")
 
-            traceback.print_exc()
-            return False
+        # Process each update
+        new_last_update_id = last_update_id
+        for update in updates:
+            new_last_update_id = max(new_last_update_id, update.update_id)
+
+            # Only process messages with text
+            if not update.message or not update.message.text:
+                continue
+
+            text = update.message.text.strip()
+            chat_id = update.message.chat_id
+
+            # Only process commands (starting with /)
+            if text.startswith("/"):
+                command = text.split()[0].split("@")[0].lower()  # Handle /cmd@botname
+                logger.info(f"Processing command '{command}' from chat {chat_id}")
+                await handle_command(bot, chat_id, command, selector)
+
+        # Save state
+        if new_last_update_id > last_update_id:
+            save_state(new_last_update_id)
+
+        return True
 
 
 def main() -> None:
