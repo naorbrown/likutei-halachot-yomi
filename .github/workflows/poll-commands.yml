@@ -2,13 +2,12 @@ name: Poll Commands
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
-# Cancel in-progress runs to prevent buildup
 concurrency:
   group: poll-commands
   cancel-in-progress: true
@@ -16,7 +15,7 @@ concurrency:
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 3  # Prevent hanging workflows
+    timeout-minutes: 3
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,6 +36,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: Commit state changes
+        if: success()
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -46,15 +46,5 @@ jobs:
             exit 0
           fi
           git commit -m "chore: update bot state [skip ci]"
-
-          # Retry push with rebase to handle concurrent updates
-          for i in 1 2 3; do
-            if git push; then
-              echo "Push succeeded"
-              exit 0
-            fi
-            echo "Push failed, attempt $i/3. Pulling and retrying..."
-            git pull --rebase origin main
-          done
-          echo "Push failed after 3 attempts"
-          exit 1
+          git pull --rebase origin main
+          git push

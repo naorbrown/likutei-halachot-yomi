@@ -4,10 +4,8 @@ on:
   schedule:
     # Run at BOTH possible 6am Israel times to handle DST.
     # The Python script checks actual Israel time and only broadcasts at 6am.
-    # Summer (IDT, UTC+3): 6am Israel = 3am UTC
-    - cron: '0 3 * * *'
-    # Winter (IST, UTC+2): 6am Israel = 4am UTC
-    - cron: '0 4 * * *'
+    - cron: '0 3 * * *'   # Summer (IDT, UTC+3): 6am Israel = 3am UTC
+    - cron: '0 4 * * *'   # Winter (IST, UTC+2): 6am Israel = 4am UTC
   workflow_dispatch:
 
 permissions:
@@ -16,7 +14,7 @@ permissions:
 jobs:
   broadcast:
     runs-on: ubuntu-latest
-    timeout-minutes: 5  # Prevent hanging workflows
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,7 +33,6 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
-          # Unified Torah Yomi Channel
           TORAH_YOMI_CHANNEL_ID: ${{ secrets.TORAH_YOMI_CHANNEL_ID }}
           TORAH_YOMI_CHANNEL_BOT_TOKEN: ${{ secrets.TORAH_YOMI_CHANNEL_BOT_TOKEN }}
           TORAH_YOMI_PUBLISH_ENABLED: ${{ secrets.TORAH_YOMI_PUBLISH_ENABLED }}
@@ -50,15 +47,5 @@ jobs:
             exit 0
           fi
           git commit -m "chore: update cache and state [skip ci]"
-
-          # Retry push with rebase to handle concurrent updates
-          for i in 1 2 3; do
-            if git push; then
-              echo "Push succeeded"
-              exit 0
-            fi
-            echo "Push failed, attempt $i/3. Pulling and retrying..."
-            git pull --rebase origin main
-          done
-          echo "Push failed after 3 attempts"
-          exit 1
+          git pull --rebase origin main
+          git push
