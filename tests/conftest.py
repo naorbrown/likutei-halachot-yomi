@@ -71,3 +71,9 @@ def sample_daily_pair(sample_halacha_oc, sample_halacha_yd):
 def fixed_date():
     """Fixed date for deterministic testing."""
     return date(2024, 1, 27)
+
+
+@pytest.fixture
+def sample_audio_bytes():
+    """Minimal audio bytes stub for TTS tests."""
+    return b"OggS\x00\x02\x00\x00fake-ogg-opus-audio-data"

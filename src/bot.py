@@ -17,9 +17,11 @@ from telegram.ext import (
 from .commands import get_about_message, get_daily_messages, get_help_message
 from .config import Config
 from .formatter import format_daily_message
+from .models import DailyPair
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
 from .subscribers import load_subscribers
+from .tts import HebrewTTSClient
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
@@ -248,6 +250,10 @@ class LikuteiHalachotBot:
                         f"Failed to reach {len(failed_subscribers)} subscribers"
                     )
 
+                # Send voice messages (optional, non-blocking)
+                if self.config.google_tts_enabled:
+                    await self._send_voice_messages(bot, pair, channel_id, subscribers)
+
             logger.info("Broadcast completed successfully")
 
             # Also publish to unified Torah Yomi channel
@@ -294,6 +300,61 @@ class LikuteiHalachotBot:
         except Exception as e:
             # Don't fail the main broadcast if unified channel fails
             logger.error(f"Failed to publish to unified channel: {e}")
+
+    async def _send_voice_messages(
+        self, bot: Bot, pair: DailyPair, channel_id: str, subscribers: set[int]
+    ) -> None:
+        """Generate and send voice messages for each halacha.
+
+        Non-blocking: TTS failure never prevents text delivery.
+        """
+        try:
+            tts = HebrewTTSClient(self.config.google_tts_credentials_json)
+            today = date.today().isoformat()
+
+            halachot = [
+                (pair.first, f"audio_{today}_1", "א"),
+                (pair.second, f"audio_{today}_2", "ב"),
+            ]
+
+            for halacha, cache_key, label in halachot:
+                audio = tts.get_or_generate_audio(halacha.hebrew_text, cache_key)
+                if not audio:
+                    logger.warning(f"TTS failed for halacha {label}, skipping voice")
+                    continue
+
+                caption = f"\U0001f509 {label}. {halacha.section.section_he}"
+
+                # Send to channel
+                await bot.send_voice(
+                    chat_id=channel_id,
+                    voice=audio,
+                    caption=caption,
+                    read_timeout=30,
+                    write_timeout=30,
+                )
+                logger.info(f"Voice message {label} sent to channel")
+
+                # Send to subscribers
+                for subscriber_id in subscribers:
+                    try:
+                        await bot.send_voice(
+                            chat_id=subscriber_id,
+                            voice=audio,
+                            caption=caption,
+                            read_timeout=30,
+                            write_timeout=30,
+                        )
+                    except Exception as e:
+                        logger.warning(
+                            f"Voice to subscriber {subscriber_id} failed: {e}"
+                        )
+
+            logger.info("Voice messages completed")
+
+        except Exception as e:
+            # Never fail the broadcast due to TTS errors
+            logger.error(f"Voice message delivery failed: {e}")
 
     def run_polling(self) -> None:
         """Run bot in polling mode with daily scheduling."""
