@@ -21,7 +21,7 @@ from .models import DailyPair
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
 from .subscribers import load_subscribers
-from .tts import HebrewTTSClient
+from .tts import HebrewTTSClient, send_voice_for_pair
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
@@ -160,7 +160,16 @@ class LikuteiHalachotBot:
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
-            logger.info("Scheduled broadcast sent successfully")
+            logger.info("Scheduled broadcast text sent successfully")
+
+            # Send voice messages (optional, non-blocking)
+            if self.config.google_tts_enabled:
+                await send_voice_for_pair(
+                    context.bot,
+                    pair,
+                    self.config.telegram_chat_id,
+                    credentials_json=self.config.google_tts_credentials_json,
+                )
         except Exception as e:
             logger.exception(f"Scheduled broadcast failed: {e}")
 

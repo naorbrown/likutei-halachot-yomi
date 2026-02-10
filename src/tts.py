@@ -1,15 +1,19 @@
 """Hebrew Text-to-Speech using Google Cloud TTS."""
 
+from __future__ import annotations
+
 import io
 import logging
 import os
 import re
 import tempfile
+from datetime import date
 
 from google.cloud import texttospeech
 from pydub import AudioSegment
 
 from .config import get_data_dir
+from .models import DailyPair
 
 logger = logging.getLogger(__name__)
 
@@ -202,3 +206,60 @@ def _concatenate_audio(audio_chunks: list[bytes]) -> bytes:
     buf = io.BytesIO()
     combined.export(buf, format="ogg", codec="libopus")
     return buf.getvalue()
+
+
+async def send_voice_for_pair(
+    bot: object,
+    pair: DailyPair,
+    chat_id: int | str,
+    credentials_json: str | None = None,
+    today: date | None = None,
+) -> None:
+    """Generate and send voice messages for a daily halacha pair.
+
+    Standalone async function that can be used from any content delivery path
+    (bot commands, poll commands, daily broadcast, etc.).
+
+    Non-blocking: TTS failure never raises — it logs and returns.
+
+    Args:
+        bot: Telegram Bot instance (must be initialized, supports send_voice).
+        pair: DailyPair containing the two halachot.
+        chat_id: Chat/channel ID to send voice messages to.
+        credentials_json: Optional Google Cloud service account JSON.
+        today: Date for cache key generation, defaults to today.
+    """
+    if today is None:
+        today = date.today()
+
+    try:
+        tts = HebrewTTSClient(credentials_json)
+        today_str = today.isoformat()
+
+        halachot = [
+            (pair.first, f"audio_{today_str}_1", "א"),
+            (pair.second, f"audio_{today_str}_2", "ב"),
+        ]
+
+        for halacha, cache_key, label in halachot:
+            audio = tts.get_or_generate_audio(halacha.hebrew_text, cache_key)
+            if not audio:
+                logger.warning(f"TTS failed for halacha {label}, skipping voice")
+                continue
+
+            caption = f"\U0001f509 {label}. {halacha.section.section_he}"
+
+            await bot.send_voice(  # type: ignore[attr-defined]
+                chat_id=chat_id,
+                voice=audio,
+                caption=caption,
+                read_timeout=30,
+                write_timeout=30,
+            )
+            logger.info(f"Voice message {label} sent to {chat_id}")
+
+        logger.info(f"Voice messages completed for {chat_id}")
+
+    except Exception:
+        # Never fail the caller due to TTS errors
+        logger.exception(f"Voice message delivery failed for {chat_id}")
