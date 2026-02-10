@@ -9,6 +9,10 @@ pytest-asyncio>=0.21.0
 pytest-cov>=4.1.0
 responses>=0.24.0
 
+# TTS
+google-cloud-texttospeech>=2.14.0
+pydub>=0.25.1
+
 # Development
 black>=23.0.0
 ruff>=0.1.0

@@ -53,6 +53,9 @@ htmlcov/
 # Type checking
 .mypy_cache/
 
+# Audio cache (binary, regenerated each run)
+data/cache/audio/
+
 # Claude
 .claude/
 

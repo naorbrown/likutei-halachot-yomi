@@ -17,6 +17,9 @@ class Config:
     log_level: str = "INFO"
     sefaria_base_url: str = "https://www.sefaria.org/api"
     request_timeout: int = 30
+    # TTS config (optional — audio is a graceful enhancement)
+    google_tts_enabled: bool = False
+    google_tts_credentials_json: str | None = None
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -33,6 +36,9 @@ class Config:
             telegram_bot_token=token,
             telegram_chat_id=chat_id,
             log_level=os.getenv("LOG_LEVEL", "INFO"),
+            google_tts_enabled=os.getenv("GOOGLE_TTS_ENABLED", "false").lower()
+            == "true",
+            google_tts_credentials_json=os.getenv("GOOGLE_TTS_CREDENTIALS_JSON"),
         )
 
     def setup_logging(self) -> None:
