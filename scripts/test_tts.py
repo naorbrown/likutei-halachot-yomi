@@ -51,7 +51,7 @@ def load_cached_text(date_str: str) -> str | None:
         return None
 
     data = json.loads(cache_file.read_text())
-    text = data.get("first", {}).get("hebrew_text", "")
+    text: str = data.get("first", {}).get("hebrew_text", "")
     if not text:
         logger.error(f"No Hebrew text in cache for {date_str}")
         return None
