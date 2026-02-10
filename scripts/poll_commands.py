@@ -4,10 +4,11 @@
 This script is designed to run via GitHub Actions every 5 minutes.
 It polls for new updates, handles commands, and persists state.
 
-Simplified commands:
-- /start: Welcome + today's content (entry point)
-- /today: Just today's content (no welcome)
+Commands:
+- /start: Welcome + today's content + voice audio (entry point)
+- /today: Today's content + voice audio (no welcome)
 - /info: Combined about + help
+- /subscribe, /unsubscribe: Manage daily broadcast subscription
 """
 
 import asyncio
