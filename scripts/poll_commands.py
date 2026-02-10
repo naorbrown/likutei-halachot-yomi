@@ -29,6 +29,7 @@ from src.config import Config
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
 from src.subscribers import add_subscriber, is_subscribed, remove_subscriber
+from src.tts import send_voice_for_pair
 
 # Configure logging
 logging.basicConfig(
@@ -61,7 +62,11 @@ def save_state(last_update_id: int) -> None:
 
 
 async def handle_command(
-    bot, chat_id: int, command: str, selector: HalachaSelector
+    bot,
+    chat_id: int,
+    command: str,
+    selector: HalachaSelector,
+    config: Config | None = None,
 ) -> None:
     """Handle a single command.
 
@@ -70,6 +75,7 @@ async def handle_command(
         chat_id: Chat ID to send response to
         command: Command string (e.g., "/start", "/today")
         selector: HalachaSelector for getting daily content
+        config: Optional Config for TTS support. If None, voice is skipped.
     """
     try:
         if command == "/start":
@@ -89,6 +95,14 @@ async def handle_command(
                 )
             logger.info(f"Sent start messages to {chat_id}")
 
+            # Send voice messages if TTS enabled
+            if config and config.google_tts_enabled:
+                pair = selector.get_daily_pair()
+                if pair:
+                    await send_voice_for_pair(
+                        bot, pair, chat_id, config.google_tts_credentials_json
+                    )
+
         elif command == "/today":
             # Just today's content for returning users
             messages = get_today_messages(selector)
@@ -100,6 +114,14 @@ async def handle_command(
                     disable_web_page_preview=True,
                 )
             logger.info(f"Sent today's halachot to {chat_id}")
+
+            # Send voice messages if TTS enabled
+            if config and config.google_tts_enabled:
+                pair = selector.get_daily_pair()
+                if pair:
+                    await send_voice_for_pair(
+                        bot, pair, chat_id, config.google_tts_credentials_json
+                    )
 
         elif command in ("/info", "/about", "/help"):
             # Combined info message
@@ -259,7 +281,7 @@ async def poll_and_respond() -> bool:
             if text.startswith("/"):
                 command = text.split()[0].split("@")[0].lower()  # Handle /cmd@botname
                 logger.info(f"Processing command '{command}' from chat {chat_id}")
-                await handle_command(bot, chat_id, command, selector)
+                await handle_command(bot, chat_id, command, selector, config)
 
         # Save state
         if new_last_update_id > last_update_id:
