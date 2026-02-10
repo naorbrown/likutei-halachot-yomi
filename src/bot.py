@@ -39,7 +39,7 @@ class LikuteiHalachotBot:
         """Post-initialization: set up commands and send startup notification."""
         # Set up bot commands menu
         commands = [
-            BotCommand("today", "📚 הלכות היום"),
+            BotCommand("today", "📚 הלכות היום + הקראה קולית"),
             BotCommand("subscribe", "✅ הרשמה להלכות יומיות"),
             BotCommand("unsubscribe", "❌ ביטול הרשמה"),
             BotCommand("info", "ℹ️ מידע ועזרה"),
@@ -48,10 +48,13 @@ class LikuteiHalachotBot:
         logger.info("Bot commands configured")
 
         # Set bot description
-        await app.bot.set_my_short_description("שתי הלכות יומיות מליקוטי הלכות")
+        await app.bot.set_my_short_description(
+            "שתי הלכות יומיות מליקוטי הלכות עם הקראה קולית"
+        )
         await app.bot.set_my_description(
             "ליקוטי הלכות יומי\n\n"
-            "שתי הלכות חדשות כל יום מתורת רבי נחמן מברסלב.\n\n"
+            "שתי הלכות חדשות כל יום מתורת רבי נחמן מברסלב.\n"
+            "🔊 כולל הקראה קולית בעברית.\n\n"
             "✅ התחל עם /start להרשמה אוטומטית\n"
             "📚 קבל הלכות יומיות בשעה 6 בבוקר\n\n"
             "נ נח נחמ נחמן מאומן"

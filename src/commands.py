@@ -1,8 +1,12 @@
 """Command logic for Telegram bot.
 
-This module provides the core command logic that can be used by both:
+This module provides the core text message logic that can be used by both:
 - bot.py (Application framework handlers)
 - poll_commands.py (Stateless GitHub Actions polling)
+
+Returns formatted text messages only. Voice messages are handled separately
+by send_voice_for_pair() in tts.py, called by the delivery layer (bot.py
+or poll_commands.py) after text is sent.
 
 Simplified commands:
 - /start: Welcome + today's content (entry point for new users)
@@ -29,16 +33,17 @@ logger = logging.getLogger(__name__)
 def get_start_messages(
     selector: HalachaSelector, for_date: date | None = None
 ) -> list[str]:
-    """Get messages for /start command (welcome + daily content).
+    """Get text messages for /start command (welcome + daily content).
 
-    Used for new users or first interaction.
+    Used for new users or first interaction. Returns text only —
+    voice messages are sent separately by the caller via tts.send_voice_for_pair().
 
     Args:
         selector: HalachaSelector instance for fetching daily pair
         for_date: Optional date override, defaults to today
 
     Returns:
-        List of formatted messages: [welcome, content...]
+        List of formatted text messages: [welcome, content...]
     """
     if for_date is None:
         for_date = date.today()
@@ -67,16 +72,17 @@ def get_start_messages(
 def get_today_messages(
     selector: HalachaSelector, for_date: date | None = None
 ) -> list[str]:
-    """Get messages for /today command (just daily content, no welcome).
+    """Get text messages for /today command (just daily content, no welcome).
 
-    Used for returning users who just want today's halachot.
+    Used for returning users who just want today's halachot. Returns text only —
+    voice messages are sent separately by the caller via tts.send_voice_for_pair().
 
     Args:
         selector: HalachaSelector instance for fetching daily pair
         for_date: Optional date override, defaults to today
 
     Returns:
-        List of formatted content messages (no welcome)
+        List of formatted text messages (no welcome)
     """
     if for_date is None:
         for_date = date.today()
