@@ -77,3 +77,16 @@ def fixed_date():
 def sample_audio_bytes():
     """Minimal audio bytes stub for TTS tests."""
     return b"OggS\x00\x02\x00\x00fake-ogg-opus-audio-data"
+
+
+@pytest.fixture
+def isolated_subscribers(tmp_path, monkeypatch):
+    """Redirect subscriber storage to a temp directory for e2e tests.
+
+    Non-autouse: only tests that explicitly request this fixture get isolation.
+    Returns the tmp_path so tests can inspect files if needed.
+    """
+    test_file = tmp_path / "subscribers.json"
+    monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", test_file)
+    monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
+    return tmp_path
