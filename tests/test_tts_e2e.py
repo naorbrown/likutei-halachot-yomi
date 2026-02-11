@@ -90,6 +90,23 @@ class TestSendVoiceForPair:
         assert mock_bot.send_voice.call_count == 1
 
     @pytest.mark.asyncio
+    async def test_uses_provided_tts_client(self, sample_daily_pair):
+        """Pre-built TTS client is used instead of creating a new one."""
+        mock_bot = AsyncMock()
+        mock_tts = MagicMock()
+        mock_tts.get_or_generate_audio.return_value = b"fake-audio"
+
+        with patch("src.tts.HebrewTTSClient") as mock_tts_cls:
+            await send_voice_for_pair(
+                mock_bot, sample_daily_pair, 12345, _tts_client=mock_tts
+            )
+
+        # Should NOT have created a new client
+        mock_tts_cls.assert_not_called()
+        # Should have used the provided client
+        assert mock_tts.get_or_generate_audio.call_count == 2
+
+    @pytest.mark.asyncio
     async def test_uses_send_voice_with_timeouts(self, sample_daily_pair):
         """Voice sends include increased timeouts for large files."""
         mock_bot = AsyncMock()

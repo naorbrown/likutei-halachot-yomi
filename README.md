@@ -1,18 +1,26 @@
+<div align="center">
+
 # Likutei Halachot Yomi
+
+**Daily teachings from Rebbe Natan of Breslov, delivered to Telegram**
 
 [![CI](https://github.com/naorbrown/likutei-halachot-yomi/actions/workflows/ci.yml/badge.svg)](https://github.com/naorbrown/likutei-halachot-yomi/actions/workflows/ci.yml)
 [![Daily](https://github.com/naorbrown/likutei-halachot-yomi/actions/workflows/daily.yml/badge.svg)](https://github.com/naorbrown/likutei-halachot-yomi/actions/workflows/daily.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram&logoColor=white)](https://core.telegram.org/bots)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Telegram bot that sends two daily halachot from **Likutei Halachot** by Rebbe Natan of Breslov, with optional Hebrew voice audio readings. Runs entirely on GitHub Actions — no server, no hosting costs, no maintenance.
+</div>
 
 ## What You Get
 
-- **Two halachot every morning** at 6 AM Israel time, delivered as text messages with links to [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot)
-- **Hebrew voice readings** (optional) — native pronunciation with playback speed controls
-- **On-demand access** — send `/today` anytime to get the day's halachot
-- **Personal subscriptions** — users can subscribe to receive broadcasts directly
-- **Completely free** — runs on GitHub's free tier with zero ongoing costs
+| | Feature | |
+|:---:|---|---|
+| :books: | **Two halachot every morning** | Delivered at 6 AM Israel time with links to [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot) |
+| :speaker: | **Hebrew voice readings** | Optional native pronunciation with playback speed controls |
+| :speech_balloon: | **On-demand access** | Send `/today` anytime to get the day's halachot |
+| :busts_in_silhouette: | **Personal subscriptions** | Users subscribe to receive broadcasts directly |
+| :zap: | **Zero maintenance** | Runs on GitHub Actions free tier — no server, no costs |
 
 ---
 
@@ -26,8 +34,6 @@ No coding experience needed. The entire setup takes about 10 minutes using only 
 - A **GitHub** account (free — [sign up here](https://github.com/signup) if you don't have one)
 - *(Optional)* A **Google** account, if you want voice audio readings
 
----
-
 ### Step 1: Create a Telegram Bot
 
 A "bot" is an automated Telegram account that sends messages on your behalf.
@@ -39,8 +45,6 @@ A "bot" is an automated Telegram account that sends messages on your behalf.
 5. BotFather will reply with a message containing your **bot token** — it looks something like `7123456789:AAHx9kLmN...`
 
 > **Important:** Copy this token and save it somewhere safe. You'll need it in Step 4. Don't share it publicly — anyone with this token can control your bot.
-
----
 
 ### Step 2: Get Your Chat ID
 
@@ -62,8 +66,6 @@ If you want the bot to post to a public or private channel:
 
 </details>
 
----
-
 ### Step 3: Copy This Project to Your GitHub
 
 "Forking" a project on GitHub means creating your own personal copy that you control.
@@ -73,8 +75,6 @@ If you want the bot to post to a public or private channel:
 3. Click the **Fork** button (near the top-right of the page)
 4. On the next screen, just click **Create fork** — the default settings are fine
 5. After a few seconds, you'll be on your own copy of the project
-
----
 
 ### Step 4: Add Your Bot Settings
 
@@ -98,8 +98,6 @@ GitHub "secrets" are private settings that are stored encrypted — only your au
 | `TELEGRAM_CHAT_ID` | Your chat ID or channel ID (Step 2) |
 
 **Your bot is now live!** It will start sending daily halachot at 6 AM Israel time and respond to commands within 5 minutes.
-
----
 
 ### Step 5: Add Voice Audio (Optional)
 
@@ -135,8 +133,6 @@ Voice readings use Google Cloud Text-to-Speech to generate native Hebrew audio. 
 Voice messages will now accompany every text delivery — daily broadcasts and on-demand commands.
 
 </details>
-
----
 
 ### Step 6: Verify Everything Works
 
@@ -210,7 +206,7 @@ The same two halachot are selected for everyone on any given day — the selecti
 
 - Verify `GOOGLE_TTS_ENABLED` is set to exactly `true` (lowercase)
 - Verify `GOOGLE_TTS_CREDENTIALS_JSON` contains the full JSON file contents
-- Check the Actions tab for error messages mentioning TTS
+- Check the Actions tab for error messages mentioning TTS — the bot logs whether TTS is enabled or disabled at startup
 - Voice failures won't block text delivery — you'll still get the text messages
 
 </details>
@@ -271,7 +267,7 @@ main.py               # Daily broadcast entry point
 |---|---|---|
 | `daily.yml` | 6 AM Israel time | Daily halachot broadcast + voice to channel and subscribers |
 | `poll-commands.yml` | Every 5 minutes | Responds to user commands with text + voice |
-| `ci.yml` | On push/PR to main | Linting, type checking, and 149 tests |
+| `ci.yml` | On push/PR to main | Linting, type checking, and tests |
 
 ### Voice Pipeline
 
@@ -281,6 +277,10 @@ main.py               # Daily broadcast entry point
 4. Output: OGG Opus (Telegram's native voice message format)
 5. Audio is cached in `data/cache/audio/` to avoid redundant API calls
 6. TTS failure at any step is caught — text delivery is never blocked
+
+### TTS Toggle
+
+All delivery paths check `is_tts_enabled(config)` from `src/tts.py` before sending voice. This is the single source of truth for the toggle, controlled by the `GOOGLE_TTS_ENABLED` environment variable. Voice pipeline parameters (voice name, speaking rate, chunk size) are documented as tunable constants at the top of `src/tts.py`.
 
 ### Local Development
 
@@ -307,9 +307,9 @@ pytest
 
 ### Testing
 
-The project has 149 tests covering:
+The test suite covers:
 - Unit tests for every module (models, formatter, selector, sefaria, commands, subscribers, TTS)
-- End-to-end tests for subscriber lifecycle, broadcast delivery, command polling, API failure recovery, partial failures, and unified channel publishing
+- End-to-end tests for subscriber lifecycle, broadcast delivery, command polling, API failure recovery, partial failures, unified channel publishing, and TTS toggle behavior
 - CI runs black, ruff, mypy, and pytest on every push
 
 </details>
@@ -326,9 +326,10 @@ Texts sourced from [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot).
 
 MIT
 
----
-
 <div align="center">
+<br>
+<sub>Built with Torah from <a href="https://www.sefaria.org/Likutei_Halakhot">Sefaria.org</a></sub>
+<br><br>
 
 **נ נח נחמ נחמן מאומן**
 

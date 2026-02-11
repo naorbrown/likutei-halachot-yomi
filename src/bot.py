@@ -21,7 +21,7 @@ from .models import DailyPair
 from .sefaria import SefariaClient
 from .selector import HalachaSelector
 from .subscribers import load_subscribers
-from .tts import HebrewTTSClient, send_voice_for_pair
+from .tts import HebrewTTSClient, is_tts_enabled, send_voice_for_pair
 from .unified import is_unified_channel_enabled, publish_text_to_unified_channel
 
 logger = logging.getLogger(__name__)
@@ -166,7 +166,7 @@ class LikuteiHalachotBot:
             logger.info("Scheduled broadcast text sent successfully")
 
             # Send voice messages (optional, non-blocking)
-            if self.config.google_tts_enabled:
+            if is_tts_enabled(self.config):
                 await send_voice_for_pair(
                     context.bot,
                     pair,
@@ -263,7 +263,7 @@ class LikuteiHalachotBot:
                     )
 
                 # Send voice messages (optional, non-blocking)
-                if self.config.google_tts_enabled:
+                if is_tts_enabled(self.config):
                     await self._send_voice_messages(bot, pair, channel_id, subscribers)
 
             logger.info("Broadcast completed successfully")
@@ -316,53 +316,23 @@ class LikuteiHalachotBot:
     async def _send_voice_messages(
         self, bot: Bot, pair: DailyPair, channel_id: str, subscribers: set[int]
     ) -> None:
-        """Generate and send voice messages for each halacha.
+        """Send voice messages to channel and subscribers.
 
+        Creates one TTS client and reuses it for all recipients.
         Non-blocking: TTS failure never prevents text delivery.
         """
         try:
             tts = HebrewTTSClient(self.config.google_tts_credentials_json)
-            today = date.today().isoformat()
 
-            halachot = [
-                (pair.first, f"audio_{today}_1", "א"),
-                (pair.second, f"audio_{today}_2", "ב"),
-            ]
+            # Channel
+            await send_voice_for_pair(bot, pair, channel_id, _tts_client=tts)
 
-            for halacha, cache_key, label in halachot:
-                audio = tts.get_or_generate_audio(halacha.hebrew_text, cache_key)
-                if not audio:
-                    logger.warning(f"TTS failed for halacha {label}, skipping voice")
-                    continue
-
-                caption = f"\U0001f509 {label}. {halacha.section.section_he}"
-
-                # Send to channel
-                await bot.send_voice(
-                    chat_id=channel_id,
-                    voice=audio,
-                    caption=caption,
-                    read_timeout=30,
-                    write_timeout=30,
-                )
-                logger.info(f"Voice message {label} sent to channel")
-
-                # Send to subscribers
-                for subscriber_id in subscribers:
-                    try:
-                        await bot.send_voice(
-                            chat_id=subscriber_id,
-                            voice=audio,
-                            caption=caption,
-                            read_timeout=30,
-                            write_timeout=30,
-                        )
-                    except Exception as e:
-                        logger.warning(
-                            f"Voice to subscriber {subscriber_id} failed: {e}"
-                        )
-
-            logger.info("Voice messages completed")
+            # Subscribers
+            for subscriber_id in subscribers:
+                try:
+                    await send_voice_for_pair(bot, pair, subscriber_id, _tts_client=tts)
+                except Exception as e:
+                    logger.warning(f"Voice to subscriber {subscriber_id} failed: {e}")
 
         except Exception as e:
             # Never fail the broadcast due to TTS errors

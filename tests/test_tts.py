@@ -1,6 +1,6 @@
 """Tests for Hebrew TTS module."""
 
-from unittest.mock import AsyncMock, MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
@@ -222,12 +222,17 @@ class TestSynthesis:
 
 
 class TestTTSBotIntegration:
-    """Tests for TTS integration with the bot broadcast flow."""
+    """Tests for TTS integration with the bot broadcast flow.
+
+    Since _send_voice_messages delegates to send_voice_for_pair,
+    these tests patch send_voice_for_pair at the bot module scope.
+    """
 
     @pytest.mark.asyncio
     async def test_tts_disabled_skips_voice(self):
         """When TTS is disabled, no voice messages are sent."""
         from src.config import Config
+        from src.tts import is_tts_enabled
 
         config = Config(
             telegram_bot_token="fake-token",
@@ -235,8 +240,7 @@ class TestTTSBotIntegration:
             google_tts_enabled=False,
         )
 
-        # Verify the config flag works — broadcast checks this before calling TTS
-        assert not config.google_tts_enabled
+        assert not is_tts_enabled(config)
 
     @pytest.mark.asyncio
     async def test_tts_failure_doesnt_block_broadcast(self, sample_daily_pair):
@@ -253,15 +257,15 @@ class TestTTSBotIntegration:
         bot_instance = LikuteiHalachotBot(config)
 
         mock_bot = MagicMock()
-        mock_bot.send_voice = MagicMock(side_effect=Exception("TTS send failed"))
 
-        # _send_voice_messages should catch the error and not raise
-        with patch("src.bot.HebrewTTSClient") as mock_tts_cls:
-            mock_tts = MagicMock()
-            mock_tts.get_or_generate_audio.side_effect = Exception(
-                "TTS generation failed"
-            )
-            mock_tts_cls.return_value = mock_tts
+        with (
+            patch("src.bot.HebrewTTSClient") as mock_tts_cls,
+            patch(
+                "src.bot.send_voice_for_pair",
+                side_effect=Exception("TTS delivery failed"),
+            ),
+        ):
+            mock_tts_cls.return_value = MagicMock()
 
             # Should not raise
             await bot_instance._send_voice_messages(
@@ -269,8 +273,8 @@ class TestTTSBotIntegration:
             )
 
     @pytest.mark.asyncio
-    async def test_voice_messages_sent_for_both_halachot(self, sample_daily_pair):
-        """Both halachot get voice messages sent to channel."""
+    async def test_voice_messages_sent_for_channel(self, sample_daily_pair):
+        """Channel gets voice messages via send_voice_for_pair."""
         from src.bot import LikuteiHalachotBot
         from src.config import Config
 
@@ -280,21 +284,20 @@ class TestTTSBotIntegration:
             google_tts_enabled=True,
         )
         bot_instance = LikuteiHalachotBot(config)
-
         mock_bot = MagicMock()
-        mock_bot.send_voice = AsyncMock()
 
-        with patch("src.bot.HebrewTTSClient") as mock_tts_cls:
-            mock_tts = MagicMock()
-            mock_tts.get_or_generate_audio.return_value = b"fake-audio"
-            mock_tts_cls.return_value = mock_tts
+        with (
+            patch("src.bot.HebrewTTSClient") as mock_tts_cls,
+            patch("src.bot.send_voice_for_pair") as mock_voice,
+        ):
+            mock_tts_cls.return_value = MagicMock()
 
             await bot_instance._send_voice_messages(
                 mock_bot, sample_daily_pair, "fake-chat", set()
             )
 
-        # Two voice messages: one per halacha
-        assert mock_bot.send_voice.call_count == 2
+        # Channel only, no subscribers
+        assert mock_voice.call_count == 1
 
     @pytest.mark.asyncio
     async def test_voice_messages_sent_to_subscribers(self, sample_daily_pair):
@@ -308,27 +311,25 @@ class TestTTSBotIntegration:
             google_tts_enabled=True,
         )
         bot_instance = LikuteiHalachotBot(config)
-
         mock_bot = MagicMock()
-        mock_bot.send_voice = AsyncMock()
-
         subscribers = {111, 222}
 
-        with patch("src.bot.HebrewTTSClient") as mock_tts_cls:
-            mock_tts = MagicMock()
-            mock_tts.get_or_generate_audio.return_value = b"fake-audio"
-            mock_tts_cls.return_value = mock_tts
+        with (
+            patch("src.bot.HebrewTTSClient") as mock_tts_cls,
+            patch("src.bot.send_voice_for_pair") as mock_voice,
+        ):
+            mock_tts_cls.return_value = MagicMock()
 
             await bot_instance._send_voice_messages(
                 mock_bot, sample_daily_pair, "fake-chat", subscribers
             )
 
-        # 2 halachot x (1 channel + 2 subscribers) = 6 voice sends
-        assert mock_bot.send_voice.call_count == 6
+        # 1 channel + 2 subscribers = 3 calls
+        assert mock_voice.call_count == 3
 
     @pytest.mark.asyncio
-    async def test_partial_tts_failure_sends_available(self, sample_daily_pair):
-        """If one halacha's TTS fails, the other still sends."""
+    async def test_partial_subscriber_failure_sends_to_others(self, sample_daily_pair):
+        """If one subscriber fails, voice still sent to others."""
         from src.bot import LikuteiHalachotBot
         from src.config import Config
 
@@ -338,19 +339,28 @@ class TestTTSBotIntegration:
             google_tts_enabled=True,
         )
         bot_instance = LikuteiHalachotBot(config)
-
         mock_bot = MagicMock()
-        mock_bot.send_voice = AsyncMock()
 
-        with patch("src.bot.HebrewTTSClient") as mock_tts_cls:
-            mock_tts = MagicMock()
-            # First halacha fails, second succeeds
-            mock_tts.get_or_generate_audio.side_effect = [None, b"fake-audio"]
-            mock_tts_cls.return_value = mock_tts
+        call_count = 0
+
+        async def fail_for_111(*args, **kwargs):
+            nonlocal call_count
+            call_count += 1
+            chat_id = args[2] if len(args) > 2 else kwargs.get("chat_id")
+            if chat_id == 111:
+                raise Exception("Subscriber unreachable")
+
+        with (
+            patch("src.bot.HebrewTTSClient") as mock_tts_cls,
+            patch(
+                "src.bot.send_voice_for_pair", side_effect=fail_for_111
+            ) as mock_voice,
+        ):
+            mock_tts_cls.return_value = MagicMock()
 
             await bot_instance._send_voice_messages(
-                mock_bot, sample_daily_pair, "fake-chat", set()
+                mock_bot, sample_daily_pair, "fake-chat", {111, 222}
             )
 
-        # Only 1 voice message (the second halacha)
-        assert mock_bot.send_voice.call_count == 1
+        # All 3 attempted (channel + 2 subs), even though 111 failed
+        assert mock_voice.call_count == 3

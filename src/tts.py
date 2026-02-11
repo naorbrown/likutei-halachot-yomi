@@ -8,6 +8,7 @@ import os
 import re
 import tempfile
 from datetime import date
+from typing import TYPE_CHECKING
 
 from google.cloud import texttospeech
 from pydub import AudioSegment
@@ -15,22 +16,50 @@ from pydub import AudioSegment
 from .config import get_data_dir
 from .models import DailyPair
 
+if TYPE_CHECKING:
+    from .config import Config
+
 logger = logging.getLogger(__name__)
+
+# ─────────────────────────────────────────────────────────────
+# Voice Pipeline Configuration
+#
+# These are the tunable knobs for TTS output quality and behavior.
+# Adjust these values to change the voice, speed, or chunking.
+# ─────────────────────────────────────────────────────────────
 
 # Audio cache directory
 AUDIO_CACHE_DIR = get_data_dir() / "cache" / "audio"
 
 # Google Cloud TTS byte limit is 5000 per request.
-# Nikud'd Hebrew ≈ 4 bytes/char, so ~1200 chars stays safely under the limit.
+# Nikud'd Hebrew is ~4 bytes/char, so ~1200 chars stays safely under the limit.
 MAX_CHUNK_CHARS = 1200
 
-# Voice configuration
-VOICE_NAME = "he-IL-Wavenet-D"  # Male, deep, clear
+# Voice selection — see https://cloud.google.com/text-to-speech/docs/voices
+VOICE_NAME = "he-IL-Wavenet-D"  # Male, deep, clear Hebrew voice
 LANGUAGE_CODE = "he-IL"
-SPEAKING_RATE = 1.0  # Telegram provides built-in 1x/1.5x/2x controls
 
-# Silence between chunks (milliseconds)
+# Speaking rate multiplier (1.0 = normal speed)
+# Telegram provides built-in 1x/1.5x/2x controls, so 1.0 is recommended
+SPEAKING_RATE = 1.0
+
+# Silence between chunks (milliseconds) — adds natural pauses in long texts
 INTER_CHUNK_SILENCE_MS = 300
+
+
+def is_tts_enabled(config: Config | None) -> bool:
+    """Check whether TTS voice messages should be sent.
+
+    Single source of truth for the TTS toggle. All delivery paths
+    call this instead of checking config.google_tts_enabled directly.
+
+    Returns False (silently skip voice) when:
+    - config is None (backwards compat for callers without config)
+    - config.google_tts_enabled is False
+    """
+    if config is None:
+        return False
+    return config.google_tts_enabled
 
 
 class HebrewTTSClient:
@@ -214,6 +243,8 @@ async def send_voice_for_pair(
     chat_id: int | str,
     credentials_json: str | None = None,
     today: date | None = None,
+    *,
+    _tts_client: HebrewTTSClient | None = None,
 ) -> None:
     """Generate and send voice messages for a daily halacha pair.
 
@@ -228,12 +259,13 @@ async def send_voice_for_pair(
         chat_id: Chat/channel ID to send voice messages to.
         credentials_json: Optional Google Cloud service account JSON.
         today: Date for cache key generation, defaults to today.
+        _tts_client: Pre-built TTS client to reuse (avoids creating a new one).
     """
     if today is None:
         today = date.today()
 
     try:
-        tts = HebrewTTSClient(credentials_json)
+        tts = _tts_client or HebrewTTSClient(credentials_json)
         today_str = today.isoformat()
 
         halachot = [

@@ -32,7 +32,7 @@ class Config:
         if not chat_id:
             raise ValueError("TELEGRAM_CHAT_ID environment variable is required")
 
-        return cls(
+        config = cls(
             telegram_bot_token=token,
             telegram_chat_id=chat_id,
             log_level=os.getenv("LOG_LEVEL", "INFO"),
@@ -40,6 +40,21 @@ class Config:
             == "true",
             google_tts_credentials_json=os.getenv("GOOGLE_TTS_CREDENTIALS_JSON"),
         )
+
+        if config.google_tts_enabled:
+            logger.info("TTS voice messages: ENABLED")
+            if not config.google_tts_credentials_json:
+                logger.warning(
+                    "TTS is enabled but GOOGLE_TTS_CREDENTIALS_JSON is not set "
+                    "-- voice messages will fail"
+                )
+        else:
+            logger.info(
+                "TTS voice messages: DISABLED "
+                "(set GOOGLE_TTS_ENABLED=true to enable)"
+            )
+
+        return config
 
     def setup_logging(self) -> None:
         """Configure application logging."""
