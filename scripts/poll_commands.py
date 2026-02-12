@@ -30,7 +30,7 @@ from src.config import Config
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector
 from src.subscribers import add_subscriber, is_subscribed, remove_subscriber
-from src.tts import send_voice_for_pair
+from src.tts import is_tts_enabled, send_voice_for_pair
 
 # Configure logging
 logging.basicConfig(
@@ -97,7 +97,8 @@ async def handle_command(
             logger.info(f"Sent start messages to {chat_id}")
 
             # Send voice messages if TTS enabled
-            if config and config.google_tts_enabled:
+            if is_tts_enabled(config):
+                assert config is not None  # is_tts_enabled returns False for None
                 pair = selector.get_daily_pair()
                 if pair:
                     await send_voice_for_pair(
@@ -117,7 +118,8 @@ async def handle_command(
             logger.info(f"Sent today's halachot to {chat_id}")
 
             # Send voice messages if TTS enabled
-            if config and config.google_tts_enabled:
+            if is_tts_enabled(config):
+                assert config is not None  # is_tts_enabled returns False for None
                 pair = selector.get_daily_pair()
                 if pair:
                     await send_voice_for_pair(

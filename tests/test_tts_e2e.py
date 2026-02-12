@@ -90,6 +90,23 @@ class TestSendVoiceForPair:
         assert mock_bot.send_voice.call_count == 1
 
     @pytest.mark.asyncio
+    async def test_uses_provided_tts_client(self, sample_daily_pair):
+        """Pre-built TTS client is used instead of creating a new one."""
+        mock_bot = AsyncMock()
+        mock_tts = MagicMock()
+        mock_tts.get_or_generate_audio.return_value = b"fake-audio"
+
+        with patch("src.tts.HebrewTTSClient") as mock_tts_cls:
+            await send_voice_for_pair(
+                mock_bot, sample_daily_pair, 12345, _tts_client=mock_tts
+            )
+
+        # Should NOT have created a new client
+        mock_tts_cls.assert_not_called()
+        # Should have used the provided client
+        assert mock_tts.get_or_generate_audio.call_count == 2
+
+    @pytest.mark.asyncio
     async def test_uses_send_voice_with_timeouts(self, sample_daily_pair):
         """Voice sends include increased timeouts for large files."""
         mock_bot = AsyncMock()
@@ -425,3 +442,138 @@ class TestBroadcastFlowTTS:
         assert result is True
         # Text still delivered
         assert mock_bot.send_message.call_count >= 1
+
+
+# --- Interactive bot command TTS integration ---
+
+
+class TestInteractiveCommandsTTS:
+    """Tests for TTS in bot.py /start and /today interactive commands."""
+
+    def _make_update(self, command: str, chat_id: int = 12345, user_id: int = 99):
+        """Create a mock Update for an interactive command."""
+        update = MagicMock()
+        update.message = MagicMock()
+        update.message.text = command
+        update.message.chat_id = chat_id
+        update.message.reply_text = AsyncMock()
+        update.effective_user = MagicMock()
+        update.effective_user.id = user_id
+        return update
+
+    @pytest.mark.asyncio
+    async def test_start_command_sends_voice_when_tts_enabled(self, sample_daily_pair):
+        """/start sends voice messages after text when TTS is enabled."""
+        from src.bot import LikuteiHalachotBot
+        from src.config import Config
+
+        config = Config(
+            telegram_bot_token="fake-token",
+            telegram_chat_id="fake-chat",
+            google_tts_enabled=True,
+            google_tts_credentials_json='{"type": "service_account"}',
+        )
+        bot_instance = LikuteiHalachotBot(config)
+        bot_instance.selector = MagicMock()
+        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
+
+        update = self._make_update("/start")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg1"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        # Text sent
+        update.message.reply_text.assert_called_once()
+        # Voice sent
+        mock_voice.assert_called_once_with(
+            mock_context.bot,
+            sample_daily_pair,
+            12345,
+            credentials_json='{"type": "service_account"}',
+        )
+
+    @pytest.mark.asyncio
+    async def test_today_command_sends_voice_when_tts_enabled(self, sample_daily_pair):
+        """/today sends voice messages after text when TTS is enabled."""
+        from src.bot import LikuteiHalachotBot
+        from src.config import Config
+
+        config = Config(
+            telegram_bot_token="fake-token",
+            telegram_chat_id="fake-chat",
+            google_tts_enabled=True,
+            google_tts_credentials_json='{"type": "service_account"}',
+        )
+        bot_instance = LikuteiHalachotBot(config)
+        bot_instance.selector = MagicMock()
+        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
+
+        update = self._make_update("/today")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg1"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        mock_voice.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_start_command_no_voice_when_tts_disabled(self, sample_daily_pair):
+        """/start does not send voice when TTS is disabled."""
+        from src.bot import LikuteiHalachotBot
+        from src.config import Config
+
+        config = Config(
+            telegram_bot_token="fake-token",
+            telegram_chat_id="fake-chat",
+            google_tts_enabled=False,
+        )
+        bot_instance = LikuteiHalachotBot(config)
+
+        update = self._make_update("/start")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg1"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        # Text sent
+        update.message.reply_text.assert_called_once()
+        # Voice NOT sent
+        mock_voice.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_voice_failure_doesnt_block_text_in_commands(self, sample_daily_pair):
+        """TTS crash in interactive command doesn't prevent text delivery."""
+        from src.bot import LikuteiHalachotBot
+        from src.config import Config
+
+        config = Config(
+            telegram_bot_token="fake-token",
+            telegram_chat_id="fake-chat",
+            google_tts_enabled=True,
+            google_tts_credentials_json='{"type": "service_account"}',
+        )
+        bot_instance = LikuteiHalachotBot(config)
+        bot_instance.selector = MagicMock()
+        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
+
+        update = self._make_update("/today")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg1"]):
+            with patch(
+                "src.bot.send_voice_for_pair",
+                side_effect=Exception("TTS exploded"),
+            ):
+                # Should not raise
+                await bot_instance._send_daily_content(update, mock_context)
+
+        # Text still delivered despite TTS failure
+        update.message.reply_text.assert_called_once()
