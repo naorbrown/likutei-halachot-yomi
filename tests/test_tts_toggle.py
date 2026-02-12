@@ -362,3 +362,108 @@ class TestConsolidatedVoiceDelivery:
 
         # All 3 recipients attempted (channel + 2 subs)
         assert mock_voice.call_count == 3
+
+
+class TestInteractiveCommandsRespectToggle:
+    """Verify _send_daily_content checks is_tts_enabled for /start and /today."""
+
+    def _make_update(self, command: str, chat_id: int = 12345, user_id: int = 99):
+        """Create a mock Update for an interactive command."""
+        update = MagicMock()
+        update.message = MagicMock()
+        update.message.text = command
+        update.message.chat_id = chat_id
+        update.message.reply_text = AsyncMock()
+        update.effective_user = MagicMock()
+        update.effective_user.id = user_id
+        return update
+
+    @pytest.mark.asyncio
+    async def test_start_calls_voice_when_enabled(self, sample_daily_pair):
+        from src.bot import LikuteiHalachotBot
+
+        config = Config(
+            telegram_bot_token="t",
+            telegram_chat_id="c",
+            google_tts_enabled=True,
+            google_tts_credentials_json='{"type": "sa"}',
+        )
+        bot_instance = LikuteiHalachotBot(config)
+        bot_instance.selector = MagicMock()
+        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
+
+        update = self._make_update("/start")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        mock_voice.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_start_skips_voice_when_disabled(self, sample_daily_pair):
+        from src.bot import LikuteiHalachotBot
+
+        config = Config(
+            telegram_bot_token="t",
+            telegram_chat_id="c",
+            google_tts_enabled=False,
+        )
+        bot_instance = LikuteiHalachotBot(config)
+
+        update = self._make_update("/start")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        mock_voice.assert_not_called()
+
+    @pytest.mark.asyncio
+    async def test_today_calls_voice_when_enabled(self, sample_daily_pair):
+        from src.bot import LikuteiHalachotBot
+
+        config = Config(
+            telegram_bot_token="t",
+            telegram_chat_id="c",
+            google_tts_enabled=True,
+            google_tts_credentials_json='{"type": "sa"}',
+        )
+        bot_instance = LikuteiHalachotBot(config)
+        bot_instance.selector = MagicMock()
+        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
+
+        update = self._make_update("/today")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        mock_voice.assert_called_once()
+
+    @pytest.mark.asyncio
+    async def test_today_skips_voice_when_disabled(self, sample_daily_pair):
+        from src.bot import LikuteiHalachotBot
+
+        config = Config(
+            telegram_bot_token="t",
+            telegram_chat_id="c",
+            google_tts_enabled=False,
+        )
+        bot_instance = LikuteiHalachotBot(config)
+
+        update = self._make_update("/today")
+        mock_context = MagicMock()
+        mock_context.bot = AsyncMock()
+
+        with patch("src.bot.get_daily_messages", return_value=["msg"]):
+            with patch("src.bot.send_voice_for_pair") as mock_voice:
+                await bot_instance._send_daily_content(update, mock_context)
+
+        mock_voice.assert_not_called()

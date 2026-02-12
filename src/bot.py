@@ -90,6 +90,20 @@ class LikuteiHalachotBot:
                 msg, parse_mode=ParseMode.HTML, disable_web_page_preview=True
             )
 
+        # Send voice messages if TTS enabled
+        if is_tts_enabled(self.config):
+            try:
+                pair = self.selector.get_daily_pair()
+                if pair:
+                    await send_voice_for_pair(
+                        context.bot,
+                        pair,
+                        update.message.chat_id,
+                        credentials_json=self.config.google_tts_credentials_json,
+                    )
+            except Exception as e:
+                logger.warning(f"Voice message failed for {user_id}: {e}")
+
     async def start_command(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
     ) -> None:
