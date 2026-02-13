@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install ffmpeg (for TTS audio)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       - name: Send daily halachot
         run: python main.py
         env:
