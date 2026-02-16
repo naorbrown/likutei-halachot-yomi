@@ -357,10 +357,10 @@ class LikuteiHalachotBot:
         logger.info("Building application...")
         app = self.build_app()
 
-        # Schedule daily broadcast at 6:00 AM Israel time
+        # Schedule daily broadcast at 3:00 AM Israel time
         if self.config.telegram_chat_id and app.job_queue:
             israel_tz = ZoneInfo("Asia/Jerusalem")
-            broadcast_time = time(hour=6, minute=0, second=0, tzinfo=israel_tz)
+            broadcast_time = time(hour=3, minute=0, second=0, tzinfo=israel_tz)
             app.job_queue.run_daily(
                 self._scheduled_broadcast,
                 time=broadcast_time,

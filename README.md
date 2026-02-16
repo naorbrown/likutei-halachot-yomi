@@ -16,7 +16,7 @@
 
 | | Feature | |
 |:---:|---|---|
-| :books: | **Two halachot every morning** | Delivered at 6 AM Israel time with links to [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot) |
+| :books: | **Two halachot every morning** | Delivered at 3 AM Israel time with links to [Sefaria.org](https://www.sefaria.org/Likutei_Halakhot) |
 | :speaker: | **Hebrew voice readings** | Optional native pronunciation with playback speed controls |
 | :speech_balloon: | **On-demand access** | Send `/today` anytime to get the day's halachot |
 | :busts_in_silhouette: | **Personal subscriptions** | Users subscribe to receive broadcasts directly |
@@ -97,7 +97,7 @@ GitHub "secrets" are private settings that are stored encrypted — only your au
 | `TELEGRAM_BOT_TOKEN` | The bot token from BotFather (Step 1) |
 | `TELEGRAM_CHAT_ID` | Your chat ID or channel ID (Step 2) |
 
-**Your bot is now live!** It will start sending daily halachot at 6 AM Israel time and respond to commands within 5 minutes.
+**Your bot is now live!** It will start sending daily halachot at 3 AM Israel time and respond to commands within 5 minutes.
 
 ### Step 5: Add Voice Audio (Optional)
 
@@ -148,7 +148,7 @@ Your bot runs automatically, but here's how to check that it's working:
 - A green checkmark means it ran successfully
 
 **Option C: Wait for the daily broadcast**
-- At 6 AM Israel time, your bot will send that day's halachot to the chat ID you configured
+- At 3 AM Israel time, your bot will send that day's halachot to the chat ID you configured
 
 > If nothing happens, see the [Troubleshooting](#troubleshooting) section below.
 
@@ -163,7 +163,7 @@ Send these commands to your bot in Telegram:
 | `/start` | Welcome message + today's halachot + voice (auto-subscribes to daily broadcasts) |
 | `/today` | Today's two halachot + voice |
 | `/info` | About the bot, sources, and available commands |
-| `/subscribe` | Subscribe to daily 6 AM broadcasts |
+| `/subscribe` | Subscribe to daily 3 AM broadcasts |
 | `/unsubscribe` | Stop receiving daily broadcasts |
 
 > **Note:** Commands are processed every 5 minutes, so there may be a short delay before you get a response.
@@ -172,7 +172,7 @@ Send these commands to your bot in Telegram:
 
 ## How It Works
 
-Every morning at 6 AM Israel time, GitHub automatically runs the bot. It picks two teachings from different volumes of Likutei Halachot (using the [Sefaria](https://www.sefaria.org/Likutei_Halakhot) library), formats them as messages with links to the original text, and sends them to your Telegram chat or channel. If voice is enabled, it also generates Hebrew audio and sends voice messages.
+Every morning at 3 AM Israel time, GitHub automatically runs the bot. It picks two teachings from different volumes of Likutei Halachot (using the [Sefaria](https://www.sefaria.org/Likutei_Halakhot) library), formats them as messages with links to the original text, and sends them to your Telegram chat or channel. If voice is enabled, it also generates Hebrew audio and sends voice messages.
 
 The bot also checks for new commands every 5 minutes. When someone sends `/start` or `/today`, it responds with today's halachot. Users who send `/start` are automatically subscribed to the daily broadcast.
 
@@ -214,7 +214,7 @@ The same two halachot are selected for everyone on any given day — the selecti
 <details>
 <summary><strong>I want to change the delivery time</strong></summary>
 
-The bot is set to deliver at 6 AM Israel time. To change this:
+The bot is set to deliver at 3 AM Israel time. To change this:
 
 1. In your repository, open `.github/workflows/daily.yml`
 2. Find the `cron` lines near the top (e.g. `'0 3 * * *'`)
@@ -265,7 +265,7 @@ main.py               # Daily broadcast entry point
 
 | Workflow | Schedule | Purpose |
 |---|---|---|
-| `daily.yml` | 6 AM Israel time | Daily halachot broadcast + voice to channel and subscribers |
+| `daily.yml` | 3 AM Israel time | Daily halachot broadcast + voice to channel and subscribers |
 | `poll-commands.yml` | Every 5 minutes | Responds to user commands with text + voice |
 | `ci.yml` | On push/PR to main | Linting, type checking, and tests |
 
