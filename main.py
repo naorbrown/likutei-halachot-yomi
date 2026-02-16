@@ -30,13 +30,13 @@ ISRAEL_TZ = ZoneInfo("Asia/Jerusalem")
 
 
 def is_broadcast_hour() -> bool:
-    """Check if it's currently the 6am hour in Israel.
+    """Check if it's currently the 3am hour in Israel.
 
-    The workflow runs at both 3am and 4am UTC to cover DST transitions.
-    This function ensures we only broadcast once - when it's actually 6am Israel time.
+    The workflow runs at both 0am and 1am UTC to cover DST transitions.
+    This function ensures we only broadcast once - when it's actually 3am Israel time.
     """
     israel_now = datetime.now(ISRAEL_TZ)
-    return israel_now.hour == 6
+    return israel_now.hour == 3
 
 
 def parse_args() -> argparse.Namespace:
@@ -149,14 +149,14 @@ def main() -> int:
         return 0
     else:
         # One-shot broadcast mode (CI/cron)
-        # Check if it's actually 6am Israel time to prevent duplicate broadcasts
-        # The workflow runs at both 3am and 4am UTC to handle DST, but only one
-        # of those times will be 6am Israel time on any given day
+        # Check if it's actually 3am Israel time to prevent duplicate broadcasts
+        # The workflow runs at both 0am and 1am UTC to handle DST, but only one
+        # of those times will be 3am Israel time on any given day
         if not is_broadcast_hour():
             israel_now = datetime.now(ISRAEL_TZ)
             logger.info(
                 f"Skipping broadcast: Israel time is {israel_now.strftime('%H:%M')} "
-                f"(not 6am). DST handling - other scheduled run will send."
+                f"(not 3am). DST handling - other scheduled run will send."
             )
             return 0
 
