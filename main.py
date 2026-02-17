@@ -13,6 +13,7 @@ import asyncio
 import logging
 import sys
 from datetime import date, datetime
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
@@ -29,14 +30,33 @@ logger = logging.getLogger(__name__)
 ISRAEL_TZ = ZoneInfo("Asia/Jerusalem")
 
 
+BROADCAST_MARKER = Path(".github/state/last_broadcast_date.txt")
+
+
 def is_broadcast_hour() -> bool:
-    """Check if it's currently the 3am hour in Israel.
+    """Check if it's currently the 3am-5am window in Israel.
 
     The workflow runs at both 0am and 1am UTC to cover DST transitions.
-    This function ensures we only broadcast once - when it's actually 3am Israel time.
+    GitHub Actions cron can be delayed 30-120+ minutes, so we accept a window
+    of 3am-5am Israel time. The already_sent_today() guard prevents duplicates.
     """
     israel_now = datetime.now(ISRAEL_TZ)
-    return israel_now.hour == 3
+    return israel_now.hour in (3, 4, 5)
+
+
+def already_sent_today() -> bool:
+    """Check if we already sent a broadcast today (prevents double-sends)."""
+    today = datetime.now(ISRAEL_TZ).strftime("%Y-%m-%d")
+    if BROADCAST_MARKER.exists() and BROADCAST_MARKER.read_text().strip() == today:
+        return True
+    return False
+
+
+def mark_sent_today() -> None:
+    """Record that we sent a broadcast today."""
+    today = datetime.now(ISRAEL_TZ).strftime("%Y-%m-%d")
+    BROADCAST_MARKER.parent.mkdir(parents=True, exist_ok=True)
+    BROADCAST_MARKER.write_text(today)
 
 
 def parse_args() -> argparse.Namespace:
@@ -149,20 +169,24 @@ def main() -> int:
         return 0
     else:
         # One-shot broadcast mode (CI/cron)
-        # Check if it's actually 3am Israel time to prevent duplicate broadcasts
-        # The workflow runs at both 0am and 1am UTC to handle DST, but only one
-        # of those times will be 3am Israel time on any given day
+        # GitHub Actions cron can be delayed 30-120+ minutes, so we accept
+        # 3am-5am Israel time. The already_sent_today guard prevents duplicates.
         if not is_broadcast_hour():
             israel_now = datetime.now(ISRAEL_TZ)
             logger.info(
                 f"Skipping broadcast: Israel time is {israel_now.strftime('%H:%M')} "
-                f"(not 3am). DST handling - other scheduled run will send."
+                f"(not in 3-5am window). DST handling - other scheduled run will send."
             )
+            return 0
+
+        if already_sent_today():
+            logger.info("Skipping broadcast: already sent today.")
             return 0
 
         logger.info("Sending daily broadcast...")
         success = asyncio.run(send_broadcast(config))
         if success:
+            mark_sent_today()
             logger.info("Broadcast completed successfully!")
         else:
             logger.error("Broadcast failed!")
