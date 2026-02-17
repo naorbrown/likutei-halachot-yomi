@@ -29,7 +29,10 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install ffmpeg (for TTS audio)
+        if: env.GOOGLE_TTS_ENABLED == 'true'
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
+        env:
+          GOOGLE_TTS_ENABLED: ${{ secrets.GOOGLE_TTS_ENABLED }}
 
       - name: Send daily halachot
         run: python main.py
