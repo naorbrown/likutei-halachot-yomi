@@ -11,6 +11,7 @@ Usage:
 import argparse
 import asyncio
 import logging
+import os
 import sys
 from datetime import date, datetime
 from pathlib import Path
@@ -169,19 +170,25 @@ def main() -> int:
         return 0
     else:
         # One-shot broadcast mode (CI/cron)
-        # GitHub Actions cron can be delayed 30-120+ minutes, so we accept
-        # 3am-5am Israel time. The already_sent_today guard prevents duplicates.
-        if not is_broadcast_hour():
-            israel_now = datetime.now(ISRAEL_TZ)
-            logger.info(
-                f"Skipping broadcast: Israel time is {israel_now.strftime('%H:%M')} "
-                f"(not in 3-5am window). DST handling - other scheduled run will send."
-            )
-            return 0
+        # FORCE_BROADCAST=true bypasses time/duplicate checks (for manual dispatch)
+        force = os.getenv("FORCE_BROADCAST", "").lower() == "true"
 
-        if already_sent_today():
-            logger.info("Skipping broadcast: already sent today.")
-            return 0
+        if not force:
+            # GitHub Actions cron can be delayed 30-120+ minutes, so we accept
+            # 3am-5am Israel time. The already_sent_today guard prevents duplicates.
+            if not is_broadcast_hour():
+                israel_now = datetime.now(ISRAEL_TZ)
+                logger.info(
+                    f"Skipping broadcast: Israel time is "
+                    f"{israel_now.strftime('%H:%M')} "
+                    f"(not in 3-5am window). "
+                    f"DST handling - other scheduled run will send."
+                )
+                return 0
+
+            if already_sent_today():
+                logger.info("Skipping broadcast: already sent today.")
+                return 0
 
         logger.info("Sending daily broadcast...")
         success = asyncio.run(send_broadcast(config))

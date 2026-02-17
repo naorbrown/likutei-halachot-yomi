@@ -41,6 +41,7 @@ jobs:
           TORAH_YOMI_PUBLISH_ENABLED: ${{ secrets.TORAH_YOMI_PUBLISH_ENABLED }}
           GOOGLE_TTS_ENABLED: ${{ secrets.GOOGLE_TTS_ENABLED }}
           GOOGLE_TTS_CREDENTIALS_JSON: ${{ secrets.GOOGLE_TTS_CREDENTIALS_JSON }}
+          FORCE_BROADCAST: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
 
       - name: Commit cache and state
         run: |
