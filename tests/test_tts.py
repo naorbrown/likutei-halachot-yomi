@@ -106,10 +106,10 @@ class TestTTSCaching:
         cache_file = tmp_path / "test_key.ogg"
         cache_file.write_bytes(audio_data)
 
-        with patch("src.tts.texttospeech"):
-            client = HebrewTTSClient.__new__(HebrewTTSClient)
-            client.client = MagicMock()
-            client._temp_creds_path = None
+        client = HebrewTTSClient.__new__(HebrewTTSClient)
+        client.client = MagicMock()
+        client._temp_creds_path = None
+        client._texttospeech = MagicMock()
 
         result = client.get_or_generate_audio("test", "test_key")
         assert result == audio_data
@@ -125,6 +125,7 @@ class TestTTSCaching:
 
         client = HebrewTTSClient.__new__(HebrewTTSClient)
         client._temp_creds_path = None
+        client._texttospeech = MagicMock()
         client.client = MagicMock()
         client.voice = MagicMock()
         client.audio_config = MagicMock()
@@ -145,6 +146,7 @@ class TestTTSCaching:
 
         client = HebrewTTSClient.__new__(HebrewTTSClient)
         client._temp_creds_path = None
+        client._texttospeech = MagicMock()
         client.client = MagicMock()
         client.voice = MagicMock()
         client.audio_config = MagicMock()
@@ -167,6 +169,7 @@ class TestSynthesis:
         """Short text produces audio without concatenation."""
         client = HebrewTTSClient.__new__(HebrewTTSClient)
         client._temp_creds_path = None
+        client._texttospeech = MagicMock()
         client.client = MagicMock()
         client.voice = MagicMock()
         client.audio_config = MagicMock()
@@ -184,6 +187,7 @@ class TestSynthesis:
         """Long text is chunked and each chunk is synthesized."""
         client = HebrewTTSClient.__new__(HebrewTTSClient)
         client._temp_creds_path = None
+        client._texttospeech = MagicMock()
         client.client = MagicMock()
         client.voice = MagicMock()
         client.audio_config = MagicMock()
@@ -209,6 +213,7 @@ class TestSynthesis:
         """API failure returns None instead of raising."""
         client = HebrewTTSClient.__new__(HebrewTTSClient)
         client._temp_creds_path = None
+        client._texttospeech = MagicMock()
         client.client = MagicMock()
         client.voice = MagicMock()
         client.audio_config = MagicMock()
