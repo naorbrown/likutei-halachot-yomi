@@ -10,9 +10,6 @@ import tempfile
 from datetime import date
 from typing import TYPE_CHECKING
 
-from google.cloud import texttospeech
-from pydub import AudioSegment
-
 from .config import get_data_dir
 from .models import DailyPair
 
@@ -83,6 +80,9 @@ class HebrewTTSClient:
             self._temp_creds_path = path
             os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
 
+        from google.cloud import texttospeech
+
+        self._texttospeech = texttospeech
         self.client = texttospeech.TextToSpeechClient()
         self.voice = texttospeech.VoiceSelectionParams(
             language_code=LANGUAGE_CODE,
@@ -150,7 +150,7 @@ class HebrewTTSClient:
 
     def _synthesize_chunk(self, chunk: str) -> bytes:
         """Synthesize a single text chunk via Google Cloud TTS."""
-        synthesis_input = texttospeech.SynthesisInput(text=chunk)
+        synthesis_input = self._texttospeech.SynthesisInput(text=chunk)
         response = self.client.synthesize_speech(
             input=synthesis_input,
             voice=self.voice,
@@ -223,6 +223,8 @@ def _concatenate_audio(audio_chunks: list[bytes]) -> bytes:
     Returns:
         Single concatenated OGG Opus audio bytes.
     """
+    from pydub import AudioSegment
+
     silence = AudioSegment.silent(duration=INTER_CHUNK_SILENCE_MS)
     combined = AudioSegment.empty()
 
