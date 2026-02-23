@@ -156,7 +156,7 @@ class HebrewTTSClient:
             voice=self.voice,
             audio_config=self.audio_config,
         )
-        return response.audio_content
+        return bytes(response.audio_content)
 
 
 def chunk_text(text: str, max_chars: int = MAX_CHUNK_CHARS) -> list[str]:
