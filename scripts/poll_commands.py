@@ -43,6 +43,15 @@ logger = logging.getLogger(__name__)
 STATE_DIR = Path(__file__).parent.parent / ".github" / "state"
 STATE_FILE = STATE_DIR / "last_update_id.json"
 
+# Maximum time (seconds) for the entire poll cycle.
+# Must be well under the GitHub Actions job timeout (5 min) to allow
+# state saving and git commit steps to complete.
+POLL_TIMEOUT_SECONDS = 200
+
+# Maximum time (seconds) for handling a single command.
+# Prevents one slow Sefaria fetch from consuming the entire budget.
+COMMAND_TIMEOUT_SECONDS = 30
+
 
 def load_state() -> int:
     """Load last processed update ID from state file."""
@@ -62,22 +71,14 @@ def save_state(last_update_id: int) -> None:
     logger.info(f"Saved state: last_update_id={last_update_id}")
 
 
-async def handle_command(
+async def _handle_command_inner(
     bot,
     chat_id: int,
     command: str,
     selector: HalachaSelector,
     config: Config | None = None,
 ) -> None:
-    """Handle a single command.
-
-    Args:
-        bot: Telegram Bot instance (must be initialized)
-        chat_id: Chat ID to send response to
-        command: Command string (e.g., "/start", "/today")
-        selector: HalachaSelector for getting daily content
-        config: Optional Config for TTS support. If None, voice is skipped.
-    """
+    """Inner implementation of command handling (no timeout wrapper)."""
     try:
         if command == "/start":
             # Auto-subscribe user for daily broadcasts
@@ -175,6 +176,38 @@ async def handle_command(
 
     except Exception as e:
         logger.error(f"Error handling command {command} for {chat_id}: {e}")
+        try:
+            await bot.send_message(
+                chat_id=chat_id,
+                text=get_error_message(),
+                parse_mode="HTML",
+            )
+        except Exception:
+            pass
+
+
+async def handle_command(
+    bot,
+    chat_id: int,
+    command: str,
+    selector: HalachaSelector,
+    config: Config | None = None,
+) -> None:
+    """Handle a single command with timeout protection.
+
+    Wraps _handle_command_inner with a timeout so that a slow Sefaria
+    fetch never blocks the entire poll cycle.
+    """
+    try:
+        await asyncio.wait_for(
+            _handle_command_inner(bot, chat_id, command, selector, config),
+            timeout=COMMAND_TIMEOUT_SECONDS,
+        )
+    except asyncio.TimeoutError:
+        logger.warning(
+            f"Command {command} for {chat_id} timed out "
+            f"after {COMMAND_TIMEOUT_SECONDS}s"
+        )
         try:
             await bot.send_message(
                 chat_id=chat_id,
@@ -293,6 +326,18 @@ async def poll_and_respond() -> bool:
         return True
 
 
+async def _poll_with_timeout() -> bool:
+    """Run poll_and_respond with an overall timeout."""
+    try:
+        return await asyncio.wait_for(poll_and_respond(), timeout=POLL_TIMEOUT_SECONDS)
+    except asyncio.TimeoutError:
+        logger.warning(
+            f"Poll cycle timed out after {POLL_TIMEOUT_SECONDS}s — "
+            "pending updates will be picked up on next run"
+        )
+        return True  # Non-fatal: next run picks up
+
+
 def main() -> None:
     """Main entry point.
 
@@ -303,7 +348,7 @@ def main() -> None:
     logger.info("=== Poll Commands Script Started ===")
 
     try:
-        success = asyncio.run(poll_and_respond())
+        success = asyncio.run(_poll_with_timeout())
     except Exception as e:
         logger.warning(f"Poll encountered error (non-fatal): {e}")
         success = True  # Treat as non-fatal

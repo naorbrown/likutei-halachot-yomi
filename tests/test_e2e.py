@@ -2,8 +2,13 @@
 
 These tests verify the complete flow from cache to command response,
 ensuring the full pipeline works together.
+
+Shared fixtures (mock_telegram_bot, mock_selector, broadcast_bot_instance,
+broadcast_env, isolated_poll_state) are defined in conftest.py to
+eliminate the mock boilerplate that previously hid real integration bugs.
 """
 
+import asyncio
 import json
 from datetime import date
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -218,16 +223,12 @@ class TestSubscriberLifecycle:
 
     @pytest.mark.asyncio
     async def test_start_auto_subscribes_user(
-        self, isolated_subscribers, sample_daily_pair
+        self, isolated_subscribers, sample_daily_pair, mock_selector
     ):
         """/start auto-subscribes the user and sends welcome + content."""
         from scripts.poll_commands import handle_command
 
         mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-        mock_selector.get_cached_messages.return_value = None
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
-
         await handle_command(mock_bot, 11111, "/start", mock_selector)
 
         assert is_subscribed(11111)
@@ -235,58 +236,28 @@ class TestSubscriberLifecycle:
 
     @pytest.mark.asyncio
     async def test_broadcast_delivers_to_subscriber(
-        self, isolated_subscribers, sample_daily_pair
+        self,
+        isolated_subscribers,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        broadcast_env,
     ):
         """Subscribed user receives messages during daily broadcast."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
         add_subscriber(11111)
 
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
-        with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value={11111}),
-            patch("src.bot.HebrewTTSClient"),
-            patch("src.bot.is_unified_channel_enabled", return_value=False),
-        ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+        with broadcast_env(subscribers={11111}):
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
-        # Check subscriber received messages
-        subscriber_calls = [
-            c
-            for c in mock_bot.send_message.call_args_list
-            if c.kwargs.get("chat_id") == 11111
-        ]
-        assert len(subscriber_calls) >= 1
 
     @pytest.mark.asyncio
     async def test_unsubscribe_stops_broadcasts(
-        self, isolated_subscribers, sample_daily_pair
+        self, isolated_subscribers, sample_daily_pair, mock_selector
     ):
         """/start then /unsubscribe removes user from subscriber list."""
         from scripts.poll_commands import handle_command
 
         mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-        mock_selector.get_cached_messages.return_value = None
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         # Subscribe via /start
         await handle_command(mock_bot, 11111, "/start", mock_selector)
@@ -301,15 +272,12 @@ class TestSubscriberLifecycle:
 
     @pytest.mark.asyncio
     async def test_resubscribe_after_unsubscribe(
-        self, isolated_subscribers, sample_daily_pair
+        self, isolated_subscribers, sample_daily_pair, mock_selector
     ):
         """User can re-subscribe after unsubscribing."""
         from scripts.poll_commands import handle_command
 
         mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-        mock_selector.get_cached_messages.return_value = None
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         await handle_command(mock_bot, 11111, "/start", mock_selector)
         await handle_command(mock_bot, 11111, "/unsubscribe", mock_selector)
@@ -324,15 +292,12 @@ class TestSubscriberLifecycle:
 
     @pytest.mark.asyncio
     async def test_subscribe_when_already_subscribed(
-        self, isolated_subscribers, sample_daily_pair
+        self, isolated_subscribers, sample_daily_pair, mock_selector
     ):
         """Subscribing when already subscribed returns 'already subscribed'."""
         from scripts.poll_commands import handle_command
 
         mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-        mock_selector.get_cached_messages.return_value = None
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         await handle_command(mock_bot, 11111, "/start", mock_selector)
         mock_bot.reset_mock()
@@ -360,46 +325,31 @@ class TestSubscriberLifecycle:
 
 
 class TestDailyBroadcastWithSubscribers:
-    """Full broadcast flow: channel + subscribers + voice + unified."""
+    """Full broadcast flow: channel + subscribers + voice + unified.
+
+    Uses broadcast_env fixture from conftest.py for clean mock setup.
+    """
 
     @pytest.mark.asyncio
-    async def test_full_broadcast_to_channel_and_subscribers(self, sample_daily_pair):
+    async def test_full_broadcast_to_channel_and_subscribers(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        broadcast_env,
+        mock_telegram_bot,
+    ):
         """Broadcast sends messages to channel and all subscribers."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         subscribers = {111, 222, 333}
 
-        with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value=subscribers),
-            patch("src.bot.HebrewTTSClient"),
-            patch("src.bot.is_unified_channel_enabled", return_value=False),
-        ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+        with broadcast_env(subscribers=subscribers):
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
 
         # Channel and all 3 subscribers should receive messages
         channel_calls = [
             c
-            for c in mock_bot.send_message.call_args_list
+            for c in mock_telegram_bot.send_message.call_args_list
             if c.kwargs.get("chat_id") == "-100999"
         ]
         assert len(channel_calls) >= 2  # At least header + content
@@ -407,57 +357,41 @@ class TestDailyBroadcastWithSubscribers:
         for sub_id in subscribers:
             sub_calls = [
                 c
-                for c in mock_bot.send_message.call_args_list
+                for c in mock_telegram_bot.send_message.call_args_list
                 if c.kwargs.get("chat_id") == sub_id
             ]
             assert len(sub_calls) >= 1
 
     @pytest.mark.asyncio
-    async def test_channel_deduplication_from_subscribers(self, sample_daily_pair):
+    async def test_channel_deduplication_from_subscribers(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        broadcast_env,
+        mock_telegram_bot,
+    ):
         """Channel ID in subscriber set doesn't cause double delivery."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         # Channel is also in subscriber set
-        subscribers = {-100999, 111}
-
-        with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value=subscribers),
-            patch("src.bot.HebrewTTSClient"),
-            patch("src.bot.is_unified_channel_enabled", return_value=False),
-        ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+        with broadcast_env(subscribers={-100999, 111}):
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
 
         # Channel should receive messages once (not twice)
         channel_calls = [
             c
-            for c in mock_bot.send_message.call_args_list
+            for c in mock_telegram_bot.send_message.call_args_list
             if c.kwargs.get("chat_id") == "-100999"
         ]
         messages = format_daily_message(sample_daily_pair, date.today())
         assert len(channel_calls) == len(messages)
 
     @pytest.mark.asyncio
-    async def test_broadcast_voice_to_channel_and_subscribers(self, sample_daily_pair):
+    async def test_broadcast_voice_to_channel_and_subscribers(
+        self,
+        sample_daily_pair,
+        mock_telegram_bot,
+    ):
         """Voice messages are sent to channel and each subscriber."""
         from src.bot import LikuteiHalachotBot
         from src.config import Config
@@ -472,22 +406,12 @@ class TestDailyBroadcastWithSubscribers:
         bot_instance.selector = MagicMock()
         bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
 
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
-        subscribers = {111, 222}
-
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value=subscribers),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
+            patch("src.bot.load_subscribers", return_value={111, 222}),
             patch("src.bot.HebrewTTSClient") as mock_tts_cls,
             patch("src.bot.is_unified_channel_enabled", return_value=False),
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
             mock_tts = MagicMock()
             mock_tts.get_or_generate_audio.return_value = b"fake-audio"
             mock_tts_cls.return_value = mock_tts
@@ -496,42 +420,25 @@ class TestDailyBroadcastWithSubscribers:
 
         assert result is True
         # 2 halachot * (1 channel + 2 subscribers) = 6 voice messages
-        assert mock_bot.send_voice.call_count == 6
+        assert mock_telegram_bot.send_voice.call_count == 6
 
     @pytest.mark.asyncio
-    async def test_broadcast_with_no_subscribers(self, sample_daily_pair):
+    async def test_broadcast_with_no_subscribers(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        broadcast_env,
+        mock_telegram_bot,
+    ):
         """Broadcast succeeds when subscriber list is empty."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
-        with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value=set()),
-            patch("src.bot.HebrewTTSClient"),
-            patch("src.bot.is_unified_channel_enabled", return_value=False),
-        ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+        with broadcast_env(subscribers=set()):
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
         # Only channel receives messages
         all_chat_ids = [
-            c.kwargs.get("chat_id") for c in mock_bot.send_message.call_args_list
+            c.kwargs.get("chat_id")
+            for c in mock_telegram_bot.send_message.call_args_list
         ]
         assert all(cid == "-100999" for cid in all_chat_ids)
 
@@ -542,13 +449,9 @@ class TestDailyBroadcastWithSubscribers:
 class TestPollCommandStatePersistence:
     """Tests for update_id state persistence across poll runs."""
 
-    def test_state_persists_across_poll_runs(self, tmp_path, monkeypatch):
+    def test_state_persists_across_poll_runs(self, isolated_poll_state):
         """update_id saved in first run is loaded in second run."""
         from scripts.poll_commands import load_state, save_state
-
-        state_file = tmp_path / "last_update_id.json"
-        monkeypatch.setattr("scripts.poll_commands.STATE_FILE", state_file)
-        monkeypatch.setattr("scripts.poll_commands.STATE_DIR", tmp_path)
 
         # First run saves state
         save_state(102)
@@ -558,35 +461,24 @@ class TestPollCommandStatePersistence:
         save_state(105)
         assert load_state() == 105
 
-    def test_no_state_file_returns_zero(self, tmp_path, monkeypatch):
+    def test_no_state_file_returns_zero(self, isolated_poll_state):
         """Missing state file returns update_id of 0."""
         from scripts.poll_commands import load_state
-
-        state_file = tmp_path / "last_update_id.json"
-        monkeypatch.setattr("scripts.poll_commands.STATE_FILE", state_file)
 
         assert load_state() == 0
 
     @pytest.mark.asyncio
     async def test_command_handled_and_state_saved(
-        self, tmp_path, monkeypatch, sample_daily_pair
+        self,
+        isolated_poll_state,
+        isolated_subscribers,
+        sample_daily_pair,
+        mock_selector,
     ):
         """/start is processed AND update_id state is updated."""
         from scripts.poll_commands import handle_command, load_state, save_state
 
-        state_file = tmp_path / "last_update_id.json"
-        monkeypatch.setattr("scripts.poll_commands.STATE_FILE", state_file)
-        monkeypatch.setattr("scripts.poll_commands.STATE_DIR", tmp_path)
-
-        # Isolate subscribers too
-        sub_file = tmp_path / "subscribers.json"
-        monkeypatch.setattr("src.subscribers.SUBSCRIBERS_FILE", sub_file)
-        monkeypatch.setattr("src.subscribers.STATE_DIR", tmp_path)
-
         mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-        mock_selector.get_cached_messages.return_value = None
-        mock_selector.get_daily_pair.return_value = sample_daily_pair
 
         # Handle command
         await handle_command(mock_bot, 12345, "/start", mock_selector)
@@ -596,13 +488,12 @@ class TestPollCommandStatePersistence:
         save_state(500)
         assert load_state() == 500
 
-    def test_corrupted_state_file_returns_zero(self, tmp_path, monkeypatch):
+    def test_corrupted_state_file_returns_zero(self, isolated_poll_state):
         """Corrupted state file falls back to 0."""
-        from scripts.poll_commands import load_state
+        from scripts.poll_commands import STATE_FILE, load_state
 
-        state_file = tmp_path / "last_update_id.json"
-        state_file.write_text("not valid json {{{")
-        monkeypatch.setattr("scripts.poll_commands.STATE_FILE", state_file)
+        STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        STATE_FILE.write_text("not valid json {{{")
 
         assert load_state() == 0
 
@@ -613,10 +504,10 @@ class TestPollCommandStatePersistence:
 class TestAPIFailureFallback:
     """Tests for graceful degradation when Sefaria API is unavailable."""
 
-    def test_fallback_halacha_when_api_fails(self, tmp_path):
-        """Selector returns fallback pair when API returns None."""
-        # Create a section for each volume so fallback preserves volume identity
-        sections_by_volume = {
+    @staticmethod
+    def _sections_by_volume():
+        """Helper: one section per volume for fallback tests."""
+        return {
             vol: [
                 HalachaSection(
                     volume=vol,
@@ -628,6 +519,10 @@ class TestAPIFailureFallback:
             ]
             for vol in ["Orach Chaim", "Yoreh Deah", "Even HaEzer", "Choshen Mishpat"]
         }
+
+    def test_fallback_halacha_when_api_fails(self, tmp_path):
+        """Selector returns fallback pair when API returns None."""
+        sections_by_volume = self._sections_by_volume()
 
         mock_client = MagicMock()
         mock_client.get_random_halacha_from_volume.return_value = None
@@ -648,11 +543,8 @@ class TestAPIFailureFallback:
         self, sample_section_oc, sample_section_yd
     ):
         """Broadcast returns True even with fallback halachot."""
-        fallback_section_oc = sample_section_oc
-        fallback_section_yd = sample_section_yd
-
         fallback_first = Halacha(
-            section=fallback_section_oc,
+            section=sample_section_oc,
             chapter=1,
             siman=1,
             hebrew_text="לא ניתן לטעון את הטקסט כרגע. לחץ על הקישור לקריאה בספריא.",
@@ -660,7 +552,7 @@ class TestAPIFailureFallback:
             sefaria_url="https://www.sefaria.org/Test",
         )
         fallback_second = Halacha(
-            section=fallback_section_yd,
+            section=sample_section_yd,
             chapter=1,
             siman=1,
             hebrew_text="לא ניתן לטעון את הטקסט כרגע. לחץ על הקישור לקריאה בספריא.",
@@ -678,19 +570,7 @@ class TestAPIFailureFallback:
 
     def test_fallback_pairs_not_cached_to_disk(self, tmp_path):
         """Fallback pairs are not written to disk cache."""
-        # Create a section for each volume so fallback always preserves volume identity
-        sections_by_volume = {
-            vol: [
-                HalachaSection(
-                    volume=vol,
-                    section=f"Test {vol}",
-                    section_he="בדיקה",
-                    ref_base=f"Test_Ref_{vol.replace(' ', '_')}",
-                    has_english=False,
-                )
-            ]
-            for vol in ["Orach Chaim", "Yoreh Deah", "Even HaEzer", "Choshen Mishpat"]
-        }
+        sections_by_volume = self._sections_by_volume()
 
         mock_client = MagicMock()
         mock_client.get_random_halacha_from_volume.return_value = None
@@ -716,20 +596,13 @@ class TestPartialBroadcastFailures:
     """Tests for resilience when some subscribers fail during broadcast."""
 
     @pytest.mark.asyncio
-    async def test_some_subscribers_fail_broadcast_succeeds(self, sample_daily_pair):
+    async def test_some_subscribers_fail_broadcast_succeeds(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        mock_telegram_bot,
+    ):
         """Broadcast returns True even when some subscribers are unreachable."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
         mock_result = MagicMock()
         mock_result.message_id = 1
 
@@ -739,38 +612,26 @@ class TestPartialBroadcastFailures:
                 raise Exception("User blocked bot")
             return mock_result
 
-        mock_bot.send_message.side_effect = selective_send
+        mock_telegram_bot.send_message.side_effect = selective_send
 
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
             patch("src.bot.load_subscribers", return_value={111, 222, 333}),
             patch("src.bot.HebrewTTSClient"),
             patch("src.bot.is_unified_channel_enabled", return_value=False),
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
 
     @pytest.mark.asyncio
     async def test_all_subscribers_fail_channel_still_delivered(
-        self, sample_daily_pair
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        mock_telegram_bot,
     ):
         """Channel gets messages even when all subscriber sends fail."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
         mock_result = MagicMock()
         mock_result.message_id = 1
 
@@ -780,23 +641,24 @@ class TestPartialBroadcastFailures:
                 return mock_result
             raise Exception("Subscriber unreachable")
 
-        mock_bot.send_message.side_effect = channel_only_send
+        mock_telegram_bot.send_message.side_effect = channel_only_send
 
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
             patch("src.bot.load_subscribers", return_value={111, 222}),
             patch("src.bot.HebrewTTSClient"),
             patch("src.bot.is_unified_channel_enabled", return_value=False),
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
 
     @pytest.mark.asyncio
-    async def test_voice_failure_for_one_subscriber(self, sample_daily_pair):
+    async def test_voice_failure_for_one_subscriber(
+        self,
+        sample_daily_pair,
+        mock_telegram_bot,
+    ):
         """Voice failure for one subscriber doesn't block others."""
         from src.bot import LikuteiHalachotBot
         from src.config import Config
@@ -811,28 +673,20 @@ class TestPartialBroadcastFailures:
         bot_instance.selector = MagicMock()
         bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
 
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         # Voice fails for subscriber 111 only
         def selective_voice(chat_id, **kwargs):
             if chat_id == 111:
                 raise Exception("Voice send failed")
             return MagicMock()
 
-        mock_bot.send_voice.side_effect = selective_voice
+        mock_telegram_bot.send_voice.side_effect = selective_voice
 
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
             patch("src.bot.load_subscribers", return_value={111, 222}),
             patch("src.bot.HebrewTTSClient") as mock_tts_cls,
             patch("src.bot.is_unified_channel_enabled", return_value=False),
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
             mock_tts = MagicMock()
             mock_tts.get_or_generate_audio.return_value = b"fake-audio"
             mock_tts_cls.return_value = mock_tts
@@ -841,7 +695,7 @@ class TestPartialBroadcastFailures:
 
         assert result is True
         # Voice was attempted for channel + both subscribers (some failed)
-        assert mock_bot.send_voice.call_count >= 3
+        assert mock_telegram_bot.send_voice.call_count >= 3
 
 
 # --- Unified Channel Publishing E2E Tests ---
@@ -851,56 +705,37 @@ class TestUnifiedChannelPublishing:
     """Tests for unified Torah Yomi channel integration."""
 
     @pytest.mark.asyncio
-    async def test_broadcast_publishes_to_unified_channel(self, sample_daily_pair):
+    async def test_broadcast_publishes_to_unified_channel(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        mock_telegram_bot,
+    ):
         """Broadcast calls unified channel publisher."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
             patch("src.bot.load_subscribers", return_value=set()),
             patch("src.bot.HebrewTTSClient"),
             patch("src.bot.is_unified_channel_enabled", return_value=True),
             patch("src.bot.publish_text_to_unified_channel") as mock_publish,
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
         mock_publish.assert_called_once()
 
     @pytest.mark.asyncio
-    async def test_unified_channel_message_format(self, sample_daily_pair):
+    async def test_unified_channel_message_format(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+    ):
         """Unified channel message has correct content."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-
         with (
             patch("src.bot.is_unified_channel_enabled", return_value=True),
             patch("src.bot.publish_text_to_unified_channel") as mock_publish,
         ):
-            await bot_instance._send_to_unified_channel(sample_daily_pair)
+            await broadcast_bot_instance._send_to_unified_channel(sample_daily_pair)
 
         mock_publish.assert_called_once()
         msg = mock_publish.call_args[0][0]
@@ -911,27 +746,14 @@ class TestUnifiedChannelPublishing:
 
     @pytest.mark.asyncio
     async def test_unified_channel_failure_doesnt_block_broadcast(
-        self, sample_daily_pair
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        mock_telegram_bot,
     ):
         """Broadcast returns True even when unified channel fails."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
+            patch("src.bot.Bot", return_value=mock_telegram_bot),
             patch("src.bot.load_subscribers", return_value=set()),
             patch("src.bot.HebrewTTSClient"),
             patch("src.bot.is_unified_channel_enabled", return_value=True),
@@ -940,43 +762,107 @@ class TestUnifiedChannelPublishing:
                 side_effect=Exception("Unified channel down"),
             ),
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
 
     @pytest.mark.asyncio
-    async def test_unified_channel_disabled_skips_publish(self, sample_daily_pair):
+    async def test_unified_channel_disabled_skips_publish(
+        self,
+        sample_daily_pair,
+        broadcast_bot_instance,
+        broadcast_env,
+    ):
         """Unified channel is not called when disabled."""
-        from src.bot import LikuteiHalachotBot
-        from src.config import Config
-
-        config = Config(
-            telegram_bot_token="fake-token",
-            telegram_chat_id="-100999",
-        )
-        bot_instance = LikuteiHalachotBot(config)
-        bot_instance.selector = MagicMock()
-        bot_instance.selector.get_daily_pair.return_value = sample_daily_pair
-
-        mock_bot = AsyncMock()
-        mock_result = MagicMock()
-        mock_result.message_id = 1
-        mock_bot.send_message.return_value = mock_result
-
         with (
-            patch("src.bot.Bot", return_value=mock_bot),
-            patch("src.bot.load_subscribers", return_value=set()),
-            patch("src.bot.HebrewTTSClient"),
-            patch("src.bot.is_unified_channel_enabled", return_value=False),
+            broadcast_env(unified=False),
             patch("src.bot.publish_text_to_unified_channel") as mock_publish,
         ):
-            mock_bot.__aenter__ = AsyncMock(return_value=mock_bot)
-            mock_bot.__aexit__ = AsyncMock(return_value=False)
-
-            result = await bot_instance.send_daily_broadcast()
+            result = await broadcast_bot_instance.send_daily_broadcast()
 
         assert result is True
         mock_publish.assert_not_called()
+
+
+# --- Timeout Protection E2E Tests ---
+
+
+class TestTimeoutProtection:
+    """Tests that verify timeout protection prevents CI hangs.
+
+    These tests directly exercise the timeout paths that caused the
+    poll-commands workflow to exceed its 5-minute GitHub Actions limit.
+    """
+
+    @pytest.mark.asyncio
+    async def test_handle_command_timeout_sends_error(
+        self,
+        isolated_subscribers,
+        sample_daily_pair,
+    ):
+        """A slow command is cancelled and an error message is sent."""
+        from scripts.poll_commands import COMMAND_TIMEOUT_SECONDS, handle_command
+
+        mock_bot = AsyncMock()
+
+        # Selector that sleeps longer than COMMAND_TIMEOUT_SECONDS
+        slow_selector = MagicMock()
+        slow_selector.get_cached_messages.return_value = None
+
+        async def _slow_fetch(*a, **kw):
+            await asyncio.sleep(COMMAND_TIMEOUT_SECONDS + 10)
+            return sample_daily_pair
+
+        # Make get_daily_pair behave like a coroutine-returning slow call
+        # by making the command flow itself slow via patching get_start_messages
+        with patch(
+            "scripts.poll_commands.get_start_messages",
+            side_effect=lambda *a, **kw: asyncio.sleep(COMMAND_TIMEOUT_SECONDS + 10),
+        ):
+            await handle_command(mock_bot, 99999, "/start", slow_selector)
+
+        # Error message should have been sent after timeout
+        assert mock_bot.send_message.call_count >= 1
+        last_call = mock_bot.send_message.call_args
+        assert "נסה שוב" in last_call.kwargs["text"]
+
+    @pytest.mark.asyncio
+    async def test_poll_timeout_returns_true(self):
+        """Overall poll timeout returns True (non-fatal) for next scheduled run."""
+        from scripts.poll_commands import POLL_TIMEOUT_SECONDS, _poll_with_timeout
+
+        async def _slow_poll():
+            await asyncio.sleep(POLL_TIMEOUT_SECONDS + 60)
+            return True
+
+        with patch("scripts.poll_commands.poll_and_respond", side_effect=_slow_poll):
+            result = await _poll_with_timeout()
+
+        assert result is True
+
+    @pytest.mark.asyncio
+    async def test_fast_command_completes_normally(self, mock_selector):
+        """Normal-speed commands complete without triggering timeout."""
+        from scripts.poll_commands import handle_command
+
+        mock_bot = AsyncMock()
+
+        await handle_command(mock_bot, 12345, "/start", mock_selector)
+
+        # Should complete normally with messages sent
+        assert mock_bot.send_message.call_count >= 2
+
+    @pytest.mark.asyncio
+    async def test_timeout_constants_within_ci_budget(self):
+        """Verify timeout constants stay safely under the CI job limit."""
+        from scripts.poll_commands import (
+            COMMAND_TIMEOUT_SECONDS,
+            POLL_TIMEOUT_SECONDS,
+        )
+
+        ci_job_timeout_seconds = 5 * 60  # poll-commands.yml: timeout-minutes: 5
+
+        # Poll timeout must be well under CI budget to allow git commit step
+        assert POLL_TIMEOUT_SECONDS < ci_job_timeout_seconds - 30
+        # Command timeout must be under poll timeout
+        assert COMMAND_TIMEOUT_SECONDS < POLL_TIMEOUT_SECONDS
