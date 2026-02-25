@@ -862,7 +862,8 @@ class TestTimeoutProtection:
 
         ci_job_timeout_seconds = 5 * 60  # poll-commands.yml: timeout-minutes: 5
 
-        # Poll timeout must be well under CI budget to allow git commit step
-        assert POLL_TIMEOUT_SECONDS < ci_job_timeout_seconds - 30
+        # Poll timeout must leave enough room for setup steps (~2 min)
+        # and git commit step (~15s)
+        assert POLL_TIMEOUT_SECONDS < ci_job_timeout_seconds - 150
         # Command timeout must be under poll timeout
         assert COMMAND_TIMEOUT_SECONDS < POLL_TIMEOUT_SECONDS

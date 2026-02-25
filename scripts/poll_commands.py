@@ -45,8 +45,9 @@ STATE_FILE = STATE_DIR / "last_update_id.json"
 
 # Maximum time (seconds) for the entire poll cycle.
 # Must be well under the GitHub Actions job timeout (5 min) to allow
-# state saving and git commit steps to complete.
-POLL_TIMEOUT_SECONDS = 200
+# setup steps (~2 min for checkout, Python, pip install) and the
+# git commit step (~15s) to complete.
+POLL_TIMEOUT_SECONDS = 120
 
 # Maximum time (seconds) for handling a single command.
 # Prevents one slow Sefaria fetch from consuming the entire budget.
