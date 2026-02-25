@@ -31,6 +31,8 @@ jobs:
         with:
           path: ${{ env.pythonLocation }}
           key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-python-${{ env.pythonLocation }}-
 
       - name: Install dependencies
         run: pip install -r requirements.txt
