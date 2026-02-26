@@ -1,0 +1,8 @@
+# Runtime dependencies (used by production workflows)
+python-telegram-bot[job-queue]==22.6
+requests==2.32.5
+python-dotenv==1.2.1
+
+# TTS
+google-cloud-texttospeech==2.34.0
+pydub==0.25.1
