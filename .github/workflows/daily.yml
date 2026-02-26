@@ -18,7 +18,7 @@ concurrency:
 jobs:
   broadcast:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,12 +33,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-runtime-${{ hashFiles('requirements-runtime.txt') }}
           restore-keys: |
-            ${{ runner.os }}-python-${{ env.pythonLocation }}-
+            ${{ runner.os }}-python-${{ env.pythonLocation }}-runtime-
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements-runtime.txt
 
       - name: Install ffmpeg (for TTS audio)
         if: env.GOOGLE_TTS_ENABLED == 'true'

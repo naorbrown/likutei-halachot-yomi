@@ -44,9 +44,9 @@ STATE_DIR = Path(__file__).parent.parent / ".github" / "state"
 STATE_FILE = STATE_DIR / "last_update_id.json"
 
 # Maximum time (seconds) for the entire poll cycle.
-# Must be well under the GitHub Actions job timeout (10 min) to allow
-# setup steps (~3 min for checkout, Python, pip install) and the
-# git commit step (~15s) to complete.
+# Must be well under the GitHub Actions job timeout (5 min) to allow
+# setup steps (~1-2 min for checkout, Python, pip install from
+# requirements-runtime.txt) and the git commit step (~15s) to complete.
 POLL_TIMEOUT_SECONDS = 120
 
 # Maximum time (seconds) for handling a single command.
