@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from time import time
-from typing import Any, Optional
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import httpx
@@ -118,7 +118,7 @@ class VideoInfo:
 
     title: str
     page_url: str
-    video_url: Optional[str]
+    video_url: str | None
     masechta: str
     daf: int
 
@@ -129,7 +129,7 @@ class TelegramAPI:
     def __init__(self, token: str):
         self.token = token
         self.base_url = f"{TELEGRAM_API_BASE}{token}"
-        self._client: Optional[httpx.AsyncClient] = None
+        self._client: httpx.AsyncClient | None = None
 
     async def _get_client(self) -> httpx.AsyncClient:
         """Get or create a reusable HTTP client."""
@@ -168,7 +168,7 @@ class TelegramAPI:
             logger.error(f"Error deleting webhook: {type(e).__name__}: {e}")
             return False
 
-    async def get_updates(self, offset: Optional[int] = None) -> list[dict[str, Any]]:
+    async def get_updates(self, offset: int | None = None) -> list[dict[str, Any]]:
         """Fetch new updates from Telegram."""
         params: dict[str, Any] = {"timeout": 0, "limit": 100}
         if offset is not None:
@@ -188,7 +188,7 @@ class TelegramAPI:
                 logger.error(f"getUpdates failed: {data}")
                 raise RuntimeError(f"Telegram API error: {data}")
 
-            updates = data.get("result", [])
+            updates: list[dict[str, Any]] = data.get("result", [])
             logger.info(f"Received {len(updates)} updates from Telegram")
             return updates
         except httpx.HTTPStatusError as e:
@@ -198,7 +198,9 @@ class TelegramAPI:
                     "Run 'python scripts/fix_bot.py' to diagnose and fix."
                 )
             else:
-                logger.error(f"HTTP error calling getUpdates: {e.response.status_code} - {e.response.text}")
+                logger.error(
+                    f"HTTP error calling getUpdates: {e.response.status_code} - {e.response.text}"
+                )
             raise
         except Exception as e:
             logger.error(f"Error calling getUpdates: {type(e).__name__}: {e}")
@@ -213,7 +215,7 @@ class TelegramAPI:
             json={"chat_id": chat_id, "text": text},
         )
         response.raise_for_status()
-        data = response.json()
+        data: dict[str, Any] = response.json()
         if not data.get("ok"):
             logger.error(f"sendMessage failed: {data}")
             raise RuntimeError(f"Telegram API error: {data}")
@@ -238,7 +240,7 @@ class TelegramAPI:
             timeout=60.0,
         )
         response.raise_for_status()
-        data = response.json()
+        data: dict[str, Any] = response.json()
         if not data.get("ok"):
             logger.error(f"sendVideo failed: {data}")
             raise RuntimeError(f"Telegram API error: {data}")
@@ -252,12 +254,13 @@ class StateManager:
     def __init__(self):
         STATE_DIR.mkdir(parents=True, exist_ok=True)
 
-    def get_last_update_id(self) -> Optional[int]:
+    def get_last_update_id(self) -> int | None:
         """Get the last processed update ID."""
         if STATE_FILE.exists():
             try:
                 data = json.loads(STATE_FILE.read_text())
-                return data.get("last_update_id")
+                result: int | None = data.get("last_update_id")
+                return result
             except (json.JSONDecodeError, KeyError):
                 return None
         return None
@@ -270,7 +273,10 @@ class StateManager:
         """Get rate limit data."""
         if RATE_LIMIT_FILE.exists():
             try:
-                return json.loads(RATE_LIMIT_FILE.read_text())
+                rate_data: dict[str, list[float]] = json.loads(
+                    RATE_LIMIT_FILE.read_text()
+                )
+                return rate_data
             except json.JSONDecodeError:
                 return {}
         return {}
@@ -279,15 +285,17 @@ class StateManager:
         """Save rate limit data."""
         RATE_LIMIT_FILE.write_text(json.dumps(data, indent=2))
 
-    def get_cached_video(self, date_str: str) -> Optional[dict[str, Any]]:
+    def get_cached_video(self, date_str: str) -> dict[str, Any] | None:
         """Get cached video info if it exists and matches today's date."""
         if VIDEO_CACHE_FILE.exists():
             try:
-                data = json.loads(VIDEO_CACHE_FILE.read_text())
-                if data.get("date") == date_str:
+                cache_data: dict[str, Any] = json.loads(VIDEO_CACHE_FILE.read_text())
+                if cache_data.get("date") == date_str:
                     logger.info(f"Cache hit for date {date_str}")
-                    return data
-                logger.info(f"Cache miss: cached date {data.get('date')} != {date_str}")
+                    return cache_data
+                logger.info(
+                    f"Cache miss: cached date {cache_data.get('date')} != {date_str}"
+                )
             except json.JSONDecodeError:
                 logger.warning("Failed to parse video cache file")
         return None
@@ -302,7 +310,8 @@ class StateManager:
         if SUBSCRIBERS_FILE.exists():
             try:
                 data = json.loads(SUBSCRIBERS_FILE.read_text())
-                return data.get("chat_ids", [])
+                subscribers: list[int] = data.get("chat_ids", [])
+                return subscribers
             except json.JSONDecodeError:
                 return []
         return []
@@ -429,7 +438,7 @@ async def get_jewish_history_video(daf: DafInfo) -> VideoInfo:
                 logger.info(f"Found video: {title}")
                 break
 
-        if not page_url:
+        if not page_url or not title:
             raise ValueError(f"Video not found for {daf.masechta} {daf.daf}")
 
         # Fetch video page for MP4 URL
@@ -456,7 +465,7 @@ async def get_jewish_history_video(daf: DafInfo) -> VideoInfo:
         )
 
 
-def parse_command(text: Optional[str]) -> Optional[str]:
+def parse_command(text: str | None) -> str | None:
     """Parse command from message text."""
     if not text:
         return None
@@ -512,9 +521,7 @@ async def send_todays_video(
             state.save_video_cache(cache_data)
 
         caption = (
-            f"{video.masechta} {video.daf}\n"
-            f"{video.title}\n\n"
-            f"{video.page_url}"
+            f"{video.masechta} {video.daf}\n" f"{video.title}\n\n" f"{video.page_url}"
         )
 
         if video.video_url:
@@ -559,7 +566,9 @@ async def handle_command(
         # Send welcome message, then today's video
         await api.send_message(chat_id, WELCOME_MESSAGE)
         await send_todays_video(api, chat_id, state, user_id)
-        logger.info(f"Sent welcome + video to user {user_id} (new subscriber: {is_new})")
+        logger.info(
+            f"Sent welcome + video to user {user_id} (new subscriber: {is_new})"
+        )
 
     elif command in ("today", "help"):
         # /today and /help both send today's video
@@ -612,10 +621,14 @@ async def process_updates(api: TelegramAPI, state: StateManager) -> int:
         if command:
             logger.info(f"Processing command /{command} from user {user_id}")
             try:
-                await handle_command(api, chat_id, command, rate_limiter, user_id, state)
+                await handle_command(
+                    api, chat_id, command, rate_limiter, user_id, state
+                )
                 processed += 1
             except Exception as e:
-                logger.error(f"Failed to handle command /{command} for user {user_id}: {e}")
+                logger.error(
+                    f"Failed to handle command /{command} for user {user_id}: {e}"
+                )
                 # Continue processing other updates even if one fails
 
     # Save highest update_id AFTER processing all updates (nachyomi-bot pattern)
@@ -654,7 +667,9 @@ async def main() -> int:
         await api.delete_webhook()
 
         last_id = state.get_last_update_id()
-        logger.info(f"Last update ID: {last_id if last_id is not None else 'None (first run)'}")
+        logger.info(
+            f"Last update ID: {last_id if last_id is not None else 'None (first run)'}"
+        )
 
         processed = await process_updates(api, state)
 

@@ -172,15 +172,3 @@ def broadcast_env(mock_telegram_bot):
             yield mock_telegram_bot
 
     return _env
-
-
-@pytest.fixture
-def isolated_poll_state(tmp_path, monkeypatch):
-    """Redirect poll state files to a temp directory.
-
-    Returns the tmp_path so tests can inspect files.
-    """
-    state_file = tmp_path / "last_update_id.json"
-    monkeypatch.setattr("scripts.poll_commands.STATE_FILE", state_file)
-    monkeypatch.setattr("scripts.poll_commands.STATE_DIR", tmp_path)
-    return tmp_path
