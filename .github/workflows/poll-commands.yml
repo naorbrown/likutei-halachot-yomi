@@ -10,58 +10,39 @@ permissions:
 
 concurrency:
   group: poll-commands
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        id: setup-python
+      - name: Setup Python with cache
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Cache Python environment
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-runtime-${{ hashFiles('requirements-runtime.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-python-${{ env.pythonLocation }}-runtime-
+          cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements-runtime.txt
+        run: pip install httpx beautifulsoup4
 
-      - name: Install ffmpeg (for TTS audio)
-        if: env.GOOGLE_TTS_ENABLED == 'true'
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-        env:
-          GOOGLE_TTS_ENABLED: ${{ secrets.GOOGLE_TTS_ENABLED }}
+      - name: Warm video cache
+        continue-on-error: true
+        run: python scripts/poll_commands.py --warm-cache
 
       - name: Poll and respond to commands
         run: python scripts/poll_commands.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GOOGLE_TTS_ENABLED: ${{ secrets.GOOGLE_TTS_ENABLED }}
-          GOOGLE_TTS_CREDENTIALS_JSON: ${{ secrets.GOOGLE_TTS_CREDENTIALS_JSON }}
 
       - name: Commit state changes
-        if: success()
-        continue-on-error: true
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add .github/state/
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          git commit -m "chore: update bot state [skip ci]"
-          git pull --rebase origin main
-          git push || (sleep 2 && git pull --rebase origin main && git push)
+          git pull --rebase || true
+          git add .github/state/*.json || true
+          git diff --staged --quiet || git commit -m "chore: update bot state [skip ci]"
+          git push
