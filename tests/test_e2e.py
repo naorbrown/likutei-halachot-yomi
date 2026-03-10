@@ -4,11 +4,10 @@ These tests verify the complete flow from cache to command response,
 ensuring the full pipeline works together.
 
 Shared fixtures (mock_telegram_bot, mock_selector, broadcast_bot_instance,
-broadcast_env, isolated_poll_state) are defined in conftest.py to
-eliminate the mock boilerplate that previously hid real integration bugs.
+broadcast_env) are defined in conftest.py to eliminate the mock boilerplate
+that previously hid real integration bugs.
 """
 
-import asyncio
 import json
 from datetime import date
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -20,7 +19,12 @@ from src.formatter import format_daily_message, format_welcome_message
 from src.models import DailyPair, Halacha, HalachaSection
 from src.sefaria import SefariaClient
 from src.selector import HalachaSelector, _memory_cache, _message_cache
-from src.subscribers import add_subscriber, is_subscribed, load_subscribers
+from src.subscribers import (
+    add_subscriber,
+    is_subscribed,
+    load_subscribers,
+    remove_subscriber,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -219,20 +223,17 @@ def _create_cache_data(pair: DailyPair, for_date: date) -> dict:
 
 
 class TestSubscriberLifecycle:
-    """Full subscriber journey: start -> subscribe -> broadcast -> unsubscribe."""
+    """Full subscriber journey: subscribe -> broadcast -> unsubscribe.
 
-    @pytest.mark.asyncio
-    async def test_start_auto_subscribes_user(
-        self, isolated_subscribers, sample_daily_pair, mock_selector
-    ):
-        """/start auto-subscribes the user and sends welcome + content."""
-        from scripts.poll_commands import handle_command
+    Tests the src.subscribers module and broadcast integration directly,
+    which is the subscriber system used by the Likutei Halachot bot.
+    """
 
-        mock_bot = AsyncMock()
-        await handle_command(mock_bot, 11111, "/start", mock_selector)
-
+    def test_add_subscriber(self, isolated_subscribers):
+        """add_subscriber registers a new user."""
+        result = add_subscriber(11111)
+        assert result is True
         assert is_subscribed(11111)
-        assert mock_bot.send_message.call_count >= 2  # welcome + content
 
     @pytest.mark.asyncio
     async def test_broadcast_delivers_to_subscriber(
@@ -250,75 +251,35 @@ class TestSubscriberLifecycle:
 
         assert result is True
 
-    @pytest.mark.asyncio
-    async def test_unsubscribe_stops_broadcasts(
-        self, isolated_subscribers, sample_daily_pair, mock_selector
-    ):
-        """/start then /unsubscribe removes user from subscriber list."""
-        from scripts.poll_commands import handle_command
-
-        mock_bot = AsyncMock()
-
-        # Subscribe via /start
-        await handle_command(mock_bot, 11111, "/start", mock_selector)
+    def test_unsubscribe_removes_user(self, isolated_subscribers):
+        """Subscribing then unsubscribing removes user from list."""
+        add_subscriber(11111)
         assert is_subscribed(11111)
 
-        # Unsubscribe
-        await handle_command(mock_bot, 11111, "/unsubscribe", mock_selector)
+        remove_subscriber(11111)
         assert not is_subscribed(11111)
-
-        # Verify subscriber list is empty
         assert load_subscribers() == set()
 
-    @pytest.mark.asyncio
-    async def test_resubscribe_after_unsubscribe(
-        self, isolated_subscribers, sample_daily_pair, mock_selector
-    ):
+    def test_resubscribe_after_unsubscribe(self, isolated_subscribers):
         """User can re-subscribe after unsubscribing."""
-        from scripts.poll_commands import handle_command
-
-        mock_bot = AsyncMock()
-
-        await handle_command(mock_bot, 11111, "/start", mock_selector)
-        await handle_command(mock_bot, 11111, "/unsubscribe", mock_selector)
+        add_subscriber(11111)
+        remove_subscriber(11111)
         assert not is_subscribed(11111)
 
-        await handle_command(mock_bot, 11111, "/subscribe", mock_selector)
+        result = add_subscriber(11111)
+        assert result is True
         assert is_subscribed(11111)
 
-        # Verify confirmation message
-        last_call = mock_bot.send_message.call_args
-        assert "נרשמת בהצלחה" in last_call.kwargs["text"]
+    def test_subscribe_when_already_subscribed(self, isolated_subscribers):
+        """Subscribing when already subscribed returns False."""
+        add_subscriber(11111)
+        result = add_subscriber(11111)
+        assert result is False
 
-    @pytest.mark.asyncio
-    async def test_subscribe_when_already_subscribed(
-        self, isolated_subscribers, sample_daily_pair, mock_selector
-    ):
-        """Subscribing when already subscribed returns 'already subscribed'."""
-        from scripts.poll_commands import handle_command
-
-        mock_bot = AsyncMock()
-
-        await handle_command(mock_bot, 11111, "/start", mock_selector)
-        mock_bot.reset_mock()
-
-        await handle_command(mock_bot, 11111, "/subscribe", mock_selector)
-
-        last_call = mock_bot.send_message.call_args
-        assert "כבר רשום" in last_call.kwargs["text"]
-
-    @pytest.mark.asyncio
-    async def test_unsubscribe_when_not_subscribed(self, isolated_subscribers):
-        """/unsubscribe when not subscribed returns 'not subscribed'."""
-        from scripts.poll_commands import handle_command
-
-        mock_bot = AsyncMock()
-        mock_selector = MagicMock()
-
-        await handle_command(mock_bot, 22222, "/unsubscribe", mock_selector)
-
-        last_call = mock_bot.send_message.call_args
-        assert "לא רשום כרגע" in last_call.kwargs["text"]
+    def test_unsubscribe_when_not_subscribed(self, isolated_subscribers):
+        """Unsubscribing when not subscribed returns False."""
+        result = remove_subscriber(22222)
+        assert result is False
 
 
 # --- Daily Broadcast with Subscribers E2E Tests ---
@@ -447,55 +408,50 @@ class TestDailyBroadcastWithSubscribers:
 
 
 class TestPollCommandStatePersistence:
-    """Tests for update_id state persistence across poll runs."""
+    """Tests for update_id state persistence across poll runs.
 
-    def test_state_persists_across_poll_runs(self, isolated_poll_state):
+    Uses the StateManager API from the refactored poll_commands module.
+    """
+
+    def test_state_persists_across_poll_runs(self, tmp_path):
         """update_id saved in first run is loaded in second run."""
-        from scripts.poll_commands import load_state, save_state
+        from scripts.poll_commands import StateManager
 
-        # First run saves state
-        save_state(102)
-        assert load_state() == 102
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", tmp_path / "state.json"),
+        ):
+            state = StateManager()
+            state.set_last_update_id(102)
+            assert state.get_last_update_id() == 102
 
-        # Second run loads and advances
-        save_state(105)
-        assert load_state() == 105
+            state.set_last_update_id(105)
+            assert state.get_last_update_id() == 105
 
-    def test_no_state_file_returns_zero(self, isolated_poll_state):
-        """Missing state file returns update_id of 0."""
-        from scripts.poll_commands import load_state
+    def test_no_state_file_returns_none(self, tmp_path):
+        """Missing state file returns None."""
+        from scripts.poll_commands import StateManager
 
-        assert load_state() == 0
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", tmp_path / "nonexistent.json"),
+        ):
+            state = StateManager()
+            assert state.get_last_update_id() is None
 
-    @pytest.mark.asyncio
-    async def test_command_handled_and_state_saved(
-        self,
-        isolated_poll_state,
-        isolated_subscribers,
-        sample_daily_pair,
-        mock_selector,
-    ):
-        """/start is processed AND update_id state is updated."""
-        from scripts.poll_commands import handle_command, load_state, save_state
+    def test_corrupted_state_file_returns_none(self, tmp_path):
+        """Corrupted state file falls back to None."""
+        from scripts.poll_commands import StateManager
 
-        mock_bot = AsyncMock()
+        state_file = tmp_path / "state.json"
+        state_file.write_text("not valid json {{{")
 
-        # Handle command
-        await handle_command(mock_bot, 12345, "/start", mock_selector)
-        assert mock_bot.send_message.call_count >= 2
-
-        # Save state as the poll loop would
-        save_state(500)
-        assert load_state() == 500
-
-    def test_corrupted_state_file_returns_zero(self, isolated_poll_state):
-        """Corrupted state file falls back to 0."""
-        from scripts.poll_commands import STATE_FILE, load_state
-
-        STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-        STATE_FILE.write_text("not valid json {{{")
-
-        assert load_state() == 0
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", state_file),
+        ):
+            state = StateManager()
+            assert state.get_last_update_id() is None
 
 
 # --- API Failure Fallback E2E Tests ---
@@ -787,83 +743,90 @@ class TestUnifiedChannelPublishing:
 # --- Timeout Protection E2E Tests ---
 
 
-class TestTimeoutProtection:
-    """Tests that verify timeout protection prevents CI hangs.
-
-    These tests directly exercise the timeout paths that caused the
-    poll-commands workflow to exceed its 5-minute GitHub Actions limit.
-    """
+class TestPollCommandHandling:
+    """Tests for poll_commands command handling and rate limiting."""
 
     @pytest.mark.asyncio
-    async def test_handle_command_timeout_sends_error(
-        self,
-        isolated_subscribers,
-        sample_daily_pair,
-    ):
-        """A slow command is cancelled and an error message is sent."""
-        from scripts.poll_commands import COMMAND_TIMEOUT_SECONDS, handle_command
-
-        mock_bot = AsyncMock()
-
-        # Selector that sleeps longer than COMMAND_TIMEOUT_SECONDS
-        slow_selector = MagicMock()
-        slow_selector.get_cached_messages.return_value = None
-
-        async def _slow_fetch(*a, **kw):
-            await asyncio.sleep(COMMAND_TIMEOUT_SECONDS + 10)
-            return sample_daily_pair
-
-        # Make get_daily_pair behave like a coroutine-returning slow call
-        # by making the command flow itself slow via patching get_start_messages
-        with patch(
-            "scripts.poll_commands.get_start_messages",
-            side_effect=lambda *a, **kw: asyncio.sleep(COMMAND_TIMEOUT_SECONDS + 10),
-        ):
-            await handle_command(mock_bot, 99999, "/start", slow_selector)
-
-        # Error message should have been sent after timeout
-        assert mock_bot.send_message.call_count >= 1
-        last_call = mock_bot.send_message.call_args
-        assert "נסה שוב" in last_call.kwargs["text"]
-
-    @pytest.mark.asyncio
-    async def test_poll_timeout_returns_true(self):
-        """Overall poll timeout returns True (non-fatal) for next scheduled run."""
-        from scripts.poll_commands import POLL_TIMEOUT_SECONDS, _poll_with_timeout
-
-        async def _slow_poll():
-            await asyncio.sleep(POLL_TIMEOUT_SECONDS + 60)
-            return True
-
-        with patch("scripts.poll_commands.poll_and_respond", side_effect=_slow_poll):
-            result = await _poll_with_timeout()
-
-        assert result is True
-
-    @pytest.mark.asyncio
-    async def test_fast_command_completes_normally(self, mock_selector):
-        """Normal-speed commands complete without triggering timeout."""
-        from scripts.poll_commands import handle_command
-
-        mock_bot = AsyncMock()
-
-        await handle_command(mock_bot, 12345, "/start", mock_selector)
-
-        # Should complete normally with messages sent
-        assert mock_bot.send_message.call_count >= 2
-
-    @pytest.mark.asyncio
-    async def test_timeout_constants_within_ci_budget(self):
-        """Verify timeout constants stay safely under the CI job limit."""
+    async def test_start_command_sends_welcome(self, tmp_path):
+        """The /start command sends a welcome message."""
         from scripts.poll_commands import (
-            COMMAND_TIMEOUT_SECONDS,
-            POLL_TIMEOUT_SECONDS,
+            RateLimiter,
+            StateManager,
+            TelegramAPI,
+            handle_command,
         )
 
-        ci_job_timeout_seconds = 5 * 60  # poll-commands.yml: timeout-minutes: 5
+        api = AsyncMock(spec=TelegramAPI)
 
-        # Poll timeout must leave enough room for setup steps (~2 min)
-        # and git commit step (~15s)
-        assert POLL_TIMEOUT_SECONDS < ci_job_timeout_seconds - 150
-        # Command timeout must be under poll timeout
-        assert COMMAND_TIMEOUT_SECONDS < POLL_TIMEOUT_SECONDS
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", tmp_path / "state.json"),
+            patch("scripts.poll_commands.RATE_LIMIT_FILE", tmp_path / "rates.json"),
+            patch("scripts.poll_commands.SUBSCRIBERS_FILE", tmp_path / "subs.json"),
+            patch("scripts.poll_commands.VIDEO_CACHE_FILE", tmp_path / "cache.json"),
+            patch("scripts.poll_commands.send_todays_video", new_callable=AsyncMock),
+        ):
+            state = StateManager()
+            limiter = RateLimiter(state)
+            await handle_command(api, 12345, "start", limiter, 99, state)
+
+        api.send_message.assert_called()
+        call_args = api.send_message.call_args_list[0]
+        assert call_args[0][0] == 12345
+
+    @pytest.mark.asyncio
+    async def test_rate_limited_user_gets_message(self, tmp_path):
+        """Rate-limited user receives a rate limit message."""
+        from scripts.poll_commands import (
+            RateLimiter,
+            StateManager,
+            TelegramAPI,
+            handle_command,
+        )
+
+        api = AsyncMock(spec=TelegramAPI)
+
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", tmp_path / "state.json"),
+            patch("scripts.poll_commands.RATE_LIMIT_FILE", tmp_path / "rates.json"),
+            patch("scripts.poll_commands.VIDEO_CACHE_FILE", tmp_path / "cache.json"),
+            patch("scripts.poll_commands.RATE_LIMIT_MAX_REQUESTS", 0),
+        ):
+            state = StateManager()
+            limiter = RateLimiter(state)
+            await handle_command(api, 12345, "today", limiter, 99, state)
+
+        api.send_message.assert_called_once()
+        assert "Too many" in api.send_message.call_args[0][1]
+
+    @pytest.mark.asyncio
+    async def test_unknown_command_ignored(self, tmp_path):
+        """Unknown commands are silently ignored."""
+        from scripts.poll_commands import (
+            RateLimiter,
+            StateManager,
+            TelegramAPI,
+            handle_command,
+        )
+
+        api = AsyncMock(spec=TelegramAPI)
+
+        with (
+            patch("scripts.poll_commands.STATE_DIR", tmp_path),
+            patch("scripts.poll_commands.STATE_FILE", tmp_path / "state.json"),
+            patch("scripts.poll_commands.RATE_LIMIT_FILE", tmp_path / "rates.json"),
+            patch("scripts.poll_commands.VIDEO_CACHE_FILE", tmp_path / "cache.json"),
+        ):
+            state = StateManager()
+            limiter = RateLimiter(state)
+            await handle_command(api, 12345, "unknown", limiter, 99, state)
+
+        api.send_message.assert_not_called()
+
+    def test_request_timeout_within_ci_budget(self):
+        """Verify request timeout is reasonable for CI."""
+        from scripts.poll_commands import REQUEST_TIMEOUT
+
+        # Request timeout should be well under CI job limits
+        assert REQUEST_TIMEOUT <= 60

@@ -416,7 +416,7 @@ async def get_jewish_history_video(daf: DafInfo) -> VideoInfo:
         title = None
 
         for link in soup.find_all("a", href=True):
-            href = link["href"]
+            href = str(link["href"])
             if not href.startswith("/p/"):
                 continue
 

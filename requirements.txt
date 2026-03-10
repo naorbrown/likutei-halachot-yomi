@@ -1,6 +1,10 @@
 # Runtime dependencies
 -r requirements-runtime.txt
 
+# Poll commands dependencies (also in poll-commands.yml)
+httpx
+beautifulsoup4
+
 # Testing
 pytest==9.0.2
 pytest-asyncio==1.3.0
