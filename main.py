@@ -19,11 +19,7 @@ from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
 
-from src.bot import LikuteiHalachotBot
 from src.config import Config
-from src.formatter import format_daily_message
-from src.sefaria import SefariaClient
-from src.selector import HalachaSelector
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +90,10 @@ def preview_message(date_override: str | None = None) -> None:
     """Preview today's message without sending."""
     import re
 
+    from src.formatter import format_daily_message
+    from src.sefaria import SefariaClient
+    from src.selector import HalachaSelector
+
     client = SefariaClient()
     selector = HalachaSelector(client)
 
@@ -130,12 +130,16 @@ def preview_message(date_override: str | None = None) -> None:
 
 async def send_broadcast(config: Config) -> bool:
     """Send the daily broadcast."""
+    from src.bot import LikuteiHalachotBot
+
     bot = LikuteiHalachotBot(config)
     return await bot.send_daily_broadcast()
 
 
 def run_server(config: Config) -> None:
     """Run the bot in interactive mode."""
+    from src.bot import LikuteiHalachotBot
+
     bot = LikuteiHalachotBot(config)
     bot.run_polling()
 
