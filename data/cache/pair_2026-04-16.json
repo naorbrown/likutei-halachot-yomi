@@ -1,0 +1,36 @@
+{
+  "date_seed": "2026-04-16",
+  "formatted_messages": [
+    "<b>📚 ליקוטי הלכות יומי</b>\n\nברוכים הבאים! כל יום שתי הלכות חדשות מתורת רבי נחמן מברסלב.\n🔊 כולל הקראה קולית בעברית — ניתן להאזין ב-1x, 1.5x או 2x.\n\n✅ נרשמת אוטומטית לקבלת הלכות יומיות בשעה 6 בבוקר.\nלביטול הרשמה: /unsubscribe\n\n<i>נ נח נחמ נחמן מאומן</i>",
+    "<b>📚 ליקוטי הלכות יומי</b> | 16/04/2026\n\n📜 <a href=\"https://www.sefaria.org/Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved.1.1\"><b>א. הלכות הלכות בשר שנתעלם מן העין</b></a>\n<i>יורה דעה</i>\n\nא נִכְלָל בְּהִלְכוֹת אֵבֶר מִן הַחַי הֲלָכָה ג:\n\n<a href=\"https://www.sefaria.org/Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved.1.1\">המשך בספריא →</a>",
+    "📖 <a href=\"https://www.sefaria.org/Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.2.1\"><b>ב. הלכות ברכת השחר</b></a>\n<i>אורח חיים</i>\n\nהִלְכוֹת בִּרְכַּת הַשַּׁחַר הֲלָכָה ב' נִכְלֶלֶת בְּהִלְכוֹת הַשְׁכָּמַת הַבֹּקֶר עַל-פִּי \"אֲזַמְּרָה לֵאלֹקַי בְּעוֹדִי\" הֲלָכָה א':\n\n<a href=\"https://www.sefaria.org/Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.2.1\">המשך בספריא →</a>\n\n<i>נ נח נחמ נחמן מאומן</i>"
+  ],
+  "first": {
+    "section": {
+      "volume": "Yoreh Deah",
+      "section": "Laws of Meat that was Unobserved",
+      "section_he": "הלכות הלכות בשר שנתעלם מן העין",
+      "ref_base": "Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved",
+      "has_english": false
+    },
+    "chapter": 1,
+    "siman": 1,
+    "hebrew_text": "א נִכְלָל בְּהִלְכוֹת אֵבֶר מִן הַחַי הֲלָכָה ג:",
+    "english_text": null,
+    "sefaria_url": "https://www.sefaria.org/Likutei_Halakhot,_Yoreh_Deah,_Laws_of_Meat_that_was_Unobserved.1.1"
+  },
+  "second": {
+    "section": {
+      "volume": "Orach Chaim",
+      "section": "Laws for Morning Blessings",
+      "section_he": "הלכות ברכת השחר",
+      "ref_base": "Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings",
+      "has_english": false
+    },
+    "chapter": 2,
+    "siman": 1,
+    "hebrew_text": "הִלְכוֹת בִּרְכַּת הַשַּׁחַר הֲלָכָה ב' נִכְלֶלֶת בְּהִלְכוֹת הַשְׁכָּמַת הַבֹּקֶר עַל-פִּי \"אֲזַמְּרָה לֵאלֹקַי בְּעוֹדִי\" הֲלָכָה א':",
+    "english_text": null,
+    "sefaria_url": "https://www.sefaria.org/Likutei_Halakhot,_Orach_Chaim,_Laws_for_Morning_Blessings.2.1"
+  }
+}
